@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pepesoft</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --black: #ffffff;
+            --white: #000000;
+            --gray-100: #ffffff;
+            --gray-200: #ffffff;
+            --gray-800: #ffffff;
+            --primary: #000000;
+            --tg: #229ED9;
+            
+            /* Цвета акцентов для карточек */
+            --accent-gta: #ffff00;
+            --accent-grand: #00e600;
+            --accent-albion: #ff4d00;
+            --accent-profit: #ffffff;
+            --accent-fishing: #00bfff;
+            --accent-rmrp: #008000;
+            --accent-trigger: #8b00ff;
+
+            --accent-majestic: #ee4488;
+            --accent-tl: #fcdd76;
+            --accent-valhalla: #bef574;
+            --accent-poe: #000080;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 40px;
+            position: relative;
+            margin-bottom: 50px;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        
+        h1.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--black);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+        
+        h1:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-800);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) 0.2s;
+        }
+        
+        .subtitle.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .card {
+            flex: 1 1 calc(20% - 30px);
+            min-width: 220px;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            border: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .card.animate {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .card-image {
+            height: 150px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            transition: height 0.4s ease;
+            z-index: 2;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--black);
+        }
+        
+        .card:hover::before {
+            height: 100%;
+        }
+        
+        .card:hover .card-image {
+            transform: scale(1.05);
+        }
+        
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--black);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover .card-icon {
+            transform: scale(1.1);
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--black);
+            font-weight: 600;
+        }
+        
+        /* Индивидуальные цвета для карточек */
+        .card[data-card="gta"]::before {
+            background: var(--accent-gta);
+        }
+        .card[data-card="gta"]:hover .card-icon {
+            color: var(--accent-gta);
+        }
+        
+        .card[data-card="grand"]::before {
+            background: var(--accent-grand);
+        }
+        .card[data-card="grand"]:hover .card-icon {
+            color: var(--accent-grand);
+        }
+        
+        .card[data-card="albion"]::before {
+            background: var(--accent-albion);
+        }
+        .card[data-card="albion"]:hover .card-icon {
+            color: var(--accent-albion);
+        }
+        
+        .card[data-card="profit"]::before {
+            background: var(--accent-profit);
+        }
+        .card[data-card="profit"]:hover .card-icon {
+            color: var(--accent-profit);
+        }
+        
+        .card[data-card="fishing"]::before {
+            background: var(--accent-fishing);
+        }
+        .card[data-card="fishing"]:hover .card-icon {
+            color: var(--accent-fishing);
+        }
+        
+        .card[data-card="rmrp"]::before {
+            background: var(--accent-rmrp);
+        }
+        .card[data-card="rmrp"]:hover .card-icon {
+            color: var(--accent-rmrp);
+        }
+        
+        .card[data-card="trigger"]::before {
+            background: var(--accent-trigger);
+        }
+        .card[data-card="trigger"]:hover .card-icon {
+            color: var(--accent-trigger);
+        }
+
+        .card[data-card="majestic"]::before {
+            background: var(--accent-majestic);
+        }
+        .card[data-card="majestic"]:hover .card-icon {
+            color: var(--accent-majestic);
+        }
+
+        .card[data-card="poe"]::before {
+            background: var(--accent-poe);
+        }
+        .card[data-card="poe"]:hover .card-icon {
+            color: var(--accent-poe);
+        }
+
+        .card[data-card="valhalla"]::before {
+            background: var(--accent-valhalla);
+        }
+        .card[data-card="valhalla"]:hover .card-icon {
+            color: var(--accent-valhalla);
+        }
+
+        .card[data-card="tl"]::before {
+            background: var(--accent-tl);
+        }
+        .card[data-card="tl"]:hover .card-icon {
+            color: var(--accent-tl);
+        }
+        
+        .card-desc {
+            color: var(--gray-800);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-weight: 300;
+            margin-top: auto;
+        }
+        
+        /* Новый стиль для раздела решений */
+        .solutions-section {
+            margin-top: 80px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2rem;
+            color: var(--black);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        
+        .section-title.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: var(--black);
+            transition: width 0.4s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 150px;
+        }
+        
+        .solution-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+            gap: 40px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        
+        .solution-item.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .solution-item:nth-child(even) {
+            flex-direction: row-reverse;
+            transform: translateX(50px);
+        }
+        
+        .solution-item:nth-child(even).animate {
+            transform: translateX(0);
+        }
+        
+        .solution-image {
+            flex: 1;
+            min-height: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+        
+        .solution-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .solution-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .solution-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .solution-content {
+            flex: 1;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease 0.3s;
+        }
+        
+        .solution-item.animate .solution-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .solution-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--black);
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .solution-title::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--black);
+            transition: width 0.4s ease;
+        }
+        
+        .solution-title:hover::after {
+            width: 100%;
+        }
+        
+        .solution-desc {
+            color: var(--gray-800);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .solution-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .solution-features li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.4s ease;
+        }
+        
+        .solution-item.animate .solution-features li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .solution-features li:nth-child(1) { transition-delay: 0.4s; }
+        .solution-features li:nth-child(2) { transition-delay: 0.5s; }
+        .solution-features li:nth-child(3) { transition-delay: 0.6s; }
+        .solution-features li:nth-child(4) { transition-delay: 0.7s; }
+        .solution-features li:nth-child(5) { transition-delay: 0.8s; }
+        
+        .solution-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        /* Стили для Telegram блока */
+        .telegram-block {
+            text-align: center;
+            margin: 80px 0;
+            padding: 40px 0;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .telegram-block.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .telegram-block::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: var(--gray-200);
+        }
+        
+        .telegram-link {
+            display: inline-block;
+            font-size: 3rem;
+            color: var(--tg);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .telegram-link:hover {
+            transform: scale(1.1);
+        }
+        
+        .telegram-text {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: var(--gray-800);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease 0.2s;
+        }
+        
+        .telegram-block.animate .telegram-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Стили для спонсоров */
+        .sponsors-section {
+            margin: 60px 0;
+            padding: 40px 0;
+        }
+        
+        .sponsors-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.5rem;
+            color: var(--gray-800);
+            font-weight: 400;
+        }
+        
+        .sponsors-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .sponsor-item {
+            flex: 0 0 calc(16.666% - 20px);
+            min-width: 120px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .sponsor-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .sponsor-item img {
+            max-width: 100%;
+            max-height: 100%;
+            filter: grayscale(100%) brightness(2);
+            transition: filter 0.3s ease;
+        }
+        
+        .sponsor-item:hover img {
+            filter: grayscale(0) brightness(1);
+        }
+        
+        .floating-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+        
+        /* Анимация волны */
+        @keyframes wave {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        .wave-animation {
+            animation: wave 8s ease-in-out infinite;
+        }
+        
+        /* Градиентная анимация */
+        .gradient-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #000000, #1a1a1a, #333333, #4d4d4d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: -2;
+            opacity: 0.1;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Анимация появления */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .card {
+                flex: 1 1 calc(33% - 30px);
+            }
+            
+            .solution-item {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .solution-item:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .solution-image {
+                min-height: 300px;
+                width: 100%;
+            }
+            
+            .sponsor-item {
+                flex: 0 0 calc(25% - 20px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .card {
+                flex: 1 1 calc(50% - 30px);
+            }
+            
+            .solution-title {
+                font-size: 1.5rem;
+            }
+            
+            .sponsor-item {
+                flex: 0 0 calc(33.333% - 20px);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                flex: 1 1 100%;
+            }
+            
+            .solution-content {
+                padding: 0;
+            }
+            
+            .sponsor-item {
+                flex: 0 0 calc(50% - 20px);
+                height: 60px;
+            }
+            
+            .telegram-link {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-bg"></div>
+    <div class="floating-dots" id="floatingDots"></div>
+    
+    <div class="container">
+        <header>
+            <h1 class="wave-animation">Pepesoft</h1>
+            <p class="subtitle">Универсальные боты для разных игр. Один инструмент — тысячи возможностей.</p>
+        </header>
+        
+        <div class="cards-container">
+            <div class="card" data-card="gta">
+                <img src="https://source.unsplash.com/random/400x300/?gta,game" alt="GTA 5 RP" class="card-image">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-star"></i></div>
+                    <h3 class="card-title">GTA 5 RP</h3>
+                </div>
+            </div>
+            
+            <div class="card" data-card="grand">
+                <img src="https://source.unsplash.com/random/400x300/?grand,rp" alt="GRAND RP" class="card-image">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-database"></i></div>
+                    <h3 class="card-title">GRAND RP</h3>
+                </div>
+            </div>
+            
+            <div class="card" data-card="albion">
+                <img src="https://source.unsplash.com/random/400x300/?albion,online" alt="Albion Online" class="card-image">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-khanda"></i></div>
+                    <h3 class="card-title">Albion Online</h3>
+                </div>
+            </div>
+            
+            <div class="card" data-card="profit">
+                <img src="https://source.unsplash.com/random/400x300/?calculator,finance" alt="Profit Calculator" class="card-image">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-signal"></i></div>
+                    <h3 class="card-title">Profit Calculator</h3>
+                </div>
+            </div>
+            
+            <div class="card" data-card="fishing">
+                <img src="https://source.unsplash.com/random/400x300/?fishing,river" alt="Russian Fishing 4" class="card-image">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-fish"></i></div>
+                    <h3 class="card-title">Russian Fishing 4</h3>
+                </div>
+            </div>
+
+            <div class="card" data-card="rmrp">
+                <img src="https://source.unsplash.com/random/400x300/?roleplay,game" alt="R M R P" class="card-image">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-car-rear"></i></div>
+                    <h3 class="card-title">R M R P</h3>
+                </div>
+            </div>
+
+            <div class="card" data-card="trigger">
+                <img src="https://source.unsplash.com/random/400x300/?trigger,aim" alt="GTA 5 RP Trigger" class="card-image">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
+                    <h3 class="card-title">GTA 5 RP Trigger</h3>
+                </div>
+            </div>
+
+            <div class="card" data-card="majestic">
+                <img src="https://source.unsplash.com/random/400x300/?trigger,aim" alt="Majestic" class="card-image">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                    <h3 class="card-title">Majestic RP</h3>
+                </div>
+            </div>
+
+            <div class="card" data-card="poe">
+                <img src="https://source.unsplash.com/random/400x300/?trigger,aim" alt="POE" class="card-image">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-circle-notch"></i></div>
+                    <h3 class="card-title">Path of Exile</h3>
+                </div>
+            </div>
+
+            <div class="card" data-card="tl">
+                <img src="https://source.unsplash.com/random/400x300/?trigger,aim" alt="Throne and Liberty" class="card-image">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-hat-cowboy"></i></div>
+                    <h3 class="card-title">Throne and Liberty</h3>
+                </div>
+            </div>
+            <div class="card" data-card="valhalla">
+                <img src="https://source.unsplash.com/random/400x300/?trigger,aim" alt="ODIN: Valhalla Rising" class="card-image">
+                <div class="card-content">
+                    <div class="card-icon"><i class="fa-solid fa-crown"></i></div>
+                    <h3 class="card-title">ODIN: Valhalla Rising</h3>
+                </div>
+            </div>
+        </div>
+        
+        <div class="solutions-section">
+            <h2 class="section-title">Хотите упростить игру?</h2>
+            
+            <div class="solution-item">
+                <div class="solution-image">
+                    <img src="https://source.unsplash.com/random/800x600/?tech,design,1" alt="Аналитика PRO">
+                </div>
+                <div class="solution-content">
+                    <h3 class="solution-title">Интересный UI</h3>
+                    <p class="solution-desc">  
+                        Интуитивно понятный интерфейс с динамической визуализацией действий бота.  
+                        Настраиваемые дашборды, удобное управление и моментальный доступ к ключевым функциям.  
+                    </p> 
+                    <ul class="solution-features">
+                        <li>Динамические графики и статистика</li>
+                        <li>Персонализация интерфейса</li>
+                        <li>Быстрый доступ к функциям</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="solution-item">
+                <div class="solution-image">
+                    <img src="https://source.unsplash.com/random/800x600/?security,code,2" alt="Security Suite">
+                </div>
+                <div class="solution-content">
+                    <h3 class="solution-title">Telegram channel</h3>  
+                    <p class="solution-desc">  
+                        Следите за обновлениями, получайте новые версии и оперативную поддержку 24/7. Ваши вопросы — в наш директ.  
+                    </p> 
+                    <ul class="solution-features">
+                        <li>Оперативные обновления</li>
+                        <li>Круглосуточная поддержка</li>
+                        <li>Эксклюзивные материалы</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="solution-item">
+                <div class="solution-image">
+                    <img src="https://source.unsplash.com/random/800x600/?integration,api,3" alt="Integrations">
+                </div>
+                <div class="solution-content">
+                    <h3 class="solution-title">Telegram-бот для управления</h3>
+                    <p class="solution-desc">
+                        Контролируйте ваших ботов из любой точки мира через Telegram. Полный доступ к функциям, статистике и настройкам прямо с мобильного устройства.
+                    </p>  
+                    <ul class="solution-features">
+                        <li>Управление с любого устройства</li>
+                        <li>Мгновенные уведомления</li>
+                        <li>Безопасное подключение</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="solution-item">
+                <div class="solution-image">
+                    <img src="https://source.unsplash.com/random/800x600/?wallpaper,4k" alt="Wallpapers">
+                </div>
+                <div class="solution-content">
+                    <h3 class="solution-title">Коллекция обоев</h3>
+                    <p class="solution-desc">
+                        Доступ к коллекции из 700+ обоев в высоком разрешении (4K/8K).
+                    </p>  
+                    <ul class="solution-features">
+                        <li>Эксклюзивные обои</li>
+                        <li>Регулярные обновления</li>
+                        <li>Поддержка 4K/8K</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Блок Telegram -->
+        <div class="telegram-block">
+            <a href="https://t.me/pepesoft777" class="telegram-link" target="_blank" aria-label="Наш Telegram">
+                <i class="fab fa-telegram fa-4x"></i>
+            </a>
+            <p class="telegram-text">Присоединяйтесь к нашему Telegram-каналу</p>
+        </div>
+        
+        <!-- Блок спонсоров -->
+        <div class="sponsors-section">
+            <div class="sponsors-grid">
+                <div class="sponsor-item">
+                    <img src="https://via.placeholder.com/100x50?text=Sponsor+1" alt="Sponsor 1">
+                </div>
+                <div class="sponsor-item">
+                    <img src="https://via.placeholder.com/100x50?text=Sponsor+2" alt="Sponsor 2">
+                </div>
+                <div class="sponsor-item">
+                    <img src="https://via.placeholder.com/100x50?text=Sponsor+3" alt="Sponsor 3">
+                </div>
+                <div class="sponsor-item">
+                    <img src="https://via.placeholder.com/100x50?text=Sponsor+4" alt="Sponsor 4">
+                </div>
+                <div class="sponsor-item">
+                    <img src="https://via.placeholder.com/100x50?text=Sponsor+5" alt="Sponsor 5">
+                </div>
+                <div class="sponsor-item">
+                    <img src="https://via.placeholder.com/100x50?text=Sponsor+6" alt="Sponsor 6">
+                </div>
+                <div class="sponsor-item">
+                    <img src="https://via.placeholder.com/100x50?text=Sponsor+6" alt="Sponsor 7">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Создание плавающих точек
+        const floatingDots = document.getElementById('floatingDots');
+        const dotCount = 50;
+        
+        for (let i = 0; i < dotCount; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            
+            // Случайные позиции и параметры
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            const size = 2 + Math.random() * 6;
+            const delay = Math.random() * 5;
+            const duration = 10 + Math.random() * 30;
+            const opacity = 0.2 + Math.random() * 0.5;
+            
+            dot.style.left = `${posX}%`;
+            dot.style.top = `${posY}%`;
+            dot.style.width = `${size}px`;
+            dot.style.height = `${size}px`;
+            dot.style.opacity = opacity;
+            dot.style.animation = `float ${duration}s ease-in-out ${delay}s infinite alternate`;
+            
+            floatingDots.appendChild(dot);
+        }
+        
+        // Добавляем стили для анимации
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% {
+                    transform: translate(0, 0) rotate(0deg);
+                }
+                25% {
+                    transform: translate(10px, 10px) rotate(5deg);
+                }
+                50% {
+                    transform: translate(-5px, 5px) rotate(-3deg);
+                }
+                75% {
+                    transform: translate(5px, -5px) rotate(2deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Анимация при скролле
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.card, .section-title, .solution-item, .telegram-block, h1, .subtitle');
+            
+            elements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    el.classList.add('animate');
+                }
+            });
+        }
+        
+        // Запуск анимации при загрузке
+        window.addEventListener('load', () => {
+            document.querySelector('h1').classList.add('animate');
+            document.querySelector('.subtitle').classList.add('animate');
+            
+            // Последовательная анимация карточек
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('animate');
+                }, 100 * index);
+            });
+            
+            // Проверка при загрузке
+            animateOnScroll();
+        });
+        
+        // Проверка при скролле
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // Эффект волны для заголовка
+        const mainTitle = document.querySelector('h1');
+        mainTitle.addEventListener('mouseover', () => {
+            mainTitle.classList.add('wave-animation');
+        });
+        mainTitle.addEventListener('animationend', () => {
+            mainTitle.classList.remove('wave-animation');
+        });
+    </script>
+</body>
+</html>
