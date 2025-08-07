@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/favicon.png">
     <title>pepesoft</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -712,6 +709,250 @@
                 font-size: 2.5rem;
             }
         }
+        .app-download-section {
+        background-color: #111111;
+        border-radius: 16px;
+        padding: 50px 0;
+        margin: 80px 0;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #333333;
+    }
+    
+    .app-download-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0) 100%);
+        z-index: 0;
+    }
+    
+    .app-container {
+        display: flex;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 40px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .app-image {
+        flex: 1;
+        padding-right: 50px;
+        transform: translateY(30px);
+        opacity: 0;
+        transition: all 0.8s ease;
+    }
+    
+    .app-image.animate {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    .app-image img {
+        width: 100%;
+        max-width: 300px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        border: 1px solid #333333;
+    }
+    
+    .app-content {
+        flex: 1.5;
+        color: white;
+    }
+    
+    .app-title {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: white;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .app-title::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: var(--accent-gta);
+        border-radius: 3px;
+    }
+    
+    .app-desc {
+        color: #aaaaaa;
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+    
+    .app-features {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+    
+    .feature-item {
+        display: flex;
+        align-items: center;
+        color: #dddddd;
+    }
+    
+    .feature-item i {
+        margin-right: 10px;
+        color: var(--accent-gta);
+        font-size: 1.2rem;
+    }
+    
+    .app-buttons {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 40px;
+    }
+    
+    .download-btn {
+        display: flex;
+        align-items: center;
+        padding: 12px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .download-btn i {
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+    
+    .android-btn {
+        background: #3ddc84;
+        color: #0d0d0d;
+    }
+    
+    .ios-btn {
+        background: #007aff;
+        color: white;
+    }
+    
+    .download-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .key-checker {
+        background: rgba(30,30,30,0.6);
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid #333333;
+    }
+    
+    .key-checker h3 {
+        margin-bottom: 15px;
+        color: white;
+        font-size: 1.2rem;
+    }
+    
+    .checker-input {
+        display: flex;
+        margin-bottom: 15px;
+    }
+    
+    .checker-input input {
+        flex: 1;
+        padding: 12px 15px;
+        border: none;
+        border-radius: 6px 0 0 6px;
+        background: #222222;
+        color: white;
+        font-size: 0.9rem;
+    }
+    
+    .checker-input input:focus {
+        outline: none;
+        background: #2a2a2a;
+    }
+    
+    .check-btn {
+        padding: 0 20px;
+        background: var(--accent-gta);
+        color: #0d0d0d;
+        border: none;
+        border-radius: 0 6px 6px 0;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .check-btn:hover {
+        background: #ffff33;
+    }
+    
+    .trial-link {
+        color: var(--accent-fishing);
+        text-decoration: none;
+        font-size: 0.9rem;
+        display: inline-block;
+        transition: all 0.2s ease;
+    }
+    
+    .trial-link:hover {
+        color: #33ccff;
+        text-decoration: underline;
+    }
+    
+    @media (max-width: 1024px) {
+        .app-container {
+            flex-direction: column;
+            padding: 0 30px;
+        }
+        
+        .app-image {
+            padding-right: 0;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .app-content {
+            width: 100%;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .app-features {
+            grid-template-columns: 1fr;
+        }
+        
+        .app-buttons {
+            flex-direction: column;
+        }
+        
+        .app-download-section {
+            padding: 40px 0;
+            margin: 60px 0;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .app-container {
+            padding: 0 20px;
+        }
+        
+        .app-title {
+            font-size: 1.8rem;
+        }
+        
+        .key-checker {
+            padding: 20px;
+        }
+    }
     </style>
 </head>
 <body>
@@ -726,7 +967,7 @@
         
         <div class="cards-container">
             <div class="card" data-card="gta">
-                <img src="gta5rp.png" alt="GTA 5 RP" class="card-image">
+                <img src="./gta5rp.png" alt="GTA 5 RP" class="card-image">
                 <div class="card-content">
                     <div class="card-icon"><i class="fa-solid fa-star"></i></div>
                     <h3 class="card-title">GTA 5 RP</h3>
@@ -734,7 +975,7 @@
             </div>
             
             <div class="card" data-card="grand">
-                <img src="grand.png" alt="GRAND RP" class="card-image">
+                <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/grand.png" alt="GRAND RP" class="card-image">
                 <div class="card-content">
                     <div class="card-icon"><i class="fa-solid fa-database"></i></div>
                     <h3 class="card-title">GRAND RP</h3>
@@ -742,7 +983,7 @@
             </div>
             
             <div class="card" data-card="albion">
-                <img src="albion.png" alt="Albion Online" class="card-image">
+                <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/albion.png" alt="Albion Online" class="card-image">
                 <div class="card-content">
                     <div class="card-icon"><i class="fa-solid fa-khanda"></i></div>
                     <h3 class="card-title">Albion Online</h3>
@@ -750,7 +991,7 @@
             </div>
             
             <div class="card" data-card="profit">
-                <img src="calc.png" alt="Profit Calculator" class="card-image">
+                <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/calc.png" alt="Profit Calculator" class="card-image">
                 <div class="card-content">
                     <div class="card-icon"><i class="fa-solid fa-signal"></i></div>
                     <h3 class="card-title">Profit Calculator</h3>
@@ -758,7 +999,7 @@
             </div>
             
             <div class="card" data-card="fishing">
-                <img src="rf4.png" alt="Russian Fishing 4" class="card-image">
+                <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/rf4.png" alt="Russian Fishing 4" class="card-image">
                 <div class="card-content">
                     <div class="card-icon"><i class="fa-solid fa-fish"></i></div>
                     <h3 class="card-title">Russian Fishing 4</h3>
@@ -766,7 +1007,7 @@
             </div>
 
             <div class="card" data-card="rmrp">
-                <img src="rmrp.png" alt="R M R P" class="card-image">
+                <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/rmrp.png" alt="R M R P" class="card-image">
                 <div class="card-content">
                     <div class="card-icon"><i class="fa-solid fa-car-rear"></i></div>
                     <h3 class="card-title">R M R P</h3>
@@ -774,7 +1015,7 @@
             </div>
 
             <div class="card" data-card="trigger">
-                <img src="trig.png" alt="GTA 5 RP Trigger" class="card-image">
+                <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/trig.png" alt="GTA 5 RP Trigger" class="card-image">
                 <div class="card-content">
                     <div class="card-icon"><i class="fa-solid fa-crosshairs"></i></div>
                     <h3 class="card-title">GTA 5 RP Trigger</h3>
@@ -782,7 +1023,7 @@
             </div>
 
             <div class="card" data-card="majestic">
-                <img src="maj.png" alt="Majestic" class="card-image">
+                <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/maj.png" alt="Majestic" class="card-image">
                 <div class="card-content">
                     <div class="card-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
                     <h3 class="card-title">Majestic RP</h3>
@@ -790,7 +1031,7 @@
             </div>
 
             <div class="card" data-card="poe">
-                <img src="poe.png" alt="POE" class="card-image">
+                <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/poe.png" alt="POE" class="card-image">
                 <div class="card-content">
                     <div class="card-icon"><i class="fa-solid fa-circle-notch"></i></div>
                     <h3 class="card-title">Path of Exile</h3>
@@ -798,14 +1039,14 @@
             </div>
 
             <div class="card" data-card="tl">
-                <img src="tl.png" alt="Throne and Liberty" class="card-image">
+                <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/tl.png" alt="Throne and Liberty" class="card-image">
                 <div class="card-content">
                     <div class="card-icon"><i class="fa-solid fa-hat-cowboy"></i></div>
                     <h3 class="card-title">Throne and Liberty</h3>
                 </div>
             </div>
             <div class="card" data-card="valhalla">
-                <img src="odin.png" alt="ODIN: Valhalla Rising" class="card-image">
+                <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/odin.png" alt="ODIN: Valhalla Rising" class="card-image">
                 <div class="card-content">
                     <div class="card-icon"><i class="fa-solid fa-crown"></i></div>
                     <h3 class="card-title">ODIN: Valhalla Rising</h3>
@@ -818,7 +1059,7 @@
             
             <div class="solution-item">
                 <div class="solution-image">
-                    <img src="ui.png" alt="Аналитика PRO">
+                    <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/ui.png" alt="Аналитика PRO">
                 </div>
                 <div class="solution-content">
                     <h3 class="solution-title">Интересный UI</h3>
@@ -836,7 +1077,7 @@
             
             <div class="solution-item">
                 <div class="solution-image">
-                    <img src="tg1.png" alt="Security Suite">
+                    <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/tg1.png" alt="Security Suite">
                 </div>
                 <div class="solution-content">
                     <h3 class="solution-title">Telegram channel</h3>  
@@ -853,7 +1094,7 @@
             
             <div class="solution-item">
                 <div class="solution-image">
-                    <img src="tg.png" alt="Integrations">
+                    <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/tg.png" alt="Integrations">
                 </div>
                 <div class="solution-content">
                     <h3 class="solution-title">Telegram-бот для управления</h3>
@@ -870,7 +1111,7 @@
 
             <div class="solution-item">
                 <div class="solution-image">
-                    <img src="oboi.png" alt="Wallpapers">
+                    <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/oboi.png" alt="Wallpapers">
                 </div>
                 <div class="solution-content">
                     <h3 class="solution-title">Коллекция обоев</h3>
@@ -893,55 +1134,86 @@
             </a>
             <p class="telegram-text">Присоединяйтесь к нашему Telegram-каналу</p>
         </div>
+
+        <div class="app-download-section">
+            <div class="app-container">
+                <div class="app-image">
+                    <img src="https://cdn-icons-png.flaticon.com/512/545/545194.png" alt="Pepesoft Mobile App" class="flaticon-phone">
+                </div>
+                <div class="app-content">
+                    <h2 class="app-title">Мобильное приложение</h2>
+                    <p class="app-desc">Управляйте ботами, проверяйте ключи и получайте тестовый доступ прямо со своего телефона</p>
+                    
+                    <div class="app-features">
+                        <div class="feature-item">
+                            <i class="fas fa-key"></i>
+                            <span>Проверка лицензионных ключей</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Тестовый ключ на 24 часа</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-bell"></i>
+                            <span>Уведомления об обновлениях</span>
+                        </div>
+                    </div>
+                    
+                    <div class="app-buttons">
+                        <a href="https://github.com/dsofter777/files/releases/download/33/app-release.apk" class="download-btn android-btn">
+                            <i class="fab fa-android"></i>
+                            <span>Скачать для Android</span>
+                        </a>
+                        
+                         
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
         
         <!-- Блок спонсоров -->
         <div class="sponsors-section">
             <div class="sponsors-grid">
                 <div class="sponsor-item">
-                    <img src="visual.png" alt="Sponsor 1">
+                    <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/visual.png" alt="Sponsor 1">
                 </div>
                 <div class="sponsor-item">
-                    <img src="telegram.png" alt="Sponsor 2">
+                    <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/telegram.png" alt="Sponsor 2">
                 </div>
                 <div class="sponsor-item">
-                    <img src="funpay.png" alt="Sponsor 7">
+                    <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/sublime.jfif" alt="Sponsor 3">
                 </div>
                 <div class="sponsor-item">
-                    <img src="sublime.jfif" alt="Sponsor 3">
+                    <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/python.png" alt="Sponsor 4">
                 </div>
                 <div class="sponsor-item">
-                    <img src="python.png" alt="Sponsor 4">
+                    <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/github.png" alt="Sponsor 5">
                 </div>
                 <div class="sponsor-item">
-                    <img src="playerok1.jpg" alt="Sponsor 7">
+                    <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/excel.png" alt="Sponsor 6">
                 </div>
                 <div class="sponsor-item">
-                    <img src="github.png" alt="Sponsor 5">
+                    <img src="https://github.com/nb75hg6f/nb75hg6f/blob/main/ahk.png" alt="Sponsor 7">
                 </div>
-                <div class="sponsor-item">
-                    <img src="excel.png" alt="Sponsor 6">
-                </div>
-                <div class="sponsor-item">
-                    <img src="ahk.png" alt="Sponsor 7">
-                </div>
-                
-                
             </div>
         </div>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <footer style="
-                background: #000000;
-                padding: 20px 0;
-                text-align: center;
-                font-family: Arial, sans-serif;
-                color: #ffffff;
-                border-top: 1px solid #333333;
-            ">
-                <div style="max-width: 1200px; margin: 0 auto;">
-                    © 2025 <span style="font-weight: bold; color: #ffffff;">pepesoft</span> | Все права защищены
-                </div>
-        </footer>
+        background: #000000;
+        padding: 20px 0;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        color: #ffffff;
+        border-top: 1px solid #333333;
+    ">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            © 2025 <span style="font-weight: bold; color: #ffffff;">pepesoft</span> | Все права защищены
+        </div>
+</footer>
+
     </div>
-    
+
     <script>
         // Создание плавающих точек
         const floatingDots = document.getElementById('floatingDots');
@@ -1031,6 +1303,39 @@
         mainTitle.addEventListener('animationend', () => {
             mainTitle.classList.remove('wave-animation');
         });
+
+        // Анимация блока с приложением
+    const appSection = document.querySelector('.app-download-section');
+    const appImage = document.querySelector('.app-image');
+    
+    function animateAppSection() {
+        const sectionTop = appSection.getBoundingClientRect().top;
+        const sectionVisible = 150;
+        
+        if (sectionTop < window.innerHeight - sectionVisible) {
+            appImage.classList.add('animate');
+        }
+    }
+    
+    // Проверка при загрузке и скролле
+    window.addEventListener('load', animateAppSection);
+    window.addEventListener('scroll', animateAppSection);
+    
+    // Имитация проверки ключа
+    document.querySelector('.check-btn').addEventListener('click', function() {
+        const keyInput = document.querySelector('.checker-input input');
+        if (keyInput.value.trim() === '') {
+            alert('Пожалуйста, введите ключ для проверки');
+        } else {
+            alert('Ключ проверяется... Это демонстрационная функция');
+        }
+    });
+    
+    // Имитация получения тестового ключа
+    document.querySelector('.trial-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('Тестовый ключ на 24 часа: PEPE-TEST-2023\nЭто демонстрационная функция');
+    });
     </script>
 </body>
 </html>
