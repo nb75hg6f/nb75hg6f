@@ -1241,6 +1241,535 @@
                 padding: 20px 15px;
             }
         }
+        .app-download-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #111;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Лофт текстура фона */
+        .app-download-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(15, 15, 15, 0.9), rgba(15, 15, 15, 0.9)),
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(50, 50, 50, 0.1) 0px,
+                    rgba(50, 50, 50, 0.1) 1px,
+                    transparent 1px,
+                    transparent 4px
+                );
+            z-index: -1;
+        }
+        
+        .app-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .app-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .flaticon-phone {
+            width: 220px;
+            filter: grayscale(100%) contrast(120%);
+            transition: transform 0.5s ease;
+        }
+        
+        .flaticon-phone:hover {
+            transform: translateY(-10px) rotate(5deg);
+        }
+        
+        .app-content {
+            flex: 1.5;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .app-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .app-title::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #fff;
+        }
+        
+        .app-desc {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #ccc;
+            line-height: 1.6;
+        }
+        
+        .app-features {
+            margin-bottom: 30px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            background: rgba(50, 50, 50, 0.3);
+            border-left: 3px solid #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            background: rgba(70, 70, 70, 0.4);
+            transform: translateX(5px);
+        }
+        
+        .feature-item i {
+            font-size: 1.2rem;
+            margin-right: 15px;
+            color: #fff;
+            width: 25px;
+            text-align: center;
+        }
+        
+        .feature-item span {
+            color: #f0f0f0;
+            font-size: 1rem;
+        }
+        
+        .app-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid #fff;
+            color: #fff;
+            background: transparent;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .download-btn:hover {
+            background: #fff;
+            color: #111;
+        }
+        
+        .download-btn:hover::before {
+            left: 100%;
+        }
+        
+        .download-btn i {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .android-btn:hover {
+            background: #fff;
+            color: #111;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            .app-title {
+                font-size: 1.8rem;
+            }
+            
+            .download-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .app-container > * {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .app-image { animation-delay: 0.2s; }
+        .app-title { animation-delay: 0.4s; }
+        .app-desc { animation-delay: 0.5s; }
+        .app-features { animation-delay: 0.6s; }
+        .app-buttons { animation-delay: 0.7s; }
+
+
+
+
+
+
+
+        .projects-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 40px 30px;
+            background: #111;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Лофт текстура фона */
+        .projects-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(15, 15, 15, 0.9), rgba(15, 15, 15, 0.9)),
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(50, 50, 50, 0.1) 0px,
+                    rgba(50, 50, 50, 0.1) 1px,
+                    transparent 1px,
+                    transparent 6px
+                );
+            z-index: -1;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #fff;
+        }
+        
+        .project-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .project-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .project-icon {
+            width: 250px;
+            filter: grayscale(100%) contrast(130%) brightness(90%);
+            transition: all 0.5s ease;
+        }
+        
+        .project-icon:hover {
+            transform: scale(1.05);
+            filter: grayscale(70%) contrast(140%) brightness(100%);
+        }
+        
+        .project-content {
+            flex: 1.5;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .project-name {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        
+        .project-desc {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #ccc;
+            line-height: 1.6;
+        }
+        
+        .project-features {
+            margin-bottom: 30px;
+        }
+        
+        .project-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            background: rgba(50, 50, 50, 0.3);
+            border-left: 3px solid #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .project-feature:hover {
+            background: rgba(70, 70, 70, 0.4);
+            transform: translateX(5px);
+        }
+        
+        .project-feature i {
+            font-size: 1.2rem;
+            margin-right: 15px;
+            color: #fff;
+            width: 25px;
+            text-align: center;
+        }
+        
+        .project-feature span {
+            color: #f0f0f0;
+            font-size: 1rem;
+        }
+        
+        .project-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .project-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid #fff;
+            color: #fff;
+            background: transparent;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .project-btn:hover {
+            background: #fff;
+            color: #111;
+        }
+        
+        .project-btn:hover::before {
+            left: 100%;
+        }
+        
+        .project-btn i {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+        
+        /* Панорамный вид */
+        .panorama-view {
+            width: 100%;
+            height: 200px;
+            margin-top: 40px;
+            background: linear-gradient(to right, #1a1a1a, #2a2a2a, #1a1a1a);
+            border: 1px solid #444;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .panorama-view::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 30px,
+                    rgba(255, 255, 255, 0.03) 30px,
+                    rgba(255, 255, 255, 0.03) 31px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 30px,
+                    rgba(255, 255, 255, 0.03) 30px,
+                    rgba(255, 255, 255, 0.03) 31px
+                );
+        }
+        
+        .tactical-markers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .marker {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border: 2px solid #000;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .marker::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s infinite;
+        }
+        
+        .marker-1 { top: 30%; left: 25%; }
+        .marker-2 { top: 60%; left: 40%; }
+        .marker-3 { top: 45%; left: 65%; }
+        .marker-4 { top: 75%; left: 80%; }
+        .marker-5 { top: 25%; left: 75%; }
+        
+        @keyframes pulse {
+            0% { width: 10px; height: 10px; opacity: 0.8; }
+            100% { width: 40px; height: 40px; opacity: 0; }
+        }
+        
+        .map-legend {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            background: #fff;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .project-container {
+                flex-direction: column;
+            }
+            
+            .project-name {
+                font-size: 1.8rem;
+            }
+            
+            .project-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .map-legend {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .project-container > * {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        .project-image { animation-delay: 0.2s; }
+        .project-name { animation-delay: 0.4s; }
+        .project-desc { animation-delay: 0.5s; }
+        .project-features { animation-delay: 0.6s; }
+        .project-buttons { animation-delay: 0.7s; }
+        .panorama-view { animation-delay: 0.9s; }
     </style>
 </head>
 <body>
@@ -1643,6 +2172,74 @@
                 </div>
             </div>
         </div>
+
+
+
+        <div class="projects-section">
+        <h2 class="section-title">Наши проекты</h2>
+        
+        <div class="project-container">
+            <div class="project-image">
+                <img src="https://cdn-icons-png.flaticon.com/512/854/854878.png" alt="Карты войны за предприятия" class="project-icon">
+            </div>
+            <div class="project-content">
+                <h3 class="project-name">Карты войны за предприятия - GTA 5 RP</h3>
+                <p class="project-desc">Тактическая карта для планирования захватов предприятий, управления территориями и координации действий вашей банды в мире GTA 5 RolePlay.</p>
+                
+                <div class="project-features">
+                    <div class="project-feature">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>Панорамный обзор всех предприятий города</span>
+                    </div>
+                    <div class="project-feature">
+                        <i class="fas fa-chess"></i>
+                        <span>Расстановка тактических меток для планирования атак</span>
+                    </div>
+                    <div class="project-feature">
+                        <i class="fas fa-users"></i>
+                        <span>Координация действий команды в реальном времени</span>
+                    </div>
+                    <div class="project-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Анализ уязвимостей и защищённости позиций</span>
+                    </div>
+                </div>
+                
+                <div class="project-buttons">
+                    <a href="https://vzp.pepesoft.a0001.net/" class="project-btn">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Перейти на ВЗП сайт</span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="panorama-view">
+            <div class="tactical-markers">
+                <div class="marker marker-1"></div>
+                <div class="marker marker-2"></div>
+                <div class="marker marker-3"></div>
+                <div class="marker marker-4"></div>
+                <div class="marker marker-5"></div>
+            </div>
+        </div>
+        
+        <div class="map-legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #fff;"></div>
+                <span>Текущие позиции</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #aaa;"></div>
+                <span>Места спавна</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #555;"></div>
+                <span>Занятые позиции</span>
+            </div>
+        </div>
+    </div>
         
         <!-- Блок спонсоров -->
         <div class="sponsors-section">
