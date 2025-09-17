@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTA 5 RP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #ffffff;
+            --white: #000000;
+            --gray-100: #1a1a1a;
+            --gray-200: #2a2a2a;
+            --gray-800: #cccccc;
+            --primary: #ffffff;
+            --accent: #aaaaaa;
+            
+            /* Цвета акцентов для блоков */
+            --accent-automation: #cccccc;
+            --accent-monitoring: #bbbbbb;
+            --accent-integration: #aaaaaa;
+            --accent-maintenance: #999999;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0 40px;
+            position: relative;
+            margin-bottom: 50px;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        
+        h1.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--black);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+        
+        h1:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--gray-800);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) 0.2s;
+        }
+        
+        .subtitle.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Стили для промышленных блоков */
+        .projects-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 40px 30px;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        .projects-section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Лофт текстура фона */
+        .projects-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(20, 20, 20, 0.9), rgba(20, 20, 20, 0.9)),
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(255, 255, 255, 0.03) 0px,
+                    rgba(255, 255, 255, 0.03) 1px,
+                    transparent 1px,
+                    transparent 6px
+                );
+            z-index: -1;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--black);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--black);
+        }
+        
+        .project-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .project-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .project-icon {
+            width: 250px;
+            filter: grayscale(100%) contrast(130%) brightness(140%);
+            transition: all 0.5s ease;
+            font-size: 180px;
+            color: var(--black);
+        }
+        
+        .project-icon:hover {
+            transform: scale(1.05);
+            filter: grayscale(70%) contrast(140%) brightness(120%);
+        }
+        
+        .project-content {
+            flex: 1.5;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .project-name {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--black);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        
+        .project-desc {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+        
+        .project-features {
+            margin-bottom: 30px;
+        }
+        
+        .project-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid var(--black);
+            transition: all 0.3s ease;
+        }
+        
+        .project-feature:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .project-feature i {
+            font-size: 1.2rem;
+            margin-right: 15px;
+            color: var(--black);
+            width: 25px;
+            text-align: center;
+        }
+        
+        .project-feature span {
+            color: var(--black);
+            font-size: 1rem;
+        }
+        
+        .project-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .project-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--black);
+            color: var(--black);
+            background: transparent;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .project-btn:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+        
+        .project-btn:hover::before {
+            left: 100%;
+        }
+        
+        .project-btn i {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+        
+        /* Секция с дополнительной информацией */
+        .seo-text {
+            max-width: 1300px;
+            margin: 40px auto;
+            padding: 40px;
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .seo-text.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: var(--black);
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--black), transparent);
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--gray-800);
+        }
+
+        strong {
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        ul {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        li {
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--black);
+            border-radius: 4px;
+            transition: all 0.4s ease;
+        }
+
+        li:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        /* Контактная секция */
+        .telegram-block {
+            text-align: center;
+            margin: 80px 0;
+            padding: 40px 0;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .telegram-block.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .telegram-block::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: var(--gray-200);
+        }
+        
+        .telegram-link {
+            display: inline-block;
+            font-size: 3rem;
+            color: var(--black);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .telegram-link:hover {
+            transform: scale(1.1);
+        }
+        
+        .telegram-text {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: var(--gray-800);
+        }
+        
+        /* Анимационный фон */
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a1a, #2a2a2a, #0a0a0a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: -2;
+            opacity: 1;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .floating-dots {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--black);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .project-container {
+                flex-direction: column;
+            }
+            
+            .project-name {
+                font-size: 1.8rem;
+            }
+            
+            .project-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .seo-text {
+                padding: 25px;
+                margin: 20px auto;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .project-name {
+                font-size: 1.6rem;
+            }
+            
+            .seo-text {
+                padding: 20px 15px;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-bg"></div>
+    <div class="floating-dots"></div>
+    
+    <div class="container">
+        <header>
+            <h1>ФУНКЦИОНАЛ GTA 5 RP PANEL</h1>
+            <p class="subtitle">Тут собраны и расписаны подробно все функции которые есть в этом приложении</p>
+        </header>
+
+        <section class="projects-section">
+            <h2 class="section-title">АВТОЛУТ: ВКЛЮЧИЛ И ЗАБЫЛ!</h2>
+            <div class="project-container">
+                <div class="project-image">
+                    <i class="fas fa-magic project-icon"></i> <!-- Заменили иконку на более понятную -->
+                </div>
+                <div class="project-content">
+                    <p class="project-desc"><strong>Просто нажми кнопку — и твой персонаж САМ будет подбирать всё с пола!</strong> Больше не нужно постоянно тыкать клавишу E. Подбежал к вещи — она уже у тебя в кармане. Быстро, удобно и без лишних движений.</p>
+                    
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-lightbulb" style="color: #2ecc71;"></i> <!-- Зеленая лампочка вместо шестеренки -->
+                            <span>Зеленый свет = работает! Просто включи и забудь</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-bolt"></i> <!-- Молния для скорости -->
+                            <span>Мгновенно подбирает оружие, патроны и вещи с пола</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-hand-paper"></i> <!-- Рука -->
+                            <span>НЕ НУЖНО нажимать E! Никакой рутины</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-shield-alt"></i> <!-- Щит -->
+                            <span>Идеально для боя: собрал патроны в перестрелке и сразу в дело</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок мониторинга -->
+        <section class="projects-section">
+            <h2 class="section-title">АНТИ-АФК СИСТЕМА</h2>
+            <div class="project-container">
+                <div class="project-content">
+                    <h3 class="project-name">НЕВИДИМЫЙ АКТИВНЫЙ РЕЖИМ</h3>
+                    <p class="project-desc">Умная система, которая создает видимость вашей активности в игре, даже когда вы отошли от компьютера. Больше не нужно беспокоиться о разрыве соединения или потере прогресса!</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-wifi"></i>
+                            <span>Автоматически поддерживает соединение с сервером</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Защищает от автоматического отключения за неактивность</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-coins"></i>
+                            <span>Гарантирует получение всех наград и опыта игры</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-lightbulb" style="color: #2ecc71;"></i>
+                            <span>Зеленый индикатор = вы защищены от AFK-отключения</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="project-image">
+                    <i class="fas fa-user-clock project-icon"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок интеграции -->
+        <section class="projects-section">
+            <h2 class="section-title">АВТО-ПИТАНИЕ</h2>
+            <div class="project-container">
+                <div class="project-image">
+                    <i class="fas fa-utensils project-icon"></i> <!-- Иконка еды вместо диаграммы -->
+                </div>
+                <div class="project-content">
+                    <h3 class="project-name">СИСТЕМА КОНТРОЛЯ СЫТОСТИ</h3>
+                    <p class="project-desc">Умный помощник, который автоматически использует еду и напитки в игре через заданные промежутки времени. Забудьте о голоде и падении характеристик персонажа!</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-hamburger"></i> <!-- Иконка еды -->
+                            <span>Автоматически использует указанный предмет из инвентаря</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-clock"></i> <!-- Иконка часов -->
+                            <span>Работает с любой заданной периодичностью (например, каждые 5 минут)</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-keyboard"></i> <!-- Иконка клавиатуры -->
+                            <span>Самостоятельно нажимает назначенную клавишу (бинд)</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-lightbulb" style="color: #2ecc71;"></i> <!-- Зеленая лампочка -->
+                            <span>Зеленый индикатор = ваш персонаж всегда сыт и готов к бою</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок технического обслуживания -->
+        <section class="projects-section">
+            <h2 class="section-title">ДЕМОРГАН</h2>
+            <div class="project-container">
+                <div class="project-content">
+                    <h3 class="project-name">УМНЫЙ ПОМОЩНИК ДЛЯ МИНИ-ИГРЫ</h3>
+                    <p class="project-desc">Автоматическая система для прохождения деморгана. Просто выберите режим работы, и бот сделает всё за вас! Идеально подходит для тех, кто хочет отойти от компьютера, но не хочет пропускать мини-игру в том числе третья функция для вас.</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-tshirt"></i>
+                            <span><strong>Режим "Рубашки"</strong> - базовые возможности</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-cogs"></i>
+                            <span><strong>Режим "Станок"</strong> - расширенные функции</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-robot"></i>
+                            <span><strong>Режим "АФК-Деморган"</strong> - полная автоматизация (включайте, когда отходите от ПК)</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-clock"></i>
+                            <span>Автоматически отвечает на вопросы и снимает по 30 секунд за каждый ответ</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image">
+                    <i class="fas fa-brain project-icon"></i> <!-- Иконка мозга для интеллектуальной викторины -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок качалки -->
+        <section class="projects-section">
+            <h2 class="section-title">КАЧАЛКА</h2>
+            <div class="project-container">
+                <div class="project-image">
+                    <i class="fas fa-dumbbell project-icon"></i> <!-- Иконка гантели -->
+                </div>
+                <div class="project-content">
+                    <h3 class="project-name">СИСТЕМА АВТОМАТИЧЕСКОЙ ТРЕНИРОВКИ</h3>
+                    <p class="project-desc">Умный помощник для автоматической прокачки навыка "Сила". Просто активируйте систему у тренажера, и ваш персонаж будет самостоятельно заниматься!</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-check-circle" style="color: #2ecc71;"></i>
+                            <span><strong>Включите функцию</strong> - кнопка должна гореть зеленым цветом</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-running"></i>
+                            <span><strong>Встаньте у тренажера</strong> - ваш персонаж должен быть рядом со снарядом</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-ticket-alt"></i>
+                            <span><strong>Купите билет</strong> - не забудьте приобрести абонемент на тренировку</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-magic"></i>
+                            <span>Система автоматически начнет качать навык Сила без вашего участия</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок триггер бота -->
+        <section class="projects-section">
+            <h2 class="section-title">ТРИГГЕР БОТ</h2>
+            <div class="project-container">
+                <div class="project-content">
+                    <h3 class="project-name">АВТОМАТИЧЕСКИЙ ПРИЦЕЛ</h3>
+                    <p class="project-desc">Умная система автоматической стрельбы при наведении на противника. Просто наведите прицел - бот сделает выстрел за вас! Полный контроль над настройками под ваш стиль игры.</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-crosshairs"></i>
+                            <span><strong>Авто-стрельба</strong> - оружие стреляет само при наведении на врага</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-mouse"></i>
+                            <span><strong>Режимы стрельбы</strong> - одиночные клики или непрерывное зажатие</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-sliders-h"></i>
+                            <span><strong>Настраиваемая задержка</strong> - установите любое время реакции перед выстрелом</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-palette"></i>
+                            <span><strong>Любой цвет прицела</strong> - работает со всеми цветами и кастомными прицелами</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-desktop"></i>
+                            <span><strong>Поддержка разрешений</strong> - работает в оконном режиме без рамки и кастомных разрешениях</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image">
+                    <i class="fas fa-bullseye project-icon"></i> <!-- Иконка мишени -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок кулинарии -->
+        <section class="projects-section">
+            <h2 class="section-title">КУЛИНАРИЯ</h2>
+            <div class="project-container">
+                <div class="project-image">
+                    <i class="fas fa-utensils project-icon"></i> <!-- Иконка столовых приборов -->
+                </div>
+                <div class="project-content">
+                    <h3 class="project-name">СИСТЕМА АВТОМАТИЧЕСКОГО КРАФТА ЕДЫ</h3>
+                    <p class="project-desc">Умный помощник для автоматического приготовления любой еды. Просто выберите нужные ингредиенты - система сделает всё остальное! Работает даже когда игра свернута.</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-check-circle" style="color: #e74c3c;"></i>
+                            <span><strong>Выбор ингредиентов</strong> - активируйте нужные кнопки (горят красным цветом)</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-hamburger"></i>
+                            <span><strong>Любая еда</strong> - система крафтит все доступные рецепты автоматически</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-sticky-note"></i>
+                            <span><strong>Памятка по слотам</strong> - удобная подсказка по расположению ингредиентов</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-desktop"></i>
+                            <span><strong>Фоновый режим</strong> - работает даже когда игра свернута или перекрыта другими окнами</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок казино хелпера -->
+        <section class="projects-section">
+            <h2 class="section-title">КАЗИНО ХЕЛПЕР</h2>
+            <div class="project-container">
+                <div class="project-content">
+                    <h3 class="project-name">СИСТЕМА АНАЛИЗА ИГРОВЫХ ПОСЛЕДОВАТЕЛЬНОСТЕЙ</h3>
+                    <p class="project-desc">Умный помощник для анализа и прогнозирования результатов в казино. Система запоминает выпадающие числа и на основе статистики предлагает наиболее вероятные варианты для следующих ставок.</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-database"></i>
+                            <span><strong>Запись чисел</strong> - система сохраняет все выпавшие числа за игровым столом</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-save"></i>
+                            <span><strong>Сохранение последовательностей</strong> - запоминает цепочки выпадающих чисел</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-chart-line"></i>
+                            <span><strong>Статистический анализ</strong> - анализирует частоту выпадения чисел после определенных комбинаций</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-lightbulb"></i>
+                            <span><strong>Умные подсказки</strong> - при нажатии на выпавшее число предлагает наиболее вероятное следующее число</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-history"></i>
+                            <span><strong>История игр</strong> - сохраняет все данные для последующего анализа и использования</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image">
+                    <i class="fas fa-chart-bar project-icon"></i> <!-- Иконка графика -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок лотереи -->
+        <section class="projects-section">
+            <h2 class="section-title">ЛОТЕРЕЯ</h2>
+            <div class="project-container">
+                <div class="project-image">
+                    <i class="fas fa-ticket-alt project-icon"></i> <!-- Иконка билета -->
+                </div>
+                <div class="project-content">
+                    <h3 class="project-name">СИСТЕМА АВТОМАТИЧЕСКОЙ ПОКУПКИ ЛОТЕРЕЙНЫХ БИЛЕТОВ</h3>
+                    <p class="project-desc">Умный помощник для автоматической покупки лотерейных билетов. Просто активируйте систему - и она будет регулярно приобретать билеты за вас, увеличивая ваши шансы на выигрыш!</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-check-circle" style="color: #2ecc71;"></i>
+                            <span><strong>Автоматическая активация</strong> - просто включите функцию (кнопка горит зеленым)</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-clock"></i>
+                            <span><strong>Регулярные покупки</strong> - система автоматически покупает билет каждые 2 часа</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span><strong>Фиксированная стоимость</strong> - каждый билет покупается за 1500$</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-robot"></i>
+                            <span><strong>Полный автопилот</strong> - работает без вашего участия 24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок прицела -->
+        <section class="projects-section">
+            <h2 class="section-title">КАСТОМНЫЙ ПРИЦЕЛ</h2>
+            <div class="project-container">
+                <div class="project-content">
+                    <h3 class="project-name">НАСТРАИВАЕМЫЙ ЦЕНТРАЛЬНЫЙ ПРИЦЕЛ</h3>
+                    <p class="project-desc">Персонализируемый прицел для точной стрельбы. Активируйте функцию - и в центре экрана появится прицел с полной кастомизацией под ваш стиль игры.</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-check-circle" style="color: #2ecc71;"></i>
+                            <span><strong>Простая активация</strong> - включите функцию (кнопка горит зеленым цветом)</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-crosshairs"></i>
+                            <span><strong>Центральное расположение</strong> - прицел появляется точно по центру экрана</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-palette"></i>
+                            <span><strong>Любой цвет</strong> - установите любой желаемый цвет для прицела</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-sliders-h"></i>
+                            <span><strong>Полная кастомизация</strong> - настройте размер, форму и прозрачность прицела</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-eye"></i>
+                            <span><strong>Улучшенная видимость</strong> - всегда видите куда целитесь в любой ситуации</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image">
+                    <i class="fas fa-bullseye project-icon"></i> <!-- Иконка мишени -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок работ -->
+        <section class="projects-section">
+            <h2 class="section-title">РАБОТЫ</h2>
+            <div class="project-container">
+                <div class="project-content">
+                    <h3 class="project-name">СИСТЕМА АВТОМАТИЗАЦИИ ПРОФЕССИЙ</h3>
+                    <p class="project-desc">Умный помощник для автоматического выполнения различных работ. Выберите профессию - система сделает всё за вас! Экономьте время и увеличивайте доход.</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-cow"></i>
+                            <span><strong>Ферма</strong> - автоматическое доение коров</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-hard-hat"></i>
+                            <span><strong>Стройка</strong> - автоматический проклик чекпоинтов</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-mountain"></i>
+                            <span><strong>Шахта</strong> - автоматический проклик чекпоинтов в шахте</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-anchor"></i>
+                            <span><strong>Порт</strong> - автоматическое прохождение мини-игры в порту</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-running"></i>
+                            <span><strong>Автобег</strong> - автоматическое движение без зажатия W (САМ НЕ БЕГАЕТ)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image">
+                    <i class="fas fa-briefcase project-icon"></i> <!-- Иконка портфеля -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Блок релога и автологина -->
+        <section class="projects-section">
+            <h2 class="section-title">РЕЛОГ И АВТОЛОГИН</h2>
+            <div class="project-container">
+                <div class="project-content">
+                    <h3 class="project-name">СИСТЕМА АВТОМАТИЧЕСКОГО ПЕРЕЗАХОДА И ВХОДА В ИГРУ</h3>
+                    <p class="project-desc">Умная система автоматического перезахода и входа в игру. Настройте один раз - и больше не беспокойтесь об очередях и перезаходах. Идеально для активной и пассивной игры.</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-check-circle" style="color: #2ecc71;"></i>
+                            <span><strong>Релог</strong> - автоматический перезаход в указанное время (кнопка горит зеленым)</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-sync"></i>
+                            <span><strong>Два типа релога</strong> - обычный (полный перезаход) и Релог 2.0 (через F1)</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-door-open"></i>
+                            <span><strong>Нажмите для входа</strong> - запускает игру, проходит очередь и заходит на сервер</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span><strong>Автологин</strong> - автоматически вводит пароль при появлении окна логина (для активной игры)</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-user-clock"></i>
+                            <span><strong>АФК-Автологин</strong> - проходит очередь и заходит на место выхода (для пассивной игры)</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-cog"></i>
+                            <span><strong>Настройка времени</strong> - установите время релога по МСК и выберите персонажа</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image">
+                    <i class="fas fa-sign-in-alt project-icon"></i> <!-- Иконка входа -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок рулетки -->
+        <section class="projects-section">
+            <h2 class="section-title">РУЛЕТКА</h2>
+            <div class="project-container">
+                <div class="project-image">
+                    <i class="fas fa-dice project-icon"></i> <!-- Иконка игральной кости/рулетки -->
+                </div>
+                <div class="project-content">
+                    <h3 class="project-name">СИСТЕМА АВТОМАТИЧЕСКОЙ ПРОКРУТКИ КОЛЕСА УДАЧИ</h3>
+                    <p class="project-desc">Умный помощник для автоматической прокрутки Колеса Удачи. Просто активируйте систему - и она будет регулярно крутить рулетку за вас, увеличивая ваши шансы на выигрыш ценных призов!</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-check-circle" style="color: #2ecc71;"></i>
+                            <span><strong>Автоматическая активация</strong> - просто включите функцию (кнопка горит зеленым)</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-redo-alt"></i>
+                            <span><strong>Регулярные прокрутки</strong> - система автоматически крутит колесо каждые 4 часа</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-gift"></i>
+                            <span><strong>Автоматический сбор наград</strong> - забирает выигрыши без вашего участия</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-robot"></i>
+                            <span><strong>Работает в фоне</strong> - не мешает вашему игровому процессу</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок быстрого выхода -->
+        <section class="projects-section">
+            <h2 class="section-title">БЫСТРЫЙ ВЫХОД /EXIT</h2>
+            <div class="project-container">
+                <div class="project-content">
+                    <h3 class="project-name">СИСТЕМА МГНОВЕННОГО ВЫХОДА С АРЕНЫ</h3>
+                    <p class="project-desc">Молниеносный выход с арены одной комбинацией клавиш. Больше не нужно вручную печатать команды - просто нажмите ALT+Пробел и мгновенно покиньте матч!</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fas fa-check-circle" style="color: #2ecc71;"></i>
+                            <span><strong>Простая активация</strong> - включите функцию (кнопка горит зеленым цветом)</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-bolt"></i>
+                            <span><strong>Мгновенный выход</strong> - моментально пишет команду /exit в чат</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-keyboard"></i>
+                            <span><strong>Удобная комбинация</strong> - ALT + Пробел для быстрого выхода</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-running"></i>
+                            <span><strong>Идеально для арены</strong> - быстро покидайте матчи когда это необходимо</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span><strong>Безопасность</strong> - работает только когда функция активирована</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image">
+                    <i class="fas fa-door-closed project-icon"></i> <!-- Иконка выхода -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок Telegram бота -->
+        <section class="projects-section">
+            <h2 class="section-title">TELEGRAM БОТ</h2>
+            <div class="project-container">
+                <div class="project-content">
+                    <h3 class="project-name">УДАЛЕННОЕ УПРАВЛЕНИЕ ЧЕРЕЗ TELEGRAM</h3>
+                    <p class="project-desc">Полный контроль над игрой прямо с вашего телефона! Подключите бота к Telegram и управляйте функциями, отслеживайте статистику и получайте скриншоты игры удаленно.</p>
+                    <div class="project-features">
+                        <div class="project-feature">
+                            <i class="fab fa-telegram"></i>
+                            <span><strong>Удаленное управление</strong> - включайте/выключайте функции через телефон</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span><strong>Мониторинг игры</strong> - получайте скриншоты игры и статистику персонажа</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-server"></i>
+                            <span><strong>Управление подключением</strong> - переподключайтесь к серверу удаленно</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-car"></i>
+                            <span><strong>Работа с автомобилями</strong> - создание и управление объявлениями на 5vito</span>
+                        </div>
+                        <div class="project-feature">
+                            <i class="fas fa-list"></i>
+                            <span><strong>Множество команд</strong> - более 20 различных команд для полного контроля</span>
+                        </div>
+                    </div>
+                    <div class="telegram-commands">
+                        <h4>Основные команды:</h4>
+                        <div class="commands-grid">
+                            <span class="command">/stats</span>
+                            <span class="command">/screen</span>
+                            <span class="command">/pscreen</span>
+                            <span class="command">/wheel</span>
+                            <span class="command">/lottery</span>
+                            <span class="command">/antiafk</span>
+                            <span class="command">/relog</span>
+                            <span class="command">/entergame</span>
+                            <span class="command">/connect</span>
+                            <span class="command">/afkdemorgan</span>
+                            <span class="command">/character1</span>
+                            <span class="command">/character2</span>
+                            <span class="command">/character3</span>
+                            <span class="command">/event</span>
+                            <span class="command">/carrent</span>
+                            <span class="command">/commands</span>
+                            <span class="command">/car[1-49]</span>
+                            <span class="command">/carpush[1-49]</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-image">
+                    <i class="fab fa-telegram-plane project-icon"></i> <!-- Иконка Telegram -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Анимация появления элементов при скролле
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+
+            // Наблюдаем за всеми элементами с анимацией
+            document.querySelectorAll('h1, .subtitle, .projects-section, .telegram-block, .seo-text').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Создаем плавающие точки для фона
+            createFloatingDots();
+        });
+
+        function createFloatingDots() {
+            const container = document.querySelector('.floating-dots');
+            const dotsCount = 30;
+            
+            for (let i = 0; i < dotsCount; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                
+                // Случайная позиция
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                
+                // Случайный размер
+                const size = Math.random() * 4 + 2;
+                
+                // Случайная задержка анимации
+                const delay = Math.random() * 5;
+                
+                dot.style.left = `${posX}%`;
+                dot.style.top = `${posY}%`;
+                dot.style.width = `${size}px`;
+                dot.style.height = `${size}px`;
+                dot.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(dot);
+            }
+        }
+    </script>
+</body>
+</html>
