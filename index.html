@@ -3267,7 +3267,7 @@
                     <h3 class="card-title">GTA 5 RP</h3>
                     <div class="card-buttons">
                         <div class="button-row">
-                            <a href="https://github.com/nb75hg6f/nb75hg6f/releases/download/dwn/pepesoft.exe" class="card-btn download-btn" crossorigin="anonymous">
+                            <a href="https://github.com/nb75hg6f/nb75hg6f/releases/download/dwn/pepesoft.exe" class="card-btn download-btn">
                                 <i class="fas fa-download"></i> Скачать
                             </a>
                             <a href="https://funpay.com/lots/offer?id=43543471" class="card-btn key-btn">
@@ -3809,275 +3809,246 @@
 
     </div>
 <script>
-
-
-// Функция для анимированного счетчика
-function animateCounter(element, targetValue, duration = 1000) {
-    const startValue = parseInt(element.textContent.replace(/,/g, '')) || 0;
-    const increment = (targetValue - startValue) / (duration / 16);
-    let currentValue = startValue;
-    
-    const timer = setInterval(() => {
-        currentValue += increment;
-        if ((increment > 0 && currentValue >= targetValue) || 
-            (increment < 0 && currentValue <= targetValue)) {
-            currentValue = targetValue;
-            clearInterval(timer);
-            element.textContent = Math.floor(currentValue).toLocaleString();
-        } else {
-            element.textContent = Math.floor(currentValue).toLocaleString();
-        }
-    }, 16);
-}
-
-// Функция для загрузки данных из Google Sheets
-async function loadActiveUsersFromSheet() {
-    try {
-        const sheetId = '199XgoLbXIXPmMfWkgOAmaBHF0_3fRyrM4h8mLp-A2B8';
-        const sheetName = 'info';
-        const proxyUrl = 'https://api.allorigins.win/raw?url=';
-        const timestamp = Date.now();
-        const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}&t=${timestamp}`;
+    // Функция для анимированного счетчика
+    function animateCounter(element, targetValue, duration = 1000) {
+        const startValue = parseInt(element.textContent.replace(/,/g, '')) || 0;
+        const increment = (targetValue - startValue) / (duration / 16);
+        let currentValue = startValue;
         
-        console.log('🔄 Загрузка данных из таблицы...');
-        
-        const response = await fetch(proxyUrl + encodeURIComponent(sheetUrl), {
-            cache: 'no-store'
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const text = await response.text();
-        
-        if (!text || text.length < 50) {
-            throw new Error('Пустой ответ от таблицы');
-        }
-        
-        // Более надежный парсинг JSON
-        let jsonData;
-        try {
-            jsonData = JSON.parse(text.substring(47).slice(0, -2));
-        } catch (parseError) {
-            console.error('Ошибка парсинга JSON:', parseError);
-            const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(({.*})\);/);
-            if (jsonMatch && jsonMatch[1]) {
-                jsonData = JSON.parse(jsonMatch[1]);
+        const timer = setInterval(() => {
+            currentValue += increment;
+            if ((increment > 0 && currentValue >= targetValue) || 
+                (increment < 0 && currentValue <= targetValue)) {
+                currentValue = targetValue;
+                clearInterval(timer);
+                element.textContent = Math.floor(currentValue).toLocaleString();
             } else {
-                throw new Error('Не удалось распарсить JSON ответ');
+                element.textContent = Math.floor(currentValue).toLocaleString();
             }
-        }
-        
-        const rows = jsonData.table.rows;
-        
-        console.log('📊 Полученные данные:', rows);
-        
-        if (rows && rows.length > 0) {
-            let activeUsers = null;
-            
-            // Пробуем A1
-            if (rows[0].c && rows[0].c[0] && rows[0].c[0].v !== null) {
-                activeUsers = parseInt(rows[0].c[0].v);
-            }
-            // Пробуем B1 если A1 пустая
-            else if (rows[0].c && rows[0].c[1] && rows[0].c[1].v !== null) {
-                activeUsers = parseInt(rows[0].c[1].v);
-            }
-            
-            if (activeUsers && !isNaN(activeUsers)) {
-                console.log('✅ Активные пользователи загружены:', activeUsers);
-                return activeUsers;
-            } else {
-                throw new Error('Не найдено корректное число в таблице');
-            }
-        } else {
-            throw new Error('Нет строк данных в таблице');
-        }
-        
-    } catch (error) {
-        console.error('❌ Ошибка загрузки:', error.message);
-        return null;
+        }, 16);
     }
-}
 
-// Функция для установки значения счетчика (вызывается один раз)
-async function initializeActiveUsers() {
-    const usersElement = document.getElementById('activeUsers');
-    
-    try {
-        // Показываем индикатор загрузки
-        usersElement.classList.add('users-updating');
+    // Функция для загрузки данных из Google Sheets
+    async function loadActiveUsersFromSheet() {
+        try {
+            const sheetId = '199XgoLbXIXPmMfWkgOAmaBHF0_3fRyrM4h8mLp-A2B8';
+            const sheetName = 'info';
+            const proxyUrl = 'https://api.allorigins.win/raw?url=';
+            const timestamp = Date.now();
+            const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}&t=${timestamp}`;
+            
+            console.log('🔄 Загрузка данных из таблицы...');
+            
+            const response = await fetch(proxyUrl + encodeURIComponent(sheetUrl), {
+                cache: 'no-store'
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const text = await response.text();
+            
+            if (!text || text.length < 50) {
+                throw new Error('Пустой ответ от таблицы');
+            }
+            
+            // Более надежный парсинг JSON
+            let jsonData;
+            try {
+                jsonData = JSON.parse(text.substring(47).slice(0, -2));
+            } catch (parseError) {
+                console.error('Ошибка парсинга JSON:', parseError);
+                const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(({.*})\);/);
+                if (jsonMatch && jsonMatch[1]) {
+                    jsonData = JSON.parse(jsonMatch[1]);
+                } else {
+                    throw new Error('Не удалось распарсить JSON ответ');
+                }
+            }
+            
+            const rows = jsonData.table.rows;
+            
+            console.log('📊 Полученные данные:', rows);
+            
+            if (rows && rows.length > 0) {
+                let activeUsers = null;
+                
+                // Пробуем A1
+                if (rows[0].c && rows[0].c[0] && rows[0].c[0].v !== null) {
+                    activeUsers = parseInt(rows[0].c[0].v);
+                }
+                // Пробуем B1 если A1 пустая
+                else if (rows[0].c && rows[0].c[1] && rows[0].c[1].v !== null) {
+                    activeUsers = parseInt(rows[0].c[1].v);
+                }
+                
+                if (activeUsers && !isNaN(activeUsers)) {
+                    console.log('✅ Активные пользователи загружены:', activeUsers);
+                    return activeUsers;
+                } else {
+                    throw new Error('Не найдено корректное число в таблице');
+                }
+            } else {
+                throw new Error('Нет строк данных в таблице');
+            }
+            
+        } catch (error) {
+            console.error('❌ Ошибка загрузки:', error.message);
+            return null;
+        }
+    }
+
+    // Функция для установки значения счетчика (вызывается один раз)
+    async function initializeActiveUsers() {
+        const usersElement = document.getElementById('activeUsers');
         
-        const userCount = await loadActiveUsersFromSheet();
-        
-        // Убираем индикатор загрузки
-        usersElement.classList.remove('users-updating');
-        
-        if (userCount !== null) {
-            console.log(`🎯 Установка счетчика: ${userCount}`);
-            usersElement.classList.add('animate-up');
-            animateCounter(usersElement, userCount, 800);
-            setTimeout(() => usersElement.classList.remove('animate-up'), 800);
-        } else {
-            // Если не удалось загрузить, устанавливаем значение по умолчанию
-            console.log('⚠️ Установлено значение по умолчанию: 0');
+        try {
+            // Показываем индикатор загрузки
+            usersElement.classList.add('users-updating');
+            
+            const userCount = await loadActiveUsersFromSheet();
+            
+            // Убираем индикатор загрузки
+            usersElement.classList.remove('users-updating');
+            
+            if (userCount !== null) {
+                console.log(`🎯 Установка счетчика: ${userCount}`);
+                usersElement.classList.add('animate-up');
+                animateCounter(usersElement, userCount, 800);
+                setTimeout(() => usersElement.classList.remove('animate-up'), 800);
+            } else {
+                // Если не удалось загрузить, устанавливаем значение по умолчанию
+                console.log('⚠️ Установлено значение по умолчанию: 0');
+                usersElement.textContent = '0';
+            }
+            
+        } catch (error) {
+            console.error('❌ Ошибка инициализации:', error);
+            usersElement.classList.remove('users-updating');
             usersElement.textContent = '0';
         }
-        
-    } catch (error) {
-        console.error('❌ Ошибка инициализации:', error);
-        usersElement.classList.remove('users-updating');
-        usersElement.textContent = '0';
     }
-}
 
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    // Анимация появления карточки
-    const usersCard = document.querySelector('.active-users-card');
-    setTimeout(() => usersCard.classList.add('animate'), 500);
-    
-    // Однократная загрузка данных
-    initializeActiveUsers();
-    
-    // Убраны: 
-    // - setInterval для постоянных обновлений
-    // - обработчик visibilitychange
-});
-
-
-
-
-        // Оптимизированная версия скрипта
-        document.addEventListener('DOMContentLoaded', function() {
-            // Инициализация Lenis для плавного скролла
-            const lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                direction: 'vertical',
-                gestureDirection: 'vertical',
-                smooth: true,
-                smoothTouch: false,
-                touchMultiplier: 2,
-            });
-
-            function raf(time) {
-                lenis.raf(time);
-                requestAnimationFrame(raf);
-            }
-
-            requestAnimationFrame(raf);
-            
-            // Оптимизированная анимация при скролле
-            let ticking = false;
-            
-            function animateOnScroll() {
-                if (!ticking) {
-                    requestAnimationFrame(function() {
-                        const elements = document.querySelectorAll('.card, .section-title, .solution-item, .telegram-block, h1, .subtitle');
-                        
-                        elements.forEach(el => {
-                            const elementTop = el.getBoundingClientRect().top;
-                            const elementVisible = 150;
-                            
-                            if (elementTop < window.innerHeight - elementVisible) {
-                                el.classList.add('animate');
-                            }
-                        });
-                        
-                        ticking = false;
-                    });
-                    
-                    ticking = true;
-                }
-            }
-            
-            // Запуск анимации при загрузке
-            window.addEventListener('load', () => {
-                document.querySelector('h1').classList.add('animate');
-                document.querySelector('.subtitle').classList.add('animate');
-                
-                // Последовательная анимация карточек
-                const cards = document.querySelectorAll('.card');
-                cards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('animate');
-                    }, 100 * index);
-                });
-                
-                // Проверка при загрузке
-                animateOnScroll();
-            });
-            
-            // Проверка при скролле с троттлингом
-            let scrollTimeout;
-            window.addEventListener('scroll', function() {
-                if (!scrollTimeout) {
-                    scrollTimeout = setTimeout(function() {
-                        animateOnScroll();
-                        scrollTimeout = null;
-                    }, 10); // Троттлинг 10мс
-                }
-            });
-            
-            // Оптимизированная анимация телевизоров
-            function animateTVs() {
-                if (!ticking) {
-                    requestAnimationFrame(function() {
-                        const tvCards = document.querySelectorAll('.tv-card');
-                        
-                        tvCards.forEach((card, index) => {
-                            const cardTop = card.getBoundingClientRect().top;
-                            const cardVisible = 150;
-                            
-                            if (cardTop < window.innerHeight - cardVisible) {
-                                card.style.opacity = '1';
-                                card.style.transform = 'translateY(0) scale(1)';
-                            }
-                        });
-                        
-                        ticking = false;
-                    });
-                    
-                    ticking = true;
-                }
-            }
-            
-            // Инициализация состояния телевизоров
-            const tvCards = document.querySelectorAll('.tv-card');
-            tvCards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(50px) scale(0.9)';
-                card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            });
-            
-            // Запускаем анимацию при загрузке
-            setTimeout(animateTVs, 500);
-            
-            // Проверка при скролле
-            window.addEventListener('scroll', animateTVs);
-            
-            // Упрощенные обработчики для демонстрационных функций
-            document.querySelectorAll('.card-btn.download-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const cardTitle = this.closest('.card-content').querySelector('.card-title').textContent;
-                    alert(`Скачивание для ${cardTitle}... Это демонстрационная функция`);
-                });
-            });
-
-            document.querySelectorAll('.card-btn.key-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const cardTitle = this.closest('.card-content').querySelector('.card-title').textContent;
-                    alert(`Получение ключа для ${cardTitle}... Это демонстрационная функция`);
-                });
-            });
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        // Анимация появления карточки
+        const usersCard = document.querySelector('.active-users-card');
+        setTimeout(() => usersCard.classList.add('animate'), 500);
+        
+        // Однократная загрузка данных
+        initializeActiveUsers();
+        
+        // Инициализация Lenis для плавного скролла
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            smoothTouch: false,
+            touchMultiplier: 2,
         });
 
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
 
-    </script>
+        requestAnimationFrame(raf);
+        
+        // Оптимизированная анимация при скролле
+        let ticking = false;
+        
+        function animateOnScroll() {
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    const elements = document.querySelectorAll('.card, .section-title, .solution-item, .telegram-block, h1, .subtitle');
+                    
+                    elements.forEach(el => {
+                        const elementTop = el.getBoundingClientRect().top;
+                        const elementVisible = 150;
+                        
+                        if (elementTop < window.innerHeight - elementVisible) {
+                            el.classList.add('animate');
+                        }
+                    });
+                    
+                    ticking = false;
+                });
+                
+                ticking = true;
+            }
+        }
+    
+    // Запуск анимации при загрузке
+    window.addEventListener('load', () => {
+        document.querySelector('h1').classList.add('animate');
+        document.querySelector('.subtitle').classList.add('animate');
+        
+        // Последовательная анимация карточек
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('animate');
+            }, 100 * index);
+        });
+        
+        // Проверка при загрузке
+        animateOnScroll();
+    });
+    
+    // Проверка при скролле с троттлингом
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        if (!scrollTimeout) {
+            scrollTimeout = setTimeout(function() {
+                animateOnScroll();
+                scrollTimeout = null;
+            }, 10); // Троттлинг 10мс
+        }
+    });
+    
+    // Оптимизированная анимация телевизоров
+    function animateTVs() {
+        if (!ticking) {
+            requestAnimationFrame(function() {
+                const tvCards = document.querySelectorAll('.tv-card');
+                
+                tvCards.forEach((card, index) => {
+                    const cardTop = card.getBoundingClientRect().top;
+                    const cardVisible = 150;
+                    
+                    if (cardTop < window.innerHeight - cardVisible) {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0) scale(1)';
+                    }
+                });
+                
+                ticking = false;
+            });
+            
+            ticking = true;
+        }
+    }
+    
+    // Инициализация состояния телевизоров
+    const tvCards = document.querySelectorAll('.tv-card');
+    tvCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(50px) scale(0.9)';
+        card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    });
+    
+    // Запускаем анимацию при загрузке
+    setTimeout(animateTVs, 500);
+    
+    // Проверка при скролле
+    window.addEventListener('scroll', animateTVs);
+    
+    // ДЕМОНСТРАЦИОННЫЕ ОБРАБОТЧИКИ УДАЛЕНЫ - теперь кнопки работают нормально
+});
+</script>
 </body>
 
 </html>
