@@ -1074,7 +1074,8 @@
             }
         }
         .app-download-section {
-        background-color: #111111;
+        opacity: 0.8;
+        background-color: transparent;
         border-radius: 16px;
         padding: 50px 0;
         margin: 80px 0;
@@ -1084,6 +1085,7 @@
     }
     
         .app-download-section::before {
+            opacity: 0.8;
             content: "";
             position: absolute;
             top: 0;
@@ -1672,6 +1674,8 @@
         .app-buttons { animation-delay: 0.7s; }
 
         .projects-section {
+            border-radius: 10px;
+            opacity: 0.8;
             max-width: 1200px;
             margin: 60px auto;
             padding: 40px 30px;
@@ -1684,6 +1688,8 @@
         
         /* Лофт текстура фона */
         .projects-section::before {
+            border-radius: 10px;
+            opacity: 0.8;
             content: "";
             position: absolute;
             top: 0;
@@ -2021,7 +2027,7 @@
     flex: 1;
     padding: 10px 15px;
     border-radius: 8px;
-    font-size: 0.85rem;
+    font-size: 0.65rem;
     font-weight: 600;
     text-align: center;
     text-decoration: none;
@@ -2086,150 +2092,152 @@
 
 
         /* Добавляем новые стили для секции с видео-телевизорами */
-        .tv-section {
-            margin: 80px 0;
-            padding: 40px 0;
-        }
+.tv-section {
+    margin: 80px 0;
+    padding: 40px 0;
+}
 
-        .tv-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
+.tv-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
 
-        .tv-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-            position: relative;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
+.tv-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    position: relative;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
 
-        .tv-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.4),
-                0 0 60px rgba(255, 255, 255, 0.1);
-        }
+.tv-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 60px rgba(255, 255, 255, 0.1);
+}
 
-        .tv-screen {
-            position: relative;
-            width: 100%;
-            height: 200px;
-            background: #000;
-            overflow: hidden;
-            /* Запрещаем любые взаимодействия */
-            pointer-events: none;
-        }
+.tv-screen {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background: #000;
+    overflow: hidden;
+    /* Запрещаем любые взаимодействия */
+    pointer-events: none;
+}
 
-        .tv-screen iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            /* Запрещаем взаимодействия с iframe */
-            pointer-events: none;
-            /* Убираем возможные отступы */
-            margin: 0;
-            padding: 0;
-            display: block;
-        }
+.tv-screen iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    /* Запрещаем взаимодействия с iframe */
+    pointer-events: none;
+    /* Убираем возможные отступы */
+    margin: 0;
+    padding: 0;
+    display: block;
+    /* Убираем черные полосы - растягиваем видео на всю область */
+    object-fit: cover;
+}
 
-        /* Наложение для скрытия элементов YouTube */
-        .youtube-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 3;
-            animation: hideOverlay 0.5s ease-in-out 1s forwards;
-        }
+/* Улучшенное наложение для скрытия элементов YouTube */
+.youtube-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 3;
+    animation: hideOverlay 0.5s ease-in-out 1s forwards;
+}
 
-        @keyframes hideOverlay {
-            to {
-                background: rgba(0, 0, 0, 0);
-                pointer-events: none;
-            }
-        }
+@keyframes hideOverlay {
+    to {
+        background: rgba(0, 0, 0, 0);
+        pointer-events: none;
+    }
+}
 
-        .tv-frame {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 4;
-        }
+.tv-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 4;
+}
 
-        .tv-frame::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            box-shadow: 
-                inset 0 0 20px rgba(0, 0, 0, 0.5),
-                0 0 30px rgba(0, 0, 0, 0.3);
-        }
+.tv-frame::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 
+        inset 0 0 20px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(0, 0, 0, 0.3);
+}
 
-        /* Эффект отражения для реалистичности */
-        .tv-reflection {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                135deg,
-                transparent 0%,
-                rgba(255, 255, 255, 0.1) 50%,
-                transparent 100%
-            );
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            z-index: 2;
-        }
+/* Эффект отражения для реалистичности */
+.tv-reflection {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+}
 
-        .tv-card:hover .tv-reflection {
-            opacity: 1;
-        }
+.tv-card:hover .tv-reflection {
+    opacity: 1;
+}
 
-        /* Индикатор питания */
-        .tv-power {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #d53032;
-            box-shadow: 0 0 10px #d53032;
-            z-index: 5;
-            animation: powerPulse 2s infinite;
-        }
+/* Индикатор питания */
+.tv-power {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #d53032;
+    box-shadow: 0 0 10px #d53032;
+    z-index: 5;
+    animation: powerPulse 2s infinite;
+}
 
-        @keyframes powerPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
+@keyframes powerPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
 
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .tv-container {
-                grid-template-columns: 1fr;
-            }
-        }
+/* Адаптивность */
+@media (max-width: 768px) {
+    .tv-container {
+        grid-template-columns: 1fr;
+    }
+}
 
 
 
@@ -3089,8 +3097,170 @@
 
 
 
+.language-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.lang-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #333333;
+    color: #ffffff;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #555555;
+    transform: translateY(-2px);
+}
+
+.lang-label {
+    color: #cccccc;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.lang-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-gta);
+    z-index: 10000;
+    font-size: 14px;
+    backdrop-filter: blur(10px);
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
 
 
+
+
+.scrolling-gradient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -3;
+    background: linear-gradient(135deg, #00ff00, #00cc00, #009900, #006600);
+    background-size: 400% 400%;
+    transition: all 0.3s ease-out;
+    pointer-events: none;
+    filter: brightness(0.8) contrast(1.1);
+}
+
+
+
+.seo-text {
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 40px;
+    background: rgba(26, 26, 26, 0.7); /* Добавляем прозрачность */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(51, 51, 51, 0.5); /* Полупрозрачная граница */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+    backdrop-filter: blur(10px); /* Размытие фона */
+    -webkit-backdrop-filter: blur(10px);
+}
+
+
+.card {
+    flex: 1 1 calc(20% - 30px);
+    min-width: 220px;
+    background: rgba(255, 255, 255, 0.05); /* Уже прозрачный */
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+
+.active-users-card {
+    background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    border-radius: 25px;
+    padding: 50px 60px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.tv-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 0px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    position: relative;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.solution-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 60px;
+    gap: 40px;
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
 
 
 
@@ -3102,6 +3272,8 @@
     </style>
 </head>
 <body>
+    
+    <div class="scrolling-gradient-bg" id="scrollingGradient"></div>
     <div class="gradient-bg"></div>
     <div class="floating-dots" id="floatingDots"></div>
     
@@ -3794,7 +3966,7 @@
                 </div>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
                 <footer style="
-                background: #000000;
+                
                 padding: 20px 0;
                 text-align: center;
                 font-family: Arial, sans-serif;
@@ -3805,182 +3977,321 @@
                     © 2025 <span style="font-weight: bold; color: #ffffff;">pepesoft</span> | Все права защищены
 
                 </div>
+
         </footer>
 
     </div>
 <script>
-    // Функция для анимированного счетчика
-    function animateCounter(element, targetValue, duration = 1000) {
-        const startValue = parseInt(element.textContent.replace(/,/g, '')) || 0;
-        const increment = (targetValue - startValue) / (duration / 16);
-        let currentValue = startValue;
-        
-        const timer = setInterval(() => {
-            currentValue += increment;
-            if ((increment > 0 && currentValue >= targetValue) || 
-                (increment < 0 && currentValue <= targetValue)) {
-                currentValue = targetValue;
-                clearInterval(timer);
-                element.textContent = Math.floor(currentValue).toLocaleString();
-            } else {
-                element.textContent = Math.floor(currentValue).toLocaleString();
-            }
-        }, 16);
-    }
-
     // Функция для загрузки данных из Google Sheets
-    async function loadActiveUsersFromSheet() {
-        try {
-            const sheetId = '199XgoLbXIXPmMfWkgOAmaBHF0_3fRyrM4h8mLp-A2B8';
-            const sheetName = 'info';
-            const proxyUrl = 'https://api.allorigins.win/raw?url=';
-            const timestamp = Date.now();
-            const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}&t=${timestamp}`;
-            
-            console.log('🔄 Загрузка данных из таблицы...');
-            
-            const response = await fetch(proxyUrl + encodeURIComponent(sheetUrl), {
-                cache: 'no-store'
-            });
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const text = await response.text();
-            
-            if (!text || text.length < 50) {
-                throw new Error('Пустой ответ от таблицы');
-            }
-            
-            // Более надежный парсинг JSON
-            let jsonData;
-            try {
-                jsonData = JSON.parse(text.substring(47).slice(0, -2));
-            } catch (parseError) {
-                console.error('Ошибка парсинга JSON:', parseError);
-                const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(({.*})\);/);
-                if (jsonMatch && jsonMatch[1]) {
-                    jsonData = JSON.parse(jsonMatch[1]);
-                } else {
-                    throw new Error('Не удалось распарсить JSON ответ');
-                }
-            }
-            
-            const rows = jsonData.table.rows;
-            
-            console.log('📊 Полученные данные:', rows);
-            
-            if (rows && rows.length > 0) {
-                let activeUsers = null;
-                
-                // Пробуем A1
-                if (rows[0].c && rows[0].c[0] && rows[0].c[0].v !== null) {
-                    activeUsers = parseInt(rows[0].c[0].v);
-                }
-                // Пробуем B1 если A1 пустая
-                else if (rows[0].c && rows[0].c[1] && rows[0].c[1].v !== null) {
-                    activeUsers = parseInt(rows[0].c[1].v);
-                }
-                
-                if (activeUsers && !isNaN(activeUsers)) {
-                    console.log('✅ Активные пользователи загружены:', activeUsers);
-                    return activeUsers;
-                } else {
-                    throw new Error('Не найдено корректное число в таблице');
-                }
-            } else {
-                throw new Error('Нет строк данных в таблице');
-            }
-            
-        } catch (error) {
-            console.error('❌ Ошибка загрузки:', error.message);
-            return null;
-        }
-    }
-
-    // Функция для установки значения счетчика (вызывается один раз)
-    async function initializeActiveUsers() {
-        const usersElement = document.getElementById('activeUsers');
+async function loadActiveUsersFromSheet() {
+    try {
+        const sheetId = '199XgoLbXIXPmMfWkgOAmaBHF0_3fRyrM4h8mLp-A2B8';
+        const sheetName = 'info';
+        const proxyUrl = 'https://api.allorigins.win/raw?url=';
+        const timestamp = Date.now();
+        const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}&t=${timestamp}`;
         
+        console.log('🔄 Загрузка данных из таблицы...');
+        
+        const response = await fetch(proxyUrl + encodeURIComponent(sheetUrl), {
+            cache: 'no-store'
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const text = await response.text();
+        
+        if (!text || text.length < 50) {
+            throw new Error('Пустой ответ от таблицы');
+        }
+        
+        // Более надежный парсинг JSON
+        let jsonData;
         try {
-            // Показываем индикатор загрузки
-            usersElement.classList.add('users-updating');
-            
-            const userCount = await loadActiveUsersFromSheet();
-            
-            // Убираем индикатор загрузки
-            usersElement.classList.remove('users-updating');
-            
-            if (userCount !== null) {
-                console.log(`🎯 Установка счетчика: ${userCount}`);
-                usersElement.classList.add('animate-up');
-                animateCounter(usersElement, userCount, 800);
-                setTimeout(() => usersElement.classList.remove('animate-up'), 800);
+            jsonData = JSON.parse(text.substring(47).slice(0, -2));
+        } catch (parseError) {
+            console.error('Ошибка парсинга JSON:', parseError);
+            const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(({.*})\);/);
+            if (jsonMatch && jsonMatch[1]) {
+                jsonData = JSON.parse(jsonMatch[1]);
             } else {
-                // Если не удалось загрузить, устанавливаем значение по умолчанию
-                console.log('⚠️ Установлено значение по умолчанию: 0');
-                usersElement.textContent = '0';
+                throw new Error('Не удалось распарсить JSON ответ');
+            }
+        }
+        
+        const rows = jsonData.table.rows;
+        
+        console.log('📊 Полученные данные:', rows);
+        
+        if (rows && rows.length > 0) {
+            let activeUsers = null;
+            
+            // Пробуем A1
+            if (rows[0].c && rows[0].c[0] && rows[0].c[0].v !== null) {
+                activeUsers = parseInt(rows[0].c[0].v);
+            }
+            // Пробуем B1 если A1 пустая
+            else if (rows[0].c && rows[0].c[1] && rows[0].c[1].v !== null) {
+                activeUsers = parseInt(rows[0].c[1].v);
             }
             
-        } catch (error) {
-            console.error('❌ Ошибка инициализации:', error);
-            usersElement.classList.remove('users-updating');
+            if (activeUsers && !isNaN(activeUsers)) {
+                console.log('✅ Активные пользователи загружены:', activeUsers);
+                return activeUsers;
+            } else {
+                throw new Error('Не найдено корректное число в таблице');
+            }
+        } else {
+            throw new Error('Нет строк данных в таблице');
+        }
+        
+    } catch (error) {
+        console.error('❌ Ошибка загрузки:', error.message);
+        return null;
+    }
+}
+
+// Функция для установки значения счетчика (вызывается один раз)
+async function initializeActiveUsers() {
+    const usersElement = document.getElementById('activeUsers');
+    
+    try {
+        // Показываем индикатор загрузки
+        usersElement.classList.add('users-updating');
+        
+        const userCount = await loadActiveUsersFromSheet();
+        
+        // Убираем индикатор загрузки
+        usersElement.classList.remove('users-updating');
+        
+        if (userCount !== null) {
+            console.log(`🎯 Установка счетчика: ${userCount}`);
+            // Просто устанавливаем значение без анимации
+            usersElement.textContent = userCount.toLocaleString();
+        } else {
+            // Если не удалось загрузить, устанавливаем значение по умолчанию
+            console.log('⚠️ Установлено значение по умолчанию: 0');
             usersElement.textContent = '0';
         }
+        
+    } catch (error) {
+        console.error('❌ Ошибка инициализации:', error);
+        usersElement.classList.remove('users-updating');
+        usersElement.textContent = '0';
     }
+}
 
-    // Инициализация при загрузке страницы
-    document.addEventListener('DOMContentLoaded', function() {
-        // Анимация появления карточки
-        const usersCard = document.querySelector('.active-users-card');
-        setTimeout(() => usersCard.classList.add('animate'), 500);
-        
-        // Однократная загрузка данных
-        initializeActiveUsers();
-        
-        // Инициализация Lenis для плавного скролла
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            smoothTouch: false,
-            touchMultiplier: 2,
-        });
-
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
+function initScrollingBackground() {
+    const gradientBg = document.getElementById('scrollingGradient');
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    
+    // Улучшенная цветовая схема с плавными переходами
+    const colorSchemes = [
+        { 
+            position: 0, 
+            colors: ['#000000', '#000000', '#000000', '#000000']  // Яркий зеленый вверху
+        },
+        { 
+            position: 0.2, 
+            colors: ['#006600', '#008866', '#00aa99', '#00cccc']  // Переход к бирюзовому
+        },
+        { 
+            position: 0.4, 
+            colors: ['#00cccc', '#00aacc', '#0088cc', '#0066cc']  // Бирюзовый → голубой
+        },
+        { 
+            position: 0.6, 
+            colors: ['#0066cc', '#0088cc', '#00aacc', '#00cccc']  // Голубой → бирюзовый
+        },
+        { 
+            position: 0.8, 
+            colors: ['#00cccc', '#00aa99', '#008866', '#006600']  // Бирюзовый → зеленый
+        },
+        { 
+            position: 1, 
+            colors: ['#00ff00', '#00ff00', '#00ff00', '#00ff00']  
         }
-
-        requestAnimationFrame(raf);
+    ];
+    
+    function updateBackground() {
+        const scrollY = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        let scrollProgress = Math.min(scrollY / docHeight, 1);
         
-        // Оптимизированная анимация при скролле
-        let ticking = false;
+        // Плавное замедление в конце скролла
+        if (scrollProgress > 0.9) {
+            scrollProgress = 0.9 + (scrollProgress - 0.9) * 0.3;
+        }
         
-        function animateOnScroll() {
-            if (!ticking) {
-                requestAnimationFrame(function() {
-                    const elements = document.querySelectorAll('.card, .section-title, .solution-item, .telegram-block, h1, .subtitle');
-                    
-                    elements.forEach(el => {
-                        const elementTop = el.getBoundingClientRect().top;
-                        const elementVisible = 150;
-                        
-                        if (elementTop < window.innerHeight - elementVisible) {
-                            el.classList.add('animate');
-                        }
-                    });
-                    
-                    ticking = false;
-                });
-                
-                ticking = true;
+        // Находим текущую и следующую цветовые схемы
+        let currentScheme = colorSchemes[0];
+        let nextScheme = colorSchemes[1];
+        
+        for (let i = 0; i < colorSchemes.length - 1; i++) {
+            if (scrollProgress >= colorSchemes[i].position && scrollProgress <= colorSchemes[i + 1].position) {
+                currentScheme = colorSchemes[i];
+                nextScheme = colorSchemes[i + 1];
+                break;
             }
         }
+        
+        // Интерполяция между цветовыми схемами
+        const schemeProgress = (scrollProgress - currentScheme.position) / 
+                             (nextScheme.position - currentScheme.position);
+        
+        // Плавная интерполяция цветов
+        const interpolatedColors = currentScheme.colors.map((color, index) => {
+            return interpolateColor(color, nextScheme.colors[index], schemeProgress);
+        });
+        
+        // Применяем новый градиент
+        gradientBg.style.background = `linear-gradient(135deg, ${interpolatedColors.join(', ')})`;
+        gradientBg.style.backgroundSize = '400% 400%';
+        
+        // Более плавная анимация позиции градиента
+        const bgPosX = Math.sin(scrollProgress * Math.PI * 2) * 20;
+        const bgPosY = Math.cos(scrollProgress * Math.PI) * 10;
+        gradientBg.style.backgroundPosition = `${50 + bgPosX}% ${50 + bgPosY}%`;
+        
+        ticking = false;
+    }
     
+    // Функция интерполяции цвета
+    function interpolateColor(color1, color2, factor) {
+        const hex1 = color1.replace('#', '');
+        const hex2 = color2.replace('#', '');
+        
+        const r1 = parseInt(hex1.substring(0, 2), 16);
+        const g1 = parseInt(hex1.substring(2, 4), 16);
+        const b1 = parseInt(hex1.substring(4, 6), 16);
+        
+        const r2 = parseInt(hex2.substring(0, 2), 16);
+        const g2 = parseInt(hex2.substring(2, 4), 16);
+        const b2 = parseInt(hex2.substring(4, 6), 16);
+        
+        const r = Math.round(r1 + (r2 - r1) * factor);
+        const g = Math.round(g1 + (g2 - g1) * factor);
+        const b = Math.round(b1 + (b2 - b1) * factor);
+        
+        return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+    }
+    
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        
+        if (!ticking) {
+            requestAnimationFrame(updateBackground);
+            ticking = true;
+        }
+    }
+    
+    // Слушаем событие скролла
+    window.addEventListener('scroll', onScroll, { passive: true });
+    
+    // Инициализируем начальное состояние
+    updateBackground();
+}
+
+// Флаг для контроля автоматического скролла
+let isVideoEndScrollingEnabled = true;
+
+// Функция для управления видео и скроллом
+function initVideoScrollControl() {
+    const videos = document.querySelectorAll('video');
+    
+    videos.forEach(video => {
+        // Сбрасываем состояние видео
+        video.currentTime = 0;
+        video.muted = true; // Мьютим для автовоспроизведения
+        
+        // Обработчик окончания видео
+        video.addEventListener('ended', function() {
+            if (isVideoEndScrollingEnabled) {
+                // Плавный скролл к следующему блоку только если разрешено
+                const nextSection = this.closest('section').nextElementSibling;
+                if (nextSection) {
+                    nextSection.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+        
+        // Обработчик клика по видео - переключает скролл
+        video.addEventListener('click', function() {
+            isVideoEndScrollingEnabled = !isVideoEndScrollingEnabled;
+            console.log('Автоскролл после видео:', isVideoEndScrollingEnabled ? 'включен' : 'выключен');
+            
+            // Визуальная индикация (опционально)
+            this.style.border = isVideoEndScrollingEnabled ? '2px solid #00ff00' : '2px solid #ff0000';
+            setTimeout(() => {
+                this.style.border = 'none';
+            }, 1000);
+        });
+    });
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализация плавного фона
+    initScrollingBackground();
+    
+    // Инициализация контроля видео и скролла
+    initVideoScrollControl();
+    
+    // Анимация появления карточки
+    const usersCard = document.querySelector('.active-users-card');
+    setTimeout(() => usersCard.classList.add('animate'), 500);
+    
+    // Однократная загрузка данных
+    initializeActiveUsers();
+    
+    // Инициализация Lenis для плавного скролла
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        smoothTouch: false,
+        touchMultiplier: 2,
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+    
+    // Оптимизированная анимация при скролле
+    let ticking = false;
+    
+    function animateOnScroll() {
+        if (!ticking) {
+            requestAnimationFrame(function() {
+                const elements = document.querySelectorAll('.card, .section-title, .solution-item, .telegram-block, h1, .subtitle');
+                
+                elements.forEach(el => {
+                    const elementTop = el.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        el.classList.add('animate');
+                    }
+                });
+                
+                ticking = false;
+            });
+            
+            ticking = true;
+        }
+    }
+
     // Запуск анимации при загрузке
     window.addEventListener('load', () => {
         document.querySelector('h1').classList.add('animate');
@@ -4009,7 +4320,7 @@
         }
     });
     
-    // Оптимизированная анимация телевизоров
+    // УПРОЩЕННАЯ анимация телевизоров - убраны конфликтующие стили
     function animateTVs() {
         if (!ticking) {
             requestAnimationFrame(function() {
@@ -4021,7 +4332,7 @@
                     
                     if (cardTop < window.innerHeight - cardVisible) {
                         card.style.opacity = '1';
-                        card.style.transform = 'translateY(0) scale(1)';
+                        card.style.transform = 'translateY(0)';
                     }
                 });
                 
@@ -4032,21 +4343,12 @@
         }
     }
     
-    // Инициализация состояния телевизоров
-    const tvCards = document.querySelectorAll('.tv-card');
-    tvCards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(50px) scale(0.9)';
-        card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-    });
+    // Убрана инициализация состояния телевизоров - они теперь отображаются нормально
     
-    // Запускаем анимацию при загрузке
-    setTimeout(animateTVs, 500);
-    
-    // Проверка при скролле
+    // Запускаем анимацию телевизоров при скролле
     window.addEventListener('scroll', animateTVs);
-    
-    // ДЕМОНСТРАЦИОННЫЕ ОБРАБОТЧИКИ УДАЛЕНЫ - теперь кнопки работают нормально
+    // И при загрузке
+    animateTVs();
 });
 </script>
 </body>
