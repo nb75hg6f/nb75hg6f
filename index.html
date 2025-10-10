@@ -3263,6 +3263,141 @@
 }
 
 
+/* Стили для галереи */
+.gallery-section {
+    margin: 80px 0;
+    padding: 40px 0;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    height: fit-content;
+}
+
+.gallery-item:hover {
+    transform: translateY(-8px) scale(1.02); /* Уменьшил подъем */
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.4),
+        0 0 50px rgba(255, 255, 255, 0.08);
+}
+
+.gallery-image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.gallery-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    border-radius: 12px;
+    transition: transform 0.6s ease; /* Увеличил время анимации */
+}
+
+.gallery-item:hover .gallery-image {
+    transform: scale(1.03); /* Еще уменьшил масштаб для плавности */
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    padding: 25px 20px 15px;
+    transform: translateY(100%);
+    transition: transform 0.5s ease; /* Вернул нормальное время */
+    opacity: 0;
+    transition: all 0.4s ease; /* Добавил плавное появление */
+}
+
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.gallery-overlay h3 {
+    color: white;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+    transform: translateY(20px);
+    transition: transform 0.3s ease 0.1s; /* Задержка для текста */
+}
+
+.gallery-overlay p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.4;
+    transform: translateY(20px);
+    transition: transform 0.3s ease 0.2s; /* Задержка для описания */
+}
+
+.gallery-item:hover .gallery-overlay h3,
+.gallery-item:hover .gallery-overlay p {
+    transform: translateY(0);
+}
+
+/* Адаптивность галереи */
+@media (max-width: 1024px) {
+    .gallery-container {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .gallery-section {
+        margin: 60px 0;
+        padding: 30px 0;
+    }
+    
+    .gallery-item:hover {
+        transform: translateY(-5px) scale(1.01); /* Меньшая анимация на мобильных */
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-container {
+        gap: 12px;
+    }
+    
+    .gallery-overlay {
+        padding: 20px 15px 12px;
+    }
+    
+    .gallery-overlay h3 {
+        font-size: 1.1rem;
+    }
+    
+    .gallery-overlay p {
+        font-size: 0.85rem;
+    }
+}
+
+
 
 
 
@@ -3752,7 +3887,130 @@
                     <span class="status-text">Активно</span>
                 </div>
             </div>
-            
+        
+
+        <!-- Блок с галереей изображений -->
+        <section class="gallery-section">
+            <h2 class="section-title">Галерея наших проектов</h2>
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <img src="./gallery8.png" alt="CS2 Macro" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Majestic</h3>
+                        
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="./gallery11.png" alt="CS2 Macro" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>GRAND RP</h3>
+                        
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="./gallery12.png" alt="CS2 Macro" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>AMAZING RP</h3>
+                        
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="./gallery13.png" alt="CS2 Macro" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>GTA TRIGGER</h3>
+                        
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="./gallery14.png" alt="CS2 Macro" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Profit Calculator</h3>
+                        
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="./gallery17.png" alt="CS2 Macro" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Albion Online Fish Bot</h3>
+                        
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="./gallery18.png" alt="CS2 Macro" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>GTA 5 RP</h3>
+                        
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="gallery-item">
+                    <img src="./gallery1.png" alt="Интерфейс бота GTA 5 RP" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Lineage II</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="./gallery3.png" alt="Статистика Albion Online" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Majestic</h3>
+                        <p>Батл-пасс</p>       
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="./gallery4.png" alt="Telegram управление" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Majestic</h3>
+
+                        
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="./gallery5.png" alt="Настройки Majestic RP" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Majestic</h3>
+                        
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="./gallery6.png" alt="Russian Fishing 4" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Majestic</h3>
+                        
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="./gallery7.png" alt="CS2 Macro" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <h3>Majestic</h3>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+
+    
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </section>  
         
         <div class="solutions-section">
             <h2 class="section-title">Хотите упростить игру?</h2>
@@ -4096,19 +4354,31 @@ function initScrollingBackground() {
 },
 { 
     position: 0.2, 
-    colors: ['#000011', '#000011', '#000011', '#000011']  // Почти черный с синим подтоном
+    colors: ['#000022', '#000011', '#000033', '#000022']  // Темно-синий
 },
 { 
     position: 0.4, 
-    colors: ['#000022', '#000022', '#000022', '#000022']  // Очень темный сине-черный
+    colors: ['#001144', '#000833', '#002255', '#001144']  // Синий
+},
+{ 
+    position: 0.5, 
+    colors: ['#003366', '#001a33', '#004488', '#003366']  // Яркий синий
 },
 { 
     position: 0.6, 
-    colors: ['#000011', '#000011', '#000011', '#000011']  // Возврат к более темному
+    colors: ['#005588', '#002a44', '#0066aa', '#005588']  // Голубой
+},
+{ 
+    position: 0.7, 
+    colors: ['#0077bb', '#003c5d', '#0088cc', '#0077bb']  // Яркий голубой
 },
 { 
     position: 0.8, 
-    colors: ['#FF0000', '#CC0000', '#990000', '#660000']  // Почти черный
+    colors: ['#003366', '#001a33', '#004488', '#003366']  // Синий
+},
+{ 
+    position: 0.9, 
+    colors: ['#000022', '#000011', '#000033', '#000022']  // Темно-синий
 },
 { 
     position: 1, 
@@ -4354,4 +4624,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 
 </html>
-
