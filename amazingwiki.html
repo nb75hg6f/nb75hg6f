@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="MobileOptimized" content="width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --heading-font: 'Montserrat', sans-serif;
+            --body-font: 'Montserrat', sans-serif;
+            --accent-font: 'Montserrat', serif;
+            --header-spacing: 160px;
+        }
+        
+        html {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            touch-action: manipulation;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+        }
+        
+        /* Видео-фон */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        /* Затемнение фона для лучшей читаемости */
+        .video-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        body {
+            background: #000000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+            overflow-x: hidden;
+            cursor: crosshair;
+            opacity: 0;
+            animation: fadeInBody 0.5s ease 1.5s forwards;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Прелоадер */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .loader-circle {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 3px solid transparent;
+            border-top: 3px solid #ffffff;
+            border-radius: 50%;
+            animation: rotate 2s linear infinite;
+        }
+        
+        .loader-circle:nth-child(2) {
+            width: 160px;
+            height: 160px;
+            border-top: 3px solid #cccccc;
+            animation: rotate 1.8s linear infinite reverse;
+        }
+        
+        .loader-circle:nth-child(3) {
+            width: 120px;
+            height: 120px;
+            border-top: 3px solid #999999;
+            animation: rotate 2.2s linear infinite;
+        }
+        
+        .loader-logo {
+            position: absolute;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+        
+        .loader-logo span {
+            display: inline-block;
+            opacity: 0;
+            animation: fadeInLetter 0.5s ease forwards;
+        }
+        
+        .loader-logo span:nth-child(1) { animation-delay: 0.1s; }
+        .loader-logo span:nth-child(2) { animation-delay: 0.2s; }
+        .loader-logo span:nth-child(3) { animation-delay: 0.3s; }
+        .loader-logo span:nth-child(4) { animation-delay: 0.4s; }
+        .loader-logo span:nth-child(5) { animation-delay: 0.5s; }
+        .loader-logo span:nth-child(6) { animation-delay: 0.6s; }
+        .loader-logo span:nth-child(7) { animation-delay: 0.7s; }
+        
+        .loading-text {
+            margin-top: 40px;
+            font-size: 1rem;
+            color: #888888;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        .loading-text::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 100%;
+            background: #ffffff;
+            right: -8px;
+            animation: blink 0.8s infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeInLetter {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        @keyframes fadeInBody {
+            to { opacity: 1; }
+        }
+        
+        /* Анимация появления контента */
+        .header, .image-container {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease 1.6s forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 900px;
+            z-index: 10;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #00dbde, #fc00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Основной контейнер с относительной системой координат */
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            margin: var(--header-spacing) auto 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Внешняя обертка для изображения */
+        .image-wrapper {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        /* Основное изображение с сохранением оригинальных пропорций */
+        .main-image {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: none;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        /* Контейнер для триггерных точек */
+        .triggers-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Пропускаем события к изображению */
+        }
+        
+        /* Триггерные точки - теперь абсолютные относительно overlay */
+        .trigger-point {
+            position: absolute;
+            width: 60px;
+            height: 20px;
+            z-index: 10;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            box-shadow: none;
+            pointer-events: auto; /* Включаем события для самих кнопок */
+        }
+
+        .trigger-point:hover {
+            background: linear-gradient(
+                to top, 
+                rgba(255, 255, 255, 0.15) 0%,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.05) 0%,
+                transparent 0%
+            );
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            transform: scale(1.05);
+        }
+
+        .trigger-point::before {
+            content: '';
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-right: 6px;
+        }
+
+        .trigger-point::after {
+            content: '';
+            color: transparent;
+            font-size: 0rem;
+            font-weight: 500;
+            letter-spacing: 0px;
+        }
+        
+        /* Контейнер с текстом */
+        .text-container {
+            position: fixed;
+            z-index: 100;
+            text-align: center;
+            padding: 25px;
+            opacity: 0;
+            background: rgba(0, 0, 0, 0.95);
+            border-radius: 12px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 500px;
+            max-width: 500px;
+            min-width: 300px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            transform: translateY(20px) scale(0.95);
+            transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            display: none;
+            overflow: hidden;
+            will-change: transform, opacity;
+            resize: none;
+        }
+        
+        .text-container.visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .area-title {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(90deg, #00dbde, #fc00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+        
+        .typing-text {
+            font-size: 1rem;
+            line-height: 1.5;
+            position: relative;
+            color: rgba(255, 255, 255, 0.95);
+            min-height: 24px;
+            white-space: normal;
+            word-wrap: break-word;
+            text-align: left;
+            padding: 0 10px;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+        
+        /* Адаптивность для триггеров */
+        @media (max-width: 768px) {
+            .trigger-point {
+                width: 50px;
+                height: 18px;
+                font-size: 0.8rem;
+            }
+            .trigger-point::before {
+                font-size: 0.9rem;
+                margin-right: 4px;
+            }
+            
+            .text-container {
+                width: 350px;
+                max-width: 350px;
+                min-width: 250px;
+                padding: 20px;
+            }
+            
+            .area-title {
+                font-size: 1.4rem;
+            }
+            
+            .typing-text {
+                font-size: 0.95rem;
+            }
+            
+            .loader-container {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .loader-circle {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .loader-circle:nth-child(2) {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .loader-circle:nth-child(3) {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .loader-logo {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .trigger-point {
+                width: 40px;
+                height: 16px;
+                font-size: 0.75rem;
+            }
+            .trigger-point::before {
+                font-size: 0.8rem;
+                margin-right: 3px;
+            }
+            
+            .text-container {
+                width: 300px;
+                max-width: 300px;
+                min-width: 200px;
+                padding: 18px;
+            }
+            
+            .area-title {
+                font-size: 1.3rem;
+            }
+            
+            .typing-text {
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .loader-container {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .loader-circle {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .loader-circle:nth-child(2) {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .loader-circle:nth-child(3) {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .loader-logo {
+                font-size: 1.5rem;
+            }
+            
+            .loading-text {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 1100px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Видео-фон компонент -->
+    <div class="video-background">
+        <video id="bg-video" autoplay muted loop playsinline>
+            <source src="./background-video.mp4" type="video/mp4">
+            <source src="https://github.com/nb75hg6f/nb75hg6f/releases/download/vidsite/background-video-amazing.webm" type="video/webm">
+            Ваш браузер не поддерживает видео.
+        </video>
+    </div>
+
+
+    <!-- Прелоадер компонент -->
+    <div class="preloader" id="preloader">
+        <div class="loader-container">
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="loader-logo">
+                <span>A</span><span>M</span><span>A</span><span>Z</span><span>I</span><span>N</span><span>G</span>
+            </div>
+        </div>
+        <div class="loading-text">Загрузка</div>
+    </div>
+    
+    <div class="image-container">
+        <div class="image-wrapper">
+            <!-- Основное изображение -->
+            <img src="./amazingmenu.png" alt="Интерактивная инфографика" class="main-image" id="main-image">
+            
+            <!-- Overlay для триггеров -->
+            <div class="triggers-overlay" id="triggers-overlay">
+                <!-- Триггерные точки с позициями в процентах -->
+                <div class="trigger-point" 
+                     data-top="12" data-left="17"
+                     data-text="Перед запуском этой функции необходимо войти в мини-игру на карьере, после чего скрипт автоматически начнёт её прохождение."
+                     ></div>
+
+            <div class="triggers-overlay" id="triggers-overlay">
+                <!-- Триггерные точки с позициями в процентах -->
+                <div class="trigger-point" 
+                     data-top="16.5" data-left="17"
+                     data-text="Перед активацией этой функции соберите все необходимые материалы и встаньте за рабочий станок на заводе, после запуска скрипт будет автоматически складывать предметы по шаблону и выполнять крафт."
+                     ></div>
+
+            <div class="triggers-overlay" id="triggers-overlay">
+                <!-- Триггерные точки с позициями в процентах -->
+                <div class="trigger-point" 
+                     data-top="20.5" data-left="17"
+                     data-text="При активации функция автоматически проходит мини-игру по рубке и распилу дерева на лесопилке."
+                     ></div>
+
+            <div class="triggers-overlay" id="triggers-overlay">
+                <!-- Триггерные точки с позициями в процентах -->
+                <div class="trigger-point" 
+                     data-top="25.5" data-left="17"
+                     data-text="При включении этой функции скрипт автоматически проходит мини-игру по уборке мусорных куч, разбросанных по дорогам, на уборочной машине."
+                     ></div>
+
+            <div class="triggers-overlay" id="triggers-overlay">
+                <!-- Триггерные точки с позициями в процентах -->
+                <div class="trigger-point" 
+                     data-top="22.5" data-left="39"
+                     data-text="При включении этой функции нажмите кнопку 2 в игре, чтобы персонаж начал бежать, а для остановки сначала нажмите Shift, затем X; после остановки вы можете снова активировать бег, повторно нажав кнопку 2, не перезапуская саму функцию в боте."
+                     ></div>
+
+                
+
+                <!-- КНОПКА НАСТРОЙКИ -->
+                <div class="trigger-point settings-trigger" 
+                     data-top="80.8" data-left="15.5"
+                     data-text="в этом разделе вы управляете работой приложения. Здесь можно настроить горячие клавиши для сворачивания/разворачивания окна, проверять обновления, переходить по ссылкам в социальные сети, видеть сколько дней осталось до конца подписки, а также регулировать другие параметры для удобного использования программы."
+                     data-link="./amazingwiki1.html"></div>
+
+                <div class="trigger-point" 
+                     data-top="86.2" data-left="15.5"
+                     data-text="это раздел для ваших вопросов, предложений и сообщений об ошибках. Напишите нам — мы внимательно изучим ваше обращение и постараемся помочь или учесть ваше мнение в дальнейшем развитии."
+                     ></div>
+
+                <!-- язык -->
+                <div class="trigger-point" 
+                     data-top="86.5" data-left="49.5"
+                     data-text="переключение языков интерфейса в программе доступно в настройках. В разделе «Язык» или «Language» можно выбрать один из поддерживаемых вариантов отображения текста меню и элементов управления. Изменения применяются мгновенно или после перезапуска приложения. Эта функция позволяет комфортно работать в локализованной среде."
+                     ></div>
+
+                <!-- лог -->
+                <div class="trigger-point" 
+                     data-top="86.5" data-left="74.5"
+                     data-text="поток данных, в который программа автоматически записывает информацию о своих действиях в режиме реального времени. В него попадают ключевые события: запуск и завершение работы, успешные операции, критические ошибки и предупреждения. Лог служит для технической диагностики, позволяя разработчикам и администраторам понять, что именно происходило в системе, даже если интерфейс программы не отображает этих деталей. Проще говоря, это «дневник» или «черный ящик» приложения."
+                     ></div>
+
+                <!-- палитра -->
+                <div class="trigger-point" 
+                     data-top="92.8" data-left="93.5"
+                     data-text="кастомизация цветовой палитры позволяет адаптировать визуальный интерфейс программы под личные предпочтения. Пользователь может изменить основные цвета тем, акцентные элементы или создать полностью собственную схему оформления. Настройки доступны в разделе «Тема» или «Внешний вид» и применяются мгновенно. Эта функция повышает комфорт работы, снижая нагрузку на глаза и позволяя персонализировать рабочую среду."
+                     data-link="./gtawiki13.html"></div>
+
+
+                <!-- закрыть программу -->
+                <div class="trigger-point" 
+                     data-top="3.5" data-left="1"
+                     data-text="закрывает программу"
+                     ></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Контейнер для всплывающего текста -->
+    <div class="text-container" id="floating-text">
+        <h2 class="area-title" id="floating-title"></h2>
+        <div class="typing-text" id="floating-typing"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация прелоадера
+            const preloader = document.getElementById('preloader');
+            const bgVideo = document.getElementById('bg-video');
+            
+            // Скрываем прелоадер после полной загрузки страницы и видео
+            Promise.all([
+                new Promise(resolve => window.addEventListener('load', resolve)),
+                new Promise(resolve => {
+                    if (bgVideo.readyState >= 3) {
+                        resolve();
+                    } else {
+                        bgVideo.addEventListener('loadeddata', resolve);
+                        // Если видео не загрузится через 3 секунды, продолжаем без него
+                        setTimeout(resolve, 3000);
+                    }
+                })
+            ]).then(() => {
+                // Искусственная задержка для демонстрации прелоадера
+                setTimeout(function() {
+                    preloader.classList.add('hidden');
+                    
+                    // После скрытия прелоадера удаляем его из DOM
+                    setTimeout(function() {
+                        preloader.style.display = 'none';
+                    }, 800);
+                }, 1500);
+            });
+            
+            // Устанавливаем начальный масштаб 100%
+            document.body.style.zoom = "1";
+            
+            // Предотвращаем изменение масштаба колесиком мыши
+            document.addEventListener('wheel', function(e) {
+                if (e.ctrlKey) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            // Предотвращаем изменение масштаба жестами на мобильных
+            document.addEventListener('touchmove', function(e) {
+                if (e.scale !== 1) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            // Запрещаем контекстное меню
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+            
+            // Элементы DOM
+            const mainImage = document.getElementById('main-image');
+            const triggersOverlay = document.getElementById('triggers-overlay');
+            const triggerPoints = document.querySelectorAll('.trigger-point');
+            const floatingText = document.getElementById('floating-text');
+            const floatingTitle = document.getElementById('floating-title');
+            const floatingTyping = document.getElementById('floating-typing');
+            
+            // Переменные для управления состоянием
+            let currentTypingTrigger = null;
+            let typingInterval = null;
+            let typingIndex = 0;
+            let isShowing = false;
+            let currentText = '';
+            let isTypingComplete = false;
+            let isClickable = true;
+            
+            // Размеры оригинального изображения
+            let originalImageWidth = 0;
+            let originalImageHeight = 0;
+            let currentScale = 1;
+            
+            // Функция загрузки размеров изображения
+            function loadImageSize() {
+                return new Promise((resolve) => {
+                    if (mainImage.complete && mainImage.naturalWidth > 0) {
+                        originalImageWidth = mainImage.naturalWidth;
+                        originalImageHeight = mainImage.naturalHeight;
+                        resolve();
+                    } else {
+                        mainImage.onload = function() {
+                            originalImageWidth = this.naturalWidth;
+                            originalImageHeight = this.naturalHeight;
+                            resolve();
+                        };
+                    }
+                });
+            }
+            
+            // Функция обновления позиций триггеров
+            function updateTriggerPositions() {
+                if (!originalImageWidth || !originalImageHeight) return;
+                
+                const imageRect = mainImage.getBoundingClientRect();
+                const scaleX = imageRect.width / originalImageWidth;
+                const scaleY = imageRect.height / originalImageHeight;
+                
+                // Используем минимальный масштаб для сохранения пропорций
+                currentScale = Math.min(scaleX, scaleY);
+                
+                // Позиционируем overlay
+                triggersOverlay.style.width = imageRect.width + 'px';
+                triggersOverlay.style.height = imageRect.height + 'px';
+                triggersOverlay.style.left = '0px';
+                triggersOverlay.style.top = '0px';
+                
+                // Обновляем позиции всех триггерных точек
+                triggerPoints.forEach(trigger => {
+                    const topPercent = parseFloat(trigger.getAttribute('data-top'));
+                    const leftPercent = parseFloat(trigger.getAttribute('data-left'));
+                    
+                    // Позиционируем относительно overlay
+                    trigger.style.top = (topPercent * imageRect.height / 100) + 'px';
+                    trigger.style.left = (leftPercent * imageRect.width / 100) + 'px';
+                });
+            }
+            
+            // Инициализация после скрытия прелоадера
+            setTimeout(function() {
+                loadImageSize().then(() => {
+                    updateTriggerPositions();
+                    
+                    // Обновляем позиции при изменении размера окна
+                    window.addEventListener('resize', updateTriggerPositions);
+                });
+            }, 1600);
+            
+            // Функция для остановки печати
+            function stopTyping() {
+                if (typingInterval) {
+                    clearInterval(typingInterval);
+                    typingInterval = null;
+                }
+                typingIndex = 0;
+            }
+            
+            // Функция для полной очистки состояния
+            function clearAll() {
+                stopTyping();
+                floatingTyping.textContent = '';
+                currentText = '';
+                isTypingComplete = false;
+            }
+            
+            function positionContainer(e) {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                const containerWidth = floatingText.offsetWidth;
+                const containerHeight = floatingText.offsetHeight;
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+                
+                let posX = mouseX + 20;
+                let posY = mouseY + 20;
+                
+                if (posX + containerWidth > windowWidth - 20) {
+                    posX = mouseX - containerWidth - 20;
+                }
+                
+                if (posY + containerHeight > windowHeight - 20) {
+                    posY = mouseY - containerHeight - 20;
+                }
+                
+                if (posX < 20) {
+                    posX = 20;
+                }
+                
+                if (posY < 20) {
+                    posY = 20;
+                }
+                
+                floatingText.style.left = posX + 'px';
+                floatingText.style.top = posY + 'px';
+            }
+            
+            function startTypingAnimation(text) {
+                // Останавливаем предыдущую печать
+                stopTyping();
+                
+                // Устанавливаем новый текст
+                currentText = text;
+                typingIndex = 0;
+                isTypingComplete = false;
+                
+                if (!text) return;
+                
+                // Сначала показываем пустой текст
+                floatingTyping.textContent = '';
+                
+                const typingSpeed = 20;
+                
+                typingInterval = setInterval(() => {
+                    if (typingIndex < text.length && isShowing) {
+                        floatingTyping.textContent += text.charAt(typingIndex);
+                        typingIndex++;
+                        
+                        // Если текст допечатан
+                        if (typingIndex >= text.length) {
+                            stopTyping();
+                            isTypingComplete = true;
+                        }
+                    } else if (typingIndex >= text.length) {
+                        stopTyping();
+                        isTypingComplete = true;
+                    }
+                }, typingSpeed);
+            }
+            
+            // Функция для обработки клика по триггеру
+            function handleTriggerClick(trigger) {
+                if (!isClickable) return;
+                
+                // Получаем ссылку из data-link атрибута
+                const link = trigger.getAttribute('data-link');
+                
+                if (link) {
+                    // Временно отключаем клики, чтобы предотвратить множественные переходы
+                    isClickable = false;
+                    
+                    // Добавляем небольшую анимацию перед переходом
+                    trigger.style.transform = 'scale(0.95)';
+                    trigger.style.transition = 'transform 0.1s ease';
+                    
+                    setTimeout(() => {
+                        trigger.style.transform = 'scale(1)';
+                        // Переходим по ссылке
+                        window.location.href = link;
+                    }, 100);
+                    
+                    // Восстанавливаем возможность кликов через 500мс на случай если переход не сработал
+                    setTimeout(() => {
+                        isClickable = true;
+                    }, 500);
+                }
+            }
+            
+            // Добавляем обработчики событий для триггеров (после загрузки)
+            setTimeout(function() {
+                triggerPoints.forEach(trigger => {
+                    // Добавляем обработчик клика для всех триггеров
+                    trigger.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleTriggerClick(this);
+                    });
+                    
+                    trigger.addEventListener('mouseenter', function(e) {
+                        // Если это тот же самый триггер и текст уже напечатан, ничего не делаем
+                        if (currentTypingTrigger === this && isShowing && isTypingComplete) {
+                            return;
+                        }
+                        
+                        // Если это новый триггер или текст не напечатан, начинаем заново
+                        if (currentTypingTrigger !== this || !isTypingComplete) {
+                            // Полностью очищаем для нового триггера
+                            clearAll();
+                            
+                            currentTypingTrigger = this;
+                            
+                            const title = this.getAttribute('data-title') || '';
+                            const text = this.getAttribute('data-text') || '';
+                            
+                            floatingTitle.textContent = title;
+                            
+                            positionContainer(e);
+                            
+                            floatingText.classList.add('visible');
+                            isShowing = true;
+                            
+                            // Небольшая задержка перед началом печати для плавности
+                            setTimeout(() => {
+                                startTypingAnimation(text);
+                            }, 50);
+                        }
+                    });
+                    
+                    trigger.addEventListener('mousemove', function(e) {
+                        if (currentTypingTrigger === this && isShowing) {
+                            positionContainer(e);
+                        }
+                    });
+                    
+                    trigger.addEventListener('mouseleave', function() {
+                        // Если курсор ушел с текущего триггера
+                        if (currentTypingTrigger === this) {
+                            // НЕ очищаем текст, только скрываем контейнер
+                            stopTyping();
+                            floatingText.classList.remove('visible');
+                            
+                            // Через некоторое время сбрасываем состояние
+                            setTimeout(() => {
+                                if (!isShowing) {
+                                    clearAll();
+                                    currentTypingTrigger = null;
+                                }
+                            }, 300);
+                            
+                            isShowing = false;
+                        }
+                    });
+                    
+                    // Добавляем обработчик касаний для мобильных устройств
+                    trigger.addEventListener('touchstart', function(e) {
+                        e.preventDefault();
+                        handleTriggerClick(this);
+                    }, { passive: false });
+                });
+                
+                document.addEventListener('click', function(e) {
+                    if (isShowing && !floatingText.contains(e.target) && 
+                        !Array.from(triggerPoints).some(t => t.contains(e.target))) {
+                        // При клике вне элемента скрываем и очищаем
+                        stopTyping();
+                        floatingText.classList.remove('visible');
+                        isShowing = false;
+                        clearAll();
+                        currentTypingTrigger = null;
+                    }
+                });
+                
+                window.addEventListener('resize', function() {
+                    if (isShowing && currentTypingTrigger) {
+                        // При изменении размера окна сохраняем текст, но скрываем
+                        stopTyping();
+                        floatingText.classList.remove('visible');
+                        isShowing = false;
+                    }
+                    // Обновляем позиции триггеров при ресайзе
+                    updateTriggerPositions();
+                });
+                
+                floatingText.addEventListener('mousedown', function(e) {
+                    e.stopPropagation();
+                });
+                
+                // Дополнительный обработчик для предотвращения наложения
+                document.addEventListener('mouseover', function(e) {
+                    const target = e.target;
+                    if (target.classList.contains('trigger-point')) {
+                        // Если это не текущий активный триггер, сбрасываем состояние
+                        if (currentTypingTrigger && currentTypingTrigger !== target) {
+                            clearAll();
+                            floatingText.classList.remove('visible');
+                            isShowing = false;
+                            currentTypingTrigger = null;
+                        }
+                    }
+                });
+            }, 1600);
+        });
+    </script>
+
+</body>
+</html>
