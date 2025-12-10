@@ -169,15 +169,7 @@
             position: relative;
         }
         
-        .loading-text::after {
-            content: '';
-            position: absolute;
-            width: 3px;
-            height: 100%;
-            background: #ffffff;
-            right: -8px;
-            animation: blink 0.8s infinite;
-        }
+
         
         @keyframes rotate {
             0% { transform: rotate(0deg); }
@@ -538,6 +530,36 @@
                 font-size: 2.2rem;
             }
         }
+
+        .bind-label {
+            font-size: 0.75rem;
+            color: #ffcc00;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(255, 204, 0, 0.1);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            margin-left: 10px;
+            flex-shrink: 0;
+            pointer-events: none;
+        }
+
+        .minimize-label {
+    font-size: 0.75rem;
+    color: #00ff00; /* Зеленый цвет */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    margin-left: 10px;
+    flex-shrink: 0;
+    pointer-events: none;
+}
     </style>
 </head>
 <body>
@@ -568,6 +590,7 @@
     
     <div class="image-container">
         <div class="image-wrapper">
+
             <!-- Основное изображение -->
             <img src="./menu.png" alt="Интерактивная инфографика" class="main-image" id="main-image">
             
@@ -575,9 +598,9 @@
             <div class="triggers-overlay" id="triggers-overlay">
                 <!-- Триггерные точки с позициями в процентах -->
                 <div class="trigger-point" 
-                     data-top="6" data-left="16"
-                     data-text="При активации, тоесть если кнопка горит зеленым цветом, оружие с пола собирает очень быстро (Е нажимать не нужно) и патроны тоже прокликивает быстро. В основном эта функция для активной игры, тулева и лутерства."
-                     ></div>
+                 data-top="6" data-left="16"
+                 data-text="При активации, тоесть если кнопка горит зеленым цветом, оружие с пола собирает очень быстро (Е нажимать не нужно) и патроны тоже прокликивает быстро. В основном эта функция для активной игры, тулева и лутерства."
+                 data-hasbind="true"></div>
 
                 <div class="trigger-point" 
                      data-top="10" data-left="16"
@@ -586,22 +609,27 @@
 
                 <div class="trigger-point" 
                      data-top="14" data-left="16"
-                     data-text="При активации, тоесть если кнопка горит зеленым цветом, бот сам прожимает бинд в игре который указан (забинжен) в инвентаре с переодичностью которую вы указали"
-                     data-link="./gtawiki2.html"></div>
+                     data-text="При активации, тоесть если кнопка горит зеленым цветом, бот сам прожимает бинд для еды в игре который указан (забинжен) в инвентаре с переодичностью которую вы указали"
+                     data-link="./gtawiki2.html"
+                     data-hasbind="true"></div>
 
                 <div class="trigger-point" 
                      data-top="17.5" data-left="16"
                      data-text="При активации, будет открыто дополнительное меню, в этом меню можно выбрать бота для деморгана, тоесть Рубашки, Станок, АФК-Деморган"
-                     data-link="./gtawiki3.html"></div>
+                     data-link="./gtawiki3.html"
+                     data-hasbind="true"></div>
 
                 <div class="trigger-point" 
                      data-top="21.5" data-left="16"
                      data-text="при активации, тоесть если кнопка горит зеленым цветом, вам нужно находиться уже у снаряда где можно качаться и нажать E для начала, и не забыть купить билет чтобы прокачивать навык Сила"
+                     data-hasbind="true"
+                     data-minimize="true"
                      ></div>
 
                 <div class="trigger-point" 
                      data-top="25.2" data-left="16"
                      data-text="Это меню позволяет настроить автоматическую стрельбу при наведении прицела на персонажа, с поддержкой как карабинов, так и револьверов."
+                     data-hasbind="true"
                      ></div>
 
                 <div class="trigger-point" 
@@ -627,7 +655,8 @@
                 <div class="trigger-point" 
                      data-top="44.2" data-left="16"
                      data-text="При активации, будет открыто дополнительное меню, в этом меню можно выбрать бота для Коров (прохождение задания A B), бота для Стройки (проклик), бота для Шахты (проклик), бота для Порта (проклик),бота для Механик/Скользкая дорожка/Dance Battle (не идеально решает), также можно нажать на человечка, и тогда персонаж будет бегать сам, не нужно будет нажимать Shift+W"
-                     data-link="./gtawiki8.html"></div>
+                     data-link="./gtawiki8.html"
+                     data-hasbind="true"></div>
 
                 <div class="trigger-point" 
                      data-top="47.6" data-left="16"
@@ -642,6 +671,7 @@
                 <div class="trigger-point" 
                      data-top="55.4" data-left="16"
                      data-text="При активации, тоесть если кнопка горит зеленым цветом, если вы играете на арене, и вам нужно быстро покинуть матч, то нажимаете комбинацию ALT + Пробел, и бот за вас пропишет очень быстро команду /exit в чат"
+                     data-hasbind="true"
                      ></div>
 
                 <div class="trigger-point" 
@@ -657,6 +687,7 @@
                 <div class="trigger-point" 
                      data-top="66.9" data-left="16"
                      data-text="Эта функция позволяет оставить персонажа в AFK: он будет автоматически передвигаться по игре. При этом она отслеживает и помогает выполнять контракт организации, засчитывая прогресс"
+                     data-minimize="true"
                      ></div>
 
                 <!-- КНОПКА НАСТРОЙКИ -->
@@ -711,13 +742,17 @@
                      ></div>
             </div>
         </div>
+
     </div>
+    <div class="loading-text">наведите на кнопки в программе которые вас интересуют чтобы получить руководство к использованию</div>
     
     <!-- Контейнер для всплывающего текста -->
     <div class="text-container" id="floating-text">
         <h2 class="area-title" id="floating-title">
             <span id="title-text"></span>
-            <span id="clickable-label" class="clickable-label" style="display: none;">кликабельно*</span>
+            <span id="clickable-label" class="clickable-label" style="display: none;">кликабельно</span>
+            <span id="bind-label" class="bind-label" style="display: none;">работает по бинду</span>
+            <span id="minimize-label" class="minimize-label" style="display: none;">сворачивает программу</span>
         </h2>
         <div class="typing-text" id="floating-typing"></div>
     </div>
@@ -782,6 +817,8 @@
             const titleText = document.getElementById('title-text');
             const clickableLabel = document.getElementById('clickable-label');
             const floatingTyping = document.getElementById('floating-typing');
+            const bindLabel = document.getElementById('bind-label');
+            const minimizeLabel = document.getElementById('minimize-label'); 
             
             // Переменные для управления состоянием
             let currentTypingTrigger = null;
@@ -867,6 +904,8 @@
                 floatingTyping.textContent = '';
                 currentText = '';
                 isTypingComplete = false;
+                clickableLabel.style.display = 'none';
+                bindLabel.style.display = 'none';
             }
             
             function positionContainer(e) {
@@ -987,6 +1026,8 @@
                             const title = this.getAttribute('data-title') || '';
                             const text = this.getAttribute('data-text') || '';
                             const link = this.getAttribute('data-link') || '';
+                            const hasBind = this.getAttribute('data-hasbind') === 'true';
+                            const hasMinimize = this.getAttribute('data-minimize') === 'true'; 
                             
                             titleText.textContent = title;
                             
@@ -995,6 +1036,18 @@
                                 clickableLabel.style.display = 'inline-block';
                             } else {
                                 clickableLabel.style.display = 'none';
+                            }
+
+                            if (hasBind) {
+                                bindLabel.style.display = 'inline-block';
+                            } else {
+                                bindLabel.style.display = 'none';
+                            }
+
+                            if (hasMinimize) {
+                                minimizeLabel.style.display = 'inline-block'; // И это
+                            } else {
+                                minimizeLabel.style.display = 'none';
                             }
                             
                             positionContainer(e);
@@ -1024,7 +1077,7 @@
                             
                             // Скрываем метку "кликабельно"
                             clickableLabel.style.display = 'none';
-                            
+                            bindLabel.style.display = 'none';
                             // Через некоторое время сбрасываем состояние
                             setTimeout(() => {
                                 if (!isShowing) {
