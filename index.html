@@ -3398,6 +3398,34 @@
 }
 
 
+.info-btn {
+    background: rgba(128, 128, 128, 0.2) !important;
+    color: #cccccc !important;
+    border: 1px solid #555555 !important;
+    font-weight: 500;
+}
+
+.info-btn:hover {
+    background: rgba(128, 128, 128, 0.3) !important;
+    color: #ffffff !important;
+    border-color: #777777 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card[data-card="gta"]:hover .info-btn {
+    background: rgba(128, 128, 128, 0.25) !important;
+    color: #dddddd !important;
+    border-color: #666666 !important;
+}
+
+/* Иконка для кнопки инструкции */
+.info-btn i {
+    margin-right: 5px;
+    font-size: 0.9rem;
+}
+
+
 
 
 
@@ -3573,19 +3601,15 @@
                     <div class="card-icon"><i class="fa-solid fa-star"></i></div>
                     <h3 class="card-title">GTA 5 RP</h3>
                     <div class="card-buttons">
-                        <div class="button-row">
-                            <a href="https://github.com/nb75hg6f/nb75hg6f/releases/download/dwn/pepesoft.exe" class="card-btn download-btn">
-                                <i class="fas fa-download"></i> Скачать
-                            </a>
-                            <a href="https://funpay.com/lots/offer?id=43543471" class="card-btn key-btn">
-                                <i class="fas fa-key"></i> Ключ
-                            </a>
-                        </div>
-                        <div class="button-row">
-                            <a href="gtawiki1.html" class="card-btn info-btn">
-                                <i class="fas fa-info-circle"></i> Подробнее
-                            </a>
-                        </div>
+                        <a href="https://github.com/nb75hg6f/nb75hg6f/releases/download/dwn/pepesoft.exe" class="card-btn download-btn">
+                            <i class="fas fa-download"></i> Скачать
+                        </a>
+                        <a href="https://funpay.com/lots/offer?id=43543471" class="card-btn key-btn">
+                            <i class="fas fa-key"></i> Ключ
+                        </a>
+                        <a href="gtawiki1.html" class="card-btn info-btn">
+                            <i class="fas fa-info-circle"></i> Подробнее
+                        </a>
                     </div>
                 </div>
                 <div class="card-status">
@@ -4406,34 +4430,7 @@ function initScrollingBackground() {
     position: 0, 
     colors: ['#000000', '#000000', '#000000', '#000000']  // Чистый черный
 },
-{ 
-    position: 0.2, 
-    colors: ['#000022', '#000011', '#000033', '#000022']  // Темно-синий
-},
-{ 
-    position: 0.4, 
-    colors: ['#001144', '#000833', '#002255', '#001144']  // Синий
-},
-{ 
-    position: 0.5, 
-    colors: ['#003366', '#001a33', '#004488', '#003366']  // Яркий синий
-},
-{ 
-    position: 0.6, 
-    colors: ['#005588', '#002a44', '#0066aa', '#005588']  // Голубой
-},
-{ 
-    position: 0.7, 
-    colors: ['#0077bb', '#003c5d', '#0088cc', '#0077bb']  // Яркий голубой
-},
-{ 
-    position: 0.8, 
-    colors: ['#003366', '#001a33', '#004488', '#003366']  // Синий
-},
-{ 
-    position: 0.9, 
-    colors: ['#000022', '#000011', '#000033', '#000022']  // Темно-синий
-},
+
 { 
     position: 1, 
     colors: ['#000000', '#000000', '#000000', '#000000']  // Чистый черный
