@@ -369,6 +369,25 @@
             overflow: hidden;
             text-overflow: ellipsis;
             padding: 0 10px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .clickable-label {
+            font-size: 0.75rem;
+            color: #00dbde;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(0, 219, 222, 0.1);
+            border: 1px solid rgba(0, 219, 222, 0.3);
+            margin-left: 10px;
+            flex-shrink: 0;
+            pointer-events: none;
         }
         
         .typing-text {
@@ -406,6 +425,11 @@
             
             .area-title {
                 font-size: 1.4rem;
+            }
+            
+            .clickable-label {
+                font-size: 0.7rem;
+                padding: 2px 6px;
             }
             
             .typing-text {
@@ -457,6 +481,13 @@
             
             .area-title {
                 font-size: 1.3rem;
+                flex-wrap: wrap;
+            }
+            
+            .clickable-label {
+                font-size: 0.65rem;
+                padding: 1px 4px;
+                margin-left: 5px;
             }
             
             .typing-text {
@@ -550,19 +581,19 @@
                 <!-- КНОПКА НАСТРОЙКИ -->
                 <div class="trigger-point settings-trigger" 
                      data-top="80.8" data-left="15.5"
-                     data-text="в этом разделе вы управляете работой приложения. Здесь можно настроить горячие клавиши для сворачивания/разворачивания окна, проверять обновления, переходить по ссылкам в социальные сети, видеть сколько дней осталось до конца подписки, а также регулировать другие параметры для удобного использования программы."
+                     data-text="В этом разделе вы управляете работой приложения. Здесь можно настроить горячие клавиши для сворачивания/разворачивания окна, проверять обновления, переходить по ссылкам в социальные сети, видеть сколько дней осталось до конца подписки, а также регулировать другие параметры для удобного использования программы."
                      data-link="./gtawiki12.html"></div>
 
                 <!-- палитра -->
                 <div class="trigger-point" 
                      data-top="92.8" data-left="93.5"
-                     data-text="кастомизация цветовой палитры позволяет адаптировать визуальный интерфейс программы под личные предпочтения. Пользователь может изменить основные цвета тем, акцентные элементы или создать полностью собственную схему оформления. Настройки доступны в разделе «Тема» или «Внешний вид» и применяются мгновенно. Эта функция повышает комфорт работы, снижая нагрузку на глаза и позволяя персонализировать рабочую среду."
+                     data-text="Кастомизация цветовой палитры позволяет адаптировать визуальный интерфейс программы под личные предпочтения. Пользователь может изменить основные цвета тем, акцентные элементы или создать полностью собственную схему оформления. Настройки доступны в разделе «Тема» или «Внешний вид» и применяются мгновенно. Эта функция повышает комфорт работы, снижая нагрузку на глаза и позволяя персонализировать рабочую среду."
                      data-link="./gtawiki13.html"></div>
 
                 <!-- закрыть программу -->
                 <div class="trigger-point" 
                      data-top="3.5" data-left="1"
-                     data-text="закрывает программу"
+                     data-text="Закрывает программу"
                      ></div>
             </div>
         </div>
@@ -570,9 +601,12 @@
     
     <!-- Контейнер для всплывающего текста -->
     <div class="text-container" id="floating-text">
-        <h2 class="area-title" id="floating-title"></h2>
-        <div class="typing-text" id="floating-typing"></div>
-    </div>
+    <h2 class="area-title" id="floating-title">
+        <span id="title-text"></span>
+        <span id="clickable-label" class="clickable-label" style="display: none;">кликабельно*</span>
+    </h2>
+    <div class="typing-text" id="floating-typing"></div>
+</div>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -631,7 +665,8 @@
             const triggersOverlay = document.getElementById('triggers-overlay');
             const triggerPoints = document.querySelectorAll('.trigger-point');
             const floatingText = document.getElementById('floating-text');
-            const floatingTitle = document.getElementById('floating-title');
+            const titleText = document.getElementById('title-text');
+            const clickableLabel = document.getElementById('clickable-label');
             const floatingTyping = document.getElementById('floating-typing');
             
             // Переменные для управления состоянием
@@ -837,8 +872,16 @@
                             
                             const title = this.getAttribute('data-title') || '';
                             const text = this.getAttribute('data-text') || '';
+                            const link = this.getAttribute('data-link') || '';
                             
-                            floatingTitle.textContent = title;
+                            titleText.textContent = title;
+                            
+                            // Показываем или скрываем метку "кликабельно" в зависимости от наличия ссылки
+                            if (link) {
+                                clickableLabel.style.display = 'inline-block';
+                            } else {
+                                clickableLabel.style.display = 'none';
+                            }
                             
                             positionContainer(e);
                             
@@ -864,6 +907,9 @@
                             // НЕ очищаем текст, только скрываем контейнер
                             stopTyping();
                             floatingText.classList.remove('visible');
+                            
+                            // Скрываем метку "кликабельно"
+                            clickableLabel.style.display = 'none';
                             
                             // Через некоторое время сбрасываем состояние
                             setTimeout(() => {
@@ -893,6 +939,7 @@
                         isShowing = false;
                         clearAll();
                         currentTypingTrigger = null;
+                        clickableLabel.style.display = 'none';
                     }
                 });
                 
@@ -902,6 +949,7 @@
                         stopTyping();
                         floatingText.classList.remove('visible');
                         isShowing = false;
+                        clickableLabel.style.display = 'none';
                     }
                     // Обновляем позиции триггеров при ресайзе
                     updateTriggerPositions();
@@ -920,6 +968,7 @@
                             clearAll();
                             floatingText.classList.remove('visible');
                             isShowing = false;
+                            clickableLabel.style.display = 'none';
                             currentTypingTrigger = null;
                         }
                     }

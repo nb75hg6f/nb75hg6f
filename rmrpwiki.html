@@ -369,6 +369,25 @@
             overflow: hidden;
             text-overflow: ellipsis;
             padding: 0 10px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .clickable-label {
+            font-size: 0.75rem;
+            color: #00dbde;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(0, 219, 222, 0.1);
+            border: 1px solid rgba(0, 219, 222, 0.3);
+            margin-left: 10px;
+            flex-shrink: 0;
+            pointer-events: none;
         }
         
         .typing-text {
@@ -406,6 +425,11 @@
             
             .area-title {
                 font-size: 1.4rem;
+            }
+            
+            .clickable-label {
+                font-size: 0.7rem;
+                padding: 2px 6px;
             }
             
             .typing-text {
@@ -457,6 +481,13 @@
             
             .area-title {
                 font-size: 1.3rem;
+                flex-wrap: wrap;
+            }
+            
+            .clickable-label {
+                font-size: 0.65rem;
+                padding: 1px 4px;
+                margin-left: 5px;
             }
             
             .typing-text {
@@ -590,9 +621,12 @@
     
     <!-- Контейнер для всплывающего текста -->
     <div class="text-container" id="floating-text">
-        <h2 class="area-title" id="floating-title"></h2>
-        <div class="typing-text" id="floating-typing"></div>
-    </div>
+    <h2 class="area-title" id="floating-title">
+        <span id="title-text"></span>
+        <span id="clickable-label" class="clickable-label" style="display: none;">кликабельно*</span>
+    </h2>
+    <div class="typing-text" id="floating-typing"></div>
+</div>
     
 <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -651,7 +685,8 @@
             const triggersOverlay = document.getElementById('triggers-overlay');
             const triggerPoints = document.querySelectorAll('.trigger-point');
             const floatingText = document.getElementById('floating-text');
-            const floatingTitle = document.getElementById('floating-title');
+            const titleText = document.getElementById('title-text');
+            const clickableLabel = document.getElementById('clickable-label');
             const floatingTyping = document.getElementById('floating-typing');
             
             // Переменные для управления состоянием
@@ -857,8 +892,16 @@
                             
                             const title = this.getAttribute('data-title') || '';
                             const text = this.getAttribute('data-text') || '';
+                            const link = this.getAttribute('data-link') || '';
                             
-                            floatingTitle.textContent = title;
+                            titleText.textContent = title;
+                            
+                            // Показываем или скрываем метку "кликабельно" в зависимости от наличия ссылки
+                            if (link) {
+                                clickableLabel.style.display = 'inline-block';
+                            } else {
+                                clickableLabel.style.display = 'none';
+                            }
                             
                             positionContainer(e);
                             
@@ -884,6 +927,9 @@
                             // НЕ очищаем текст, только скрываем контейнер
                             stopTyping();
                             floatingText.classList.remove('visible');
+                            
+                            // Скрываем метку "кликабельно"
+                            clickableLabel.style.display = 'none';
                             
                             // Через некоторое время сбрасываем состояние
                             setTimeout(() => {
@@ -913,6 +959,7 @@
                         isShowing = false;
                         clearAll();
                         currentTypingTrigger = null;
+                        clickableLabel.style.display = 'none';
                     }
                 });
                 
@@ -922,6 +969,7 @@
                         stopTyping();
                         floatingText.classList.remove('visible');
                         isShowing = false;
+                        clickableLabel.style.display = 'none';
                     }
                     // Обновляем позиции триггеров при ресайзе
                     updateTriggerPositions();
@@ -940,6 +988,7 @@
                             clearAll();
                             floatingText.classList.remove('visible');
                             isShowing = false;
+                            clickableLabel.style.display = 'none';
                             currentTypingTrigger = null;
                         }
                     }
