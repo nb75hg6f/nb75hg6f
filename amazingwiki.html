@@ -169,7 +169,7 @@
             position: relative;
         }
         
-       
+
         
         @keyframes rotate {
             0% { transform: rotate(0deg); }
@@ -530,15 +530,46 @@
                 font-size: 2.2rem;
             }
         }
+
+        .bind-label {
+            font-size: 0.75rem;
+            color: #ffcc00;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(255, 204, 0, 0.1);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            margin-left: 10px;
+            flex-shrink: 0;
+            pointer-events: none;
+        }
+
+        .minimize-label {
+    font-size: 0.75rem;
+    color: #00ff00; /* Зеленый цвет */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    margin-left: 10px;
+    flex-shrink: 0;
+    pointer-events: none;
+}
     </style>
 </head>
 <body>
+
 
     <!-- Видео-фон компонент -->
     <div class="video-background">
         <video id="bg-video" autoplay muted loop playsinline>
             <source src="./background-video.mp4" type="video/mp4">
-            <source src="https://github.com/nb75hg6f/nb75hg6f/releases/download/vidsite/background-video-amazing.webm" type="video/webm">
+            <source src="https://github.com/nb75hg6f/nb75hg6f/releases/download/vidsite/background-video-gta5rp.webm" type="video/webm">
             Ваш браузер не поддерживает видео.
         </video>
     </div>
@@ -551,7 +582,7 @@
             <div class="loader-circle"></div>
             <div class="loader-circle"></div>
             <div class="loader-logo">
-                <span>A</span><span>M</span><span>A</span><span>Z</span><span>I</span><span>N</span><span>G</span>
+                <span>G</span><span>T</span><span>A</span><span>5</span><span>R</span><span>P</span>
             </div>
         </div>
         <div class="loading-text">Загрузка</div>
@@ -559,6 +590,7 @@
     
     <div class="image-container">
         <div class="image-wrapper">
+
             <!-- Основное изображение -->
             <img src="./amazingmenu.png" alt="Интерактивная инфографика" class="main-image" id="main-image">
             
@@ -570,29 +602,21 @@
                      data-text="Перед запуском этой функции необходимо войти в мини-игру на карьере, после чего скрипт автоматически начнёт её прохождение."
                      ></div>
 
-            <div class="triggers-overlay" id="triggers-overlay">
-                <!-- Триггерные точки с позициями в процентах -->
                 <div class="trigger-point" 
                      data-top="16.5" data-left="17"
                      data-text="Перед активацией этой функции соберите все необходимые материалы и встаньте за рабочий станок на заводе, после запуска скрипт будет автоматически складывать предметы по шаблону и выполнять крафт."
                      ></div>
 
-            <div class="triggers-overlay" id="triggers-overlay">
-                <!-- Триггерные точки с позициями в процентах -->
                 <div class="trigger-point" 
                      data-top="20.5" data-left="17"
                      data-text="При активации функция автоматически проходит мини-игру по рубке и распилу дерева на лесопилке."
                      ></div>
 
-            <div class="triggers-overlay" id="triggers-overlay">
-                <!-- Триггерные точки с позициями в процентах -->
                 <div class="trigger-point" 
                      data-top="25.5" data-left="17"
                      data-text="При включении этой функции скрипт автоматически проходит мини-игру по уборке мусорных куч, разбросанных по дорогам, на уборочной машине."
                      ></div>
 
-            <div class="triggers-overlay" id="triggers-overlay">
-                <!-- Триггерные точки с позициями в процентах -->
                 <div class="trigger-point" 
                      data-top="22.5" data-left="39"
                      data-text="При включении этой функции нажмите кнопку 2 в игре, чтобы персонаж начал бежать, а для остановки сначала нажмите Shift, затем X; после остановки вы можете снова активировать бег, повторно нажав кнопку 2, не перезапуская саму функцию в боте."
@@ -636,14 +660,19 @@
                      data-text="Закрывает программу"
                      ></div>
             </div>
+            </div>
         </div>
+
     </div>
     <div class="loading-text">наведите на кнопки в программе которые вас интересуют чтобы получить руководство к использованию</div>
+    
     <!-- Контейнер для всплывающего текста -->
     <div class="text-container" id="floating-text">
         <h2 class="area-title" id="floating-title">
             <span id="title-text"></span>
             <span id="clickable-label" class="clickable-label" style="display: none;">кликабельно</span>
+            <span id="bind-label" class="bind-label" style="display: none;">работает по бинду</span>
+            <span id="minimize-label" class="minimize-label" style="display: none;">сворачивает программу</span>
         </h2>
         <div class="typing-text" id="floating-typing"></div>
     </div>
@@ -708,6 +737,8 @@
             const titleText = document.getElementById('title-text');
             const clickableLabel = document.getElementById('clickable-label');
             const floatingTyping = document.getElementById('floating-typing');
+            const bindLabel = document.getElementById('bind-label');
+            const minimizeLabel = document.getElementById('minimize-label'); 
             
             // Переменные для управления состоянием
             let currentTypingTrigger = null;
@@ -793,6 +824,8 @@
                 floatingTyping.textContent = '';
                 currentText = '';
                 isTypingComplete = false;
+                clickableLabel.style.display = 'none';
+                bindLabel.style.display = 'none';
             }
             
             function positionContainer(e) {
@@ -913,6 +946,8 @@
                             const title = this.getAttribute('data-title') || '';
                             const text = this.getAttribute('data-text') || '';
                             const link = this.getAttribute('data-link') || '';
+                            const hasBind = this.getAttribute('data-hasbind') === 'true';
+                            const hasMinimize = this.getAttribute('data-minimize') === 'true'; 
                             
                             titleText.textContent = title;
                             
@@ -921,6 +956,18 @@
                                 clickableLabel.style.display = 'inline-block';
                             } else {
                                 clickableLabel.style.display = 'none';
+                            }
+
+                            if (hasBind) {
+                                bindLabel.style.display = 'inline-block';
+                            } else {
+                                bindLabel.style.display = 'none';
+                            }
+
+                            if (hasMinimize) {
+                                minimizeLabel.style.display = 'inline-block'; // И это
+                            } else {
+                                minimizeLabel.style.display = 'none';
                             }
                             
                             positionContainer(e);
@@ -950,7 +997,7 @@
                             
                             // Скрываем метку "кликабельно"
                             clickableLabel.style.display = 'none';
-                            
+                            bindLabel.style.display = 'none';
                             // Через некоторое время сбрасываем состояние
                             setTimeout(() => {
                                 if (!isShowing) {
