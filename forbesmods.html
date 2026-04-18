@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forbes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Montserrat:wght@200;300;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ИСПРАВЛЕННЫЙ БЛОК ВИДЕО */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: grayscale(100%) brightness(35%); /* Делаем видео темнее и ЧБ */
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: -1;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 20px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 200;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .card img {
+            width: 250px; 
+            height: 160px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            filter: grayscale(100%);
+            transition: all 0.5s ease;
+            flex-shrink: 0;
+        }
+
+        .card:hover img {
+            filter: grayscale(0%);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: scale(1.02);
+        }
+
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: transparent;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 4px;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            font-weight: 300;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .download-btn:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 650px) {
+            header h1 { font-size: 1.8rem; letter-spacing: 6px; }
+            .container { grid-template-columns: 1fr; }
+            .card { flex-direction: column; text-align: center; }
+            .card-content { align-items: center; }
+            .card img { width: 100%; height: 200px; }
+            .download-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-background">
+        <video autoplay muted loop playsinline poster="https://via.placeholder.com/1920x1080/000000/000000">
+            
+            <source src="https://github.com/nb75hg6f/nb75hg6f/releases/download/vidsite/background-video-majestic.webm" type="video/webm">
+        </video>
+    </div>
+
+    <div class="overlay"></div>
+
+    <header>
+        <h1>FORBES MODS</h1>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <img src="https://picsum.photos/600/400?random=1" alt="Обложка">
+            <div class="card-content">
+                <div class="card-title">minimap autograph</div>
+                <a href="#" class="download-btn">GET MODIFICATION</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://picsum.photos/600/400?random=2" alt="Обложка">
+            <div class="card-content">
+                <div class="card-title">minimap autograph</div>
+                <a href="#" class="download-btn">GET MODIFICATION</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://picsum.photos/600/400?random=3" alt="Обложка">
+            <div class="card-content">
+                <div class="card-title">minimap autograph</div>
+                <a href="#" class="download-btn">GET MODIFICATION</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://picsum.photos/600/400?random=4" alt="Обложка">
+            <div class="card-content">
+                <div class="card-title">minimap autograph</div>
+                <a href="#" class="download-btn">GET MODIFICATION</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://picsum.photos/600/400?random=5" alt="Обложка">
+            <div class="card-content">
+                <div class="card-title">minimap autograph</div>
+                <a href="#" class="download-btn">GET MODIFICATION</a>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://picsum.photos/600/400?random=6" alt="Обложка">
+            <div class="card-content">
+                <div class="card-title">minimap autograph</div>
+                <a href="#" class="download-btn">GET MODIFICATION</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
