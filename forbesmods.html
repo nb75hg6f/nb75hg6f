@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORBES MODS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Montserrat:wght@200;300;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Фон и видео */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: grayscale(100%) brightness(35%);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+            z-index: -1;
+        }
+
+        /* Шапка */
+        header {
+            text-align: center;
+            padding: 100px 20px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4rem;
+            font-weight: 200;
+            letter-spacing: 16px;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 10px 30px rgba(255,255,255,0.1);
+        }
+
+        header p {
+            margin-top: 15px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        /* Контейнер и секции */
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 100px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category {
+            margin-bottom: 80px;
+        }
+
+        .category-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .category-title::before {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        /* Индикаторы цветов для категорий */
+        .cat-black::before { background-color: #555; box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        .cat-pink::before { background-color: #ff6b9e; box-shadow: 0 0 10px #ff6b9e; }
+        .cat-green::before { background-color: #4ade80; box-shadow: 0 0 10px #4ade80; }
+        .cat-red::before { background-color: #f87171; box-shadow: 0 0 10px #f87171; }
+        .cat-white::before { background-color: #ffffff; box-shadow: 0 0 10px #ffffff; }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 30px;
+        }
+
+        /* Карточка */
+        .card {
+            background: rgba(20, 20, 20, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: stretch;
+            gap: 25px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.03), transparent);
+            transform: translateX(-100%);
+            transition: 0.6s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(30, 30, 30, 0.6);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        .card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .card img {
+            width: 250px; 
+            height: auto;
+            object-fit: cover;
+            border-radius: 12px;
+            filter: grayscale(80%);
+            transition: all 0.5s ease;
+            flex-shrink: 0;
+        }
+
+        .card:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.03);
+        }
+
+        /* Содержимое карточки */
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-header {
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        /* Теги */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Кнопка */
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 6px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            font-weight: 500;
+            border: 1px solid transparent; 
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .download-btn:hover {
+            background: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 800px) {
+            .grid-container { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 500px) {
+            header h1 { font-size: 2.2rem; letter-spacing: 8px; }
+            .card { flex-direction: column; align-items: center; text-align: center; }
+            .card img { width: 100%; height: 200px; }
+            .tags { justify-content: center; }
+            .category-title { font-size: 1.2rem; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-background">
+        <video autoplay muted loop playsinline poster="https://via.placeholder.com/1920x1080/000000/000000">
+            <source src="https://github.com/nb75hg6f/nb75hg6f/releases/download/vidsite/background-video-majestic.webm" type="video/webm">
+        </video>
+    </div>
+
+    <div class="overlay"></div>
+
+    <header>
+        <h1>FORBES MODS</h1>
+        <p>Modificator GTA V</p>
+    </header>
+
+    <div class="wrapper">
+        
+        <div class="category">
+            <h2 class="category-title cat-black">Black Edition</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/black.png?raw=true" alt="Black Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 4:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Black</span><span class="tag">4:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/bl-4-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/black.png?raw=true" alt="Black Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 5:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Black</span><span class="tag">5:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/bl-5-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/black.png?raw=true" alt="Black Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 5:4</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Black</span><span class="tag">5:4</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/bl-5-4.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/black.png?raw=true" alt="Black Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 16:9</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Black</span><span class="tag">16:9</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/bl-16-9.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/releases/download/v10/black1.png?raw=true" alt="Black MP|HP BAR Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">MP|HP BAR 4:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Black</span><span class="tag">MP|HP BAR</span><span class="tag">4:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/blp-4-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/releases/download/v10/black1.png?raw=true" alt="Black MP|HP BAR Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">MP|HP BAR 5:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Black</span><span class="tag">MP|HP BAR</span><span class="tag">5:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/blp-5-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/releases/download/v10/black1.png?raw=true" alt="Black MP|HP BAR Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">MP|HP BAR 5:4</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Black</span><span class="tag">MP|HP BAR</span><span class="tag">5:4</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/blp-5-4.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/releases/download/v10/black1.png?raw=true" alt="Black MP|HP BAR Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">MP|HP BAR 16:9</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Black</span><span class="tag">MP|HP BAR</span><span class="tag">16:9</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/blp-16-9.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2 class="category-title cat-pink">Pink Edition</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/pink.png?raw=true" alt="Pink Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 4:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Pink</span><span class="tag">4:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/rz-4-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/pink.png?raw=true" alt="Pink Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 5:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Pink</span><span class="tag">5:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/rz-5-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/pink.png?raw=true" alt="Pink Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 5:4</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Pink</span><span class="tag">5:4</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/rz-5-4.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/pink.png?raw=true" alt="Pink Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 16:9</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Pink</span><span class="tag">16:9</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/rz-16-9.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2 class="category-title cat-green">Green Edition</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/green.png?raw=true" alt="Green Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 4:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Green</span><span class="tag">4:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/g-4-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/green.png?raw=true" alt="Green Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 5:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Green</span><span class="tag">5:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/g-5-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/green.png?raw=true" alt="Green Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 5:4</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Green</span><span class="tag">5:4</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/g-5-4.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/green.png?raw=true" alt="Green Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 16:9</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Green</span><span class="tag">16:9</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/g-16-9.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2 class="category-title cat-red">Red Edition</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/red.png?raw=true" alt="Red Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 4:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Red</span><span class="tag">4:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/r-4-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/red.png?raw=true" alt="Red Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 5:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Red</span><span class="tag">5:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/r-5-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/red.png?raw=true" alt="Red Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 5:4</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Red</span><span class="tag">5:4</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/r-5-4.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/red.png?raw=true" alt="Red Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 16:9</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">Red</span><span class="tag">16:9</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/r-16-9.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2 class="category-title cat-white">White Edition</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/white.png?raw=true" alt="White Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 4:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">White</span><span class="tag">4:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/b-4-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/white.png?raw=true" alt="White Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 5:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">White</span><span class="tag">5:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/b-5-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/white.png?raw=true" alt="White Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 5:4</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">White</span><span class="tag">5:4</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/b-5-4.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/blob/main/white.png?raw=true" alt="White Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">Minimap 16:9</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">White</span><span class="tag">16:9</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/b-16-9.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/releases/download/v10/white.png?raw=true" alt="White MP|HP BAR Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">MP|HP BAR 4:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">White</span><span class="tag">MP|HP BAR</span><span class="tag">4:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/bp-4-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/releases/download/v10/white.png?raw=true" alt="White MP|HP BAR Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">MP|HP BAR 5:3</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">White</span><span class="tag">MP|HP BAR</span><span class="tag">5:3</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/bp-5-3.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/releases/download/v10/white.png?raw=true" alt="White MP|HP BAR Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">MP|HP BAR 5:4</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">White</span><span class="tag">MP|HP BAR</span><span class="tag">5:4</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/bp-5-4.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="https://github.com/pepegit666/pepegit666/releases/download/v10/white.png?raw=true" alt="White MP|HP BAR Minimap">
+                    <div class="card-content">
+                        <div class="card-header"><div class="card-title">MP|HP BAR 16:9</div></div>
+                        <div class="tags"><span class="tag">Center</span><span class="tag">Minimap</span><span class="tag">White</span><span class="tag">MP|HP BAR</span><span class="tag">16:9</span></div>
+                        <a href="https://github.com/pepegit666/pepegit666/releases/download/v10/bp-16-9.oiv" class="download-btn">Get Modification</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smoothHover: true,
+        smoothWheel: true,
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+    </script>
+
+</body>
+</html>
