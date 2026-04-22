@@ -30,7 +30,7 @@
         --accent: #3b82f6; 
         --tg: #2AABEE;
         
-        --block-bg: rgba(15, 15, 18, 0.75); /* Чуть увеличил непрозрачность для читаемости на фоне видео */
+        --block-bg: rgba(15, 15, 18, 0.75);
         --block-border: rgba(255, 255, 255, 0.1);
         --block-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
         --block-radius: 20px;
@@ -52,7 +52,7 @@
         -webkit-font-smoothing: antialiased;
     }
 
-    /* Видеофон */
+    /* Видеофон - Обновлено для идеального покрытия экрана */
     .video-background {
         position: fixed;
         top: 0;
@@ -61,21 +61,22 @@
         height: 100%;
         z-index: -2;
         overflow: hidden;
+        pointer-events: none;
     }
 
-    .video-background video {
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
+    .video-background iframe {
         position: absolute;
         top: 50%;
         left: 50%;
+        width: 100vw;
+        height: 56.25vw; /* Сохраняет пропорции 16:9 */
+        min-height: 100vh;
+        min-width: 177.77vh; /* Сохраняет пропорции 16:9 при вертикальном экране */
         transform: translate(-50%, -50%);
-        object-fit: cover;
+        pointer-events: none;
+        border: none;
     }
 
-    /* Наложение поверх видео для читаемости текста */
     .video-overlay {
         position: fixed;
         top: 0;
@@ -84,6 +85,7 @@
         height: 100%;
         background: radial-gradient(circle at 50% 0%, rgba(5, 5, 7, 0.4) 0%, rgba(5, 5, 7, 0.8) 100%);
         z-index: -1;
+        pointer-events: none;
     }
 
     body.is-scrolling iframe {
@@ -412,12 +414,25 @@
         gap: 24px;
     }
 
+    /* Экраны-телевизоры: Запрет взаимодействия и эффект экрана */
     .tv-screen {
         position: relative;
         padding-bottom: 56.25%;
         height: 0;
         border-radius: 12px;
         overflow: hidden;
+        pointer-events: none; /* Запрещаем любые клики */
+    }
+
+    .tv-screen::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        /* Эффект сетки экрана */
+        background: linear-gradient(rgba(255,255,255,0.03) 50%, rgba(0,0,0,0.1) 50%);
+        background-size: 100% 4px;
+        z-index: 1;
+        pointer-events: none;
     }
 
     .tv-screen iframe {
@@ -427,6 +442,7 @@
         width: 100%;
         height: 100%;
         border: none;
+        transform: scale(1.05); /* Увеличиваем, чтобы скрыть края плеера YouTube */
     }
 
     .telegram-block {
@@ -437,6 +453,7 @@
         align-items: center;
         gap: 20px;
         text-decoration: none;
+        margin-top: 100px;
     }
 
     .tg-icon-wrap {
@@ -482,6 +499,7 @@
     .tech-item img {
         width: 20px;
         height: 20px;
+        object-fit: contain; /* Картинки больше не растягиваются */
         filter: grayscale(100%) opacity(0.7);
         transition: var(--transition);
     }
@@ -498,9 +516,10 @@
 
     footer {
         border-top: 1px solid var(--block-border);
-        padding: 40px 0;
+        padding: 60px 0 40px;
         margin-top: 100px;
         background: rgba(5,5,7,0.8);
+        width: 100%; /* Футер на 100% ширины */
     }
 
     .footer-grid {
@@ -581,33 +600,6 @@
         .users-value { font-size: 3rem; }
     }
 
-    .video-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: -1;
-    }
-
-    .video-background iframe {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 100vw;
-        height: 100vh;
-        transform: translate(-50%, -50%);
-        pointer-events: none; /* чтобы iframe не перехватывал клики мыши */
-    }
-
-    /* Альтернативный вариант для более точного заполнения экрана (обрезает края видео) */
-    .video-background iframe {
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-    }
     </style>
 </head>
 <body>
@@ -617,13 +609,13 @@
     </div>
     
     <div class="video-background">
-    <iframe 
-        src="https://www.youtube.com/embed/qVCyXG2-ecQ&t?autoplay=1&mute=1&loop=1&playlist=qVCyXG2-ecQ&t&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0" 
-        frameborder="0" 
-        allow="autoplay; encrypted-media" 
-        allowfullscreen>
-    </iframe>
-</div>
+        <iframe 
+            src="https://www.youtube.com/embed/qVCyXG2-ecQ?autoplay=1&mute=1&loop=1&playlist=qVCyXG2-ecQ&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&playsinline=1" 
+            frameborder="0" 
+            allow="autoplay; encrypted-media" 
+            allowfullscreen>
+        </iframe>
+    </div>
     <div class="video-overlay"></div>
     
     <div class="container">
@@ -874,12 +866,12 @@
         <section class="tv-section">
             <h2 class="section-title">Демонстрация</h2>
             <div class="tv-container">
-                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/jWY8WAXraJc?autoplay=0&modestbranding=1&rel=0" allowfullscreen></iframe></div>
-                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/FkVvY86PM8k?autoplay=0&modestbranding=1&rel=0" allowfullscreen></iframe></div>
-                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/Ft7XDADCwlc?autoplay=0&modestbranding=1&rel=0" allowfullscreen></iframe></div>
-                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/noRCsSRkYkU?autoplay=0&modestbranding=1&rel=0" allowfullscreen></iframe></div>
-                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/PTA1m-M4CAY?autoplay=0&modestbranding=1&rel=0" allowfullscreen></iframe></div>
-                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/y9b7ncMQpw4?autoplay=0&modestbranding=1&rel=0" allowfullscreen></iframe></div>
+                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/jWY8WAXraJc?autoplay=1&mute=1&loop=1&playlist=jWY8WAXraJc&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/FkVvY86PM8k?autoplay=1&mute=1&loop=1&playlist=FkVvY86PM8k&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/Ft7XDADCwlc?autoplay=1&mute=1&loop=1&playlist=Ft7XDADCwlc&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/noRCsSRkYkU?autoplay=1&mute=1&loop=1&playlist=noRCsSRkYkU&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/PTA1m-M4CAY?autoplay=1&mute=1&loop=1&playlist=PTA1m-M4CAY&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/y9b7ncMQpw4?autoplay=1&mute=1&loop=1&playlist=y9b7ncMQpw4&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
             </div>
         </section>
 
@@ -905,8 +897,8 @@
             </div>
         </a>
 
-        <footer>
-            <div class="footer-grid">
+    </div> <footer>
+        <div class="container"> <div class="footer-grid">
                 <div class="footer-col">
                     <h3 style="font-size: 1.5rem; letter-spacing: -1px;">Pepesoft</h3>
                     <p style="color: var(--gray-500); font-size: 0.85rem; max-width: 300px;">
@@ -938,8 +930,8 @@
                 <div>© 2021-2026 Pepesoft | Все права защищены.</div>
                 <div>v.4.2.6</div>
             </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
