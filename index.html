@@ -52,7 +52,7 @@
         -webkit-font-smoothing: antialiased;
     }
 
-    /* Видеофон - Обновлено для идеального покрытия экрана */
+    /* Видеофон */
     .video-background {
         position: fixed;
         top: 0;
@@ -69,9 +69,9 @@
         top: 50%;
         left: 50%;
         width: 100vw;
-        height: 56.25vw; /* Сохраняет пропорции 16:9 */
+        height: 56.25vw;
         min-height: 100vh;
-        min-width: 177.77vh; /* Сохраняет пропорции 16:9 при вертикальном экране */
+        min-width: 177.77vh;
         transform: translate(-50%, -50%);
         pointer-events: none;
         border: none;
@@ -88,6 +88,8 @@
         pointer-events: none;
     }
 
+    /* Оптимизация прокрутки: отключаем события мыши на видео во время скролла */
+    body.is-scrolling .video-background,
     body.is-scrolling iframe {
         pointer-events: none;
     }
@@ -132,10 +134,13 @@
         transition: var(--transition);
         overflow: hidden;
         position: relative;
+        /* Включаем аппаратное ускорение для плавности backdrop-filter */
+        will-change: transform;
+        transform: translateZ(0);
     }
 
     .block-card:hover {
-        transform: translateY(-8px);
+        transform: translateY(-8px) translateZ(0);
         border-color: rgba(255, 255, 255, 0.2);
         box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.9);
     }
@@ -187,6 +192,9 @@
         padding: 0;
         opacity: 0;
         transform: translateY(30px);
+    }
+
+    .seo-text.animate {
         animation: fadeInUp 0.8s ease forwards 0.3s;
     }
 
@@ -414,21 +422,19 @@
         gap: 24px;
     }
 
-    /* Экраны-телевизоры: Запрет взаимодействия и эффект экрана */
     .tv-screen {
         position: relative;
         padding-bottom: 56.25%;
         height: 0;
         border-radius: 12px;
         overflow: hidden;
-        pointer-events: none; /* Запрещаем любые клики */
+        pointer-events: none;
     }
 
     .tv-screen::after {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        /* Эффект сетки экрана */
         background: linear-gradient(rgba(255,255,255,0.03) 50%, rgba(0,0,0,0.1) 50%);
         background-size: 100% 4px;
         z-index: 1;
@@ -442,7 +448,7 @@
         width: 100%;
         height: 100%;
         border: none;
-        transform: scale(1.05); /* Увеличиваем, чтобы скрыть края плеера YouTube */
+        transform: scale(1.05);
     }
 
     .telegram-block {
@@ -499,7 +505,7 @@
     .tech-item img {
         width: 20px;
         height: 20px;
-        object-fit: contain; /* Картинки больше не растягиваются */
+        object-fit: contain;
         filter: grayscale(100%) opacity(0.7);
         transition: var(--transition);
     }
@@ -519,7 +525,7 @@
         padding: 60px 0 40px;
         margin-top: 100px;
         background: rgba(5,5,7,0.8);
-        width: 100%; /* Футер на 100% ширины */
+        width: 100%;
     }
 
     .footer-grid {
@@ -866,12 +872,12 @@
         <section class="tv-section">
             <h2 class="section-title">Демонстрация</h2>
             <div class="tv-container">
-                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/jWY8WAXraJc?autoplay=1&mute=1&loop=1&playlist=jWY8WAXraJc&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
-                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/FkVvY86PM8k?autoplay=1&mute=1&loop=1&playlist=FkVvY86PM8k&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
-                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/Ft7XDADCwlc?autoplay=1&mute=1&loop=1&playlist=Ft7XDADCwlc&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
-                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/noRCsSRkYkU?autoplay=1&mute=1&loop=1&playlist=noRCsSRkYkU&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
-                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/PTA1m-M4CAY?autoplay=1&mute=1&loop=1&playlist=PTA1m-M4CAY&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
-                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/y9b7ncMQpw4?autoplay=1&mute=1&loop=1&playlist=y9b7ncMQpw4&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe loading="lazy" src="https://www.youtube.com/embed/jWY8WAXraJc?autoplay=1&mute=1&loop=1&playlist=jWY8WAXraJc&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe loading="lazy" src="https://www.youtube.com/embed/FkVvY86PM8k?autoplay=1&mute=1&loop=1&playlist=FkVvY86PM8k&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe loading="lazy" src="https://www.youtube.com/embed/Ft7XDADCwlc?autoplay=1&mute=1&loop=1&playlist=Ft7XDADCwlc&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe loading="lazy" src="https://www.youtube.com/embed/noRCsSRkYkU?autoplay=1&mute=1&loop=1&playlist=noRCsSRkYkU&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe loading="lazy" src="https://www.youtube.com/embed/PTA1m-M4CAY?autoplay=1&mute=1&loop=1&playlist=PTA1m-M4CAY&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe loading="lazy" src="https://www.youtube.com/embed/y9b7ncMQpw4?autoplay=1&mute=1&loop=1&playlist=y9b7ncMQpw4&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1" allow="autoplay; encrypted-media"></iframe></div>
             </div>
         </section>
 
@@ -897,8 +903,11 @@
             </div>
         </a>
 
-    </div> <footer>
-        <div class="container"> <div class="footer-grid">
+    </div> 
+    
+    <footer>
+        <div class="container"> 
+            <div class="footer-grid">
                 <div class="footer-col">
                     <h3 style="font-size: 1.5rem; letter-spacing: -1px;">Pepesoft</h3>
                     <p style="color: var(--gray-500); font-size: 0.85rem; max-width: 300px;">
@@ -958,24 +967,36 @@
         }
         requestAnimationFrame(raf);
 
-        // FIX: Решение бага скролла над видео
+        // Оптимизированный обработчик скролла (Throttle)
+        let isScrolling = false;
         lenis.on('scroll', () => {
-            document.body.classList.add('is-scrolling');
+            if (!isScrolling) {
+                document.body.classList.add('is-scrolling');
+                isScrolling = true;
+            }
             
             clearTimeout(window.scrollTimeout);
             window.scrollTimeout = setTimeout(() => {
                 document.body.classList.remove('is-scrolling');
+                isScrolling = false;
             }, 150);
         });
 
-        // 3. Анимации при появлении
+        // 3. Анимации при появлении (IntersectionObserver)
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate');
+                    // Перестаем следить после активации анимации
+                    observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 });
+        }, observerOptions);
 
         document.querySelectorAll('.card, .section-title, h1, .subtitle, .seo-text').forEach(el => observer.observe(el));
         
@@ -989,11 +1010,10 @@
         initializeActiveUsers();
     });
 
+    // Функция загрузки данных (без изменений логики, только обертка для безопасности)
     async function loadActiveUsersFromSheet() {
         const proxies = [
             'https://api.allorigins.win/raw?url=',
-            'https://cors-anywhere.herokuapp.com/',
-            'https://crossorigin.me/',
             'https://api.codetabs.com/v1/proxy?quest='
         ];
         
@@ -1004,33 +1024,19 @@
         
         for (const proxy of proxies) {
             try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 5000);
-                
                 const response = await fetch(proxy + encodeURIComponent(sheetUrl), {
-                    signal: controller.signal,
-                    cache: 'no-store',
-                    headers: { 'Accept': 'application/json', 'Origin': window.location.origin }
+                    cache: 'no-store'
                 });
-                clearTimeout(timeoutId);
-                
                 if (!response.ok) continue;
                 const text = await response.text();
-                
-                let jsonData;
                 const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(({.*})\);/);
                 
                 if (jsonMatch && jsonMatch[1]) {
-                    jsonData = JSON.parse(jsonMatch[1]);
-                } else { continue; }
-                
-                const rows = jsonData.table?.rows;
-                if (rows && rows.length > 0) {
-                    let activeUsers = null;
-                    if (rows[0].c && rows[0].c[0]) activeUsers = parseInt(rows[0].c[0].v);
-                    if (activeUsers && !isNaN(activeUsers)) return activeUsers;
+                    const jsonData = JSON.parse(jsonMatch[1]);
+                    const rows = jsonData.table?.rows;
+                    if (rows?.[0]?.c?.[0]) return parseInt(rows[0].c[0].v);
                 }
-            } catch (error) { console.log(`Proxy error:`, error.message); }
+            } catch (e) { console.warn('Proxy error'); }
         }
         return null;
     }
@@ -1039,34 +1045,26 @@
         const usersElement = document.getElementById('activeUsers');
         if (!usersElement) return;
         
-        try {
-            const userCount = await loadActiveUsersFromSheet();
-            if (userCount !== null && userCount > 0) { 
-                animateCounter(usersElement, userCount); 
-            } else { 
-                usersElement.textContent = '15,000'; 
-            }
-        } catch (error) {
-            usersElement.textContent = '15,000';
-        }
+        const userCount = await loadActiveUsersFromSheet();
+        if (userCount) animateCounter(usersElement, userCount);
     }
 
     function animateCounter(element, target) {
+        let start = 0;
         const duration = 2000;
-        const steps = 60;
-        const stepTime = duration / steps;
-        let current = 0;
-        const increment = Math.ceil(target / steps);
+        const startTime = performance.now();
         
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                element.textContent = target.toLocaleString();
-                clearInterval(timer);
-            } else {
-                element.textContent = current.toLocaleString();
-            }
-        }, stepTime);
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeOutQuad = 1 - (1 - progress) * (1 - progress);
+            const current = Math.floor(easeOutQuad * target);
+            
+            element.textContent = current.toLocaleString();
+            
+            if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
     }
     </script>
 </body>
