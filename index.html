@@ -705,9 +705,11 @@
 .tv-screen {
     position: relative;
     background: #000;
+    min-height: 200px; /* Обязательно укажите высоту или убедитесь, что она есть у родителя */
+    width: 100%;
 }
 
-/* Черная шторка */
+/* Шторка */
 .tv-screen::after {
     content: "";
     position: absolute;
@@ -715,19 +717,14 @@
     width: 100%; height: 100%;
     background: black;
     z-index: 10;
-    transition: opacity 1.5s ease; /* Плавное исчезновение */
+    opacity: 1;
+    transition: opacity 2s ease;
     pointer-events: none;
 }
 
-/* Когда видео готово, убираем шторку */
+/* Убираем шторку */
 .tv-screen.is-ready::after {
     opacity: 0;
-}
-
-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
 }
     </style>
 </head>
@@ -1221,10 +1218,12 @@ iframe {
     const videoContainers = document.querySelectorAll('.tv-screen');
 
     function onYouTubeIframeAPIReady() {
-        videoContainers.forEach((container, index) => {
+        const screens = document.querySelectorAll('.tv-screen');
+        
+        screens.forEach((container) => {
             const videoId = container.getAttribute('data-video');
             
-            players[index] = new YT.Player(container.id, {
+            new YT.Player(container, { // Передаем сам элемент, а не ID
                 videoId: videoId,
                 playerVars: {
                     'autoplay': 1,
@@ -1232,23 +1231,34 @@ iframe {
                     'controls': 0,
                     'loop': 1,
                     'playlist': videoId,
-                    'showinfo': 0,
                     'modestbranding': 1,
-                    'rel': 0
+                    'rel': 0,
+                    'iv_load_policy': 3
                 },
                 events: {
+                    'onReady': (event) => {
+                        event.target.playVideo(); // Принудительный старт
+                    },
                     'onStateChange': (event) => {
-                        // 1 — это состояние "воспроизведение" (Playing)
+                        // Как только видео начало играть (статус 1)
                         if (event.data == YT.PlayerState.PLAYING) {
-                            // Ждем 5 секунд ПОСЛЕ того, как видео реально начало играть
                             setTimeout(() => {
-                                container.classList.add('is-ready');
+                                // Добавляем класс родителю (контейнеру)
+                                event.target.getIframe().parentElement.classList.add('is-ready');
                             }, 5000);
                         }
                     }
                 }
             });
         });
+    }
+
+    // Загрузка API (если еще не загружено)
+    if (!window.YT) {
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     }
     </script>
 </body>
