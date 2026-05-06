@@ -1243,17 +1243,20 @@
     function onPlayerStateChange(event) {
         const iframe = event.target.getIframe();
         
-        // Состояние 1: PLAYING — показываем видео
+        // Если видео начало играть — показываем
         if (event.data == YT.PlayerState.PLAYING) {
             iframe.classList.add('video-ready');
         } 
-        // Состояние 3: BUFFERING или другие — скрываем (оставляем черный экран)
-        else if (event.data == YT.PlayerState.BUFFERING || event.data == YT.PlayerState.ENDED) {
-            iframe.classList.remove('video-ready');
-            // Если видео закончилось (loop иногда тупит), запускаем снова
-            if (event.data == YT.PlayerState.ENDED) {
-                event.target.playVideo();
-            }
+        
+        // Если видео на паузе или буферизации — скрываем
+        if (event.data == YT.PlayerState.BUFFERING || event.data == YT.PlayerState.PAUSED) {
+            // Можно закомментировать строку ниже для теста, чтобы видео не исчезало
+            // iframe.classList.remove('video-ready');
+        }
+
+        // Если видео не запустилось само (бывает в Chrome)
+        if (event.data == -1) { 
+            event.target.playVideo();
         }
     }
     </script>
