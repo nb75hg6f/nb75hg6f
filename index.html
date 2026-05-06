@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="yandex-verification" content="ce0bf6ddd454c9de" />
     <meta name="google-site-verification" content="aerCIsY79eS0t6NsRf4MltV5rLw7VvaBFZdabMq9WsM" />
-    <title>2026 Боты для ALBION | GTA5RP | MAJESTIC FISH | pepesoft777</title>
+    <title>2026 Боты для ALBION | GTA5RP | MAJESTIC FISH| pepesoft777</title>
     <link rel="canonical" href="https://bots.pepesoft.ru/" />
     <meta name="description" content="Скачать боты для Albion Online, GTA 5 RP, Majestic, CS2, Throne and Liberty, Russian Fishing 4. Автоматизация фарма, рыбалки, прокачки. Безопасно и анонимно.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,36 +12,28 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon1.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon1.png">
     <link rel="manifest" href="site.webmanifest">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
-    
     <style>
     :root {
-        /* Премиальная темная палитра */
-        --bg-main: #030305;
-        --bg-secondary: #0a0a0e;
+        --black: #050507;
         --white: #ffffff;
-        --text-main: #e2e8f0;
-        --text-muted: #94a3b8;
+        --gray-100: #f5f5f5;
+        --gray-300: #d1d1d1;
+        --gray-400: #a1a1aa;
+        --gray-500: #71717a;
+        --gray-700: #3f3f46;
+        --gray-900: #18181b;
+        --primary: #ffffff;
+        --accent: #3b82f6; 
+        --tg: #2AABEE;
         
-        /* Акценты с неоновым оттенком */
-        --accent-primary: #ff0000;
-        --accent-secondary: #ff0000;
-        --accent-glow: rgba(99, 102, 241, 0.25);
-        --tg-color: #2AABEE;
-        
-        /* Glassmorphism переменные */
-        --glass-bg: rgba(13, 14, 18, 0.4);
-        --glass-border: rgba(255, 255, 255, 0.05);
-        --glass-border-hover: rgba(255, 255, 255, 0.15);
-        --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-        
-        --radius-lg: 24px;
-        --radius-md: 16px;
+        --block-bg: rgba(15, 15, 18, 0.75);
+        --block-border: rgba(255, 255, 255, 0.1);
+        --block-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+        --block-radius: 20px;
         --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -49,36 +41,18 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     body {
-        background-color: var(--bg-main);
-        color: var(--text-main);
-        font-family: 'Inter', -apple-system, sans-serif;
+        background-color: var(--black);
+        color: var(--white);
         line-height: 1.6;
         overflow-x: hidden;
         -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
     }
 
-    h1, h2, h3, h4, h5, h6 {
-        font-family: 'Montserrat', sans-serif;
-    }
-
-    /* Фоновые эффекты - глубокое свечение */
-    .ambient-glow {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: -1;
-        background: 
-            radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08), transparent 50%),
-            radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08), transparent 50%);
-        pointer-events: none;
-    }
-
+    /* Видеофон - Обновлено для идеального покрытия экрана */
     .video-background {
         position: fixed;
         top: 0;
@@ -93,17 +67,12 @@
     .video-background img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
-        opacity: 0.3; /* Приглушаем картинку для элитарности */
-        filter: saturate(0) contrast(1.2);
+        object-fit: cover; /* Картинка растягивается, заполняя весь экран */
+        object-position: center;
     }
 
     .video-overlay {
-        position: fixed;
-        inset: 0;
-        background: linear-gradient(180deg, rgba(3,3,5,0.7) 0%, rgba(3,3,5,0.95) 100%);
-        z-index: -1;
-        pointer-events: none;
+        display: none;
     }
 
     body.is-scrolling iframe {
@@ -111,27 +80,28 @@
     }
 
     .container {
-        max-width: 1320px;
+        max-width: 1280px;
         margin: 0 auto;
         padding: 0 24px;
         position: relative;
     }
 
     section {
-        margin: 140px 0;
+        margin: 100px 0;
         position: relative;
     }
 
     .section-title {
         text-align: center;
-        margin-bottom: 70px;
-        font-size: 3rem;
-        font-weight: 800;
+        margin-bottom: 60px;
+        font-size: 2.5rem;
+        font-weight: 700;
         color: var(--white);
         letter-spacing: -1px;
         opacity: 0;
         transform: translateY(20px);
         transition: var(--transition);
+        text-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
 
     .section-title.animate {
@@ -139,62 +109,36 @@
         transform: translateY(0);
     }
 
-    /* Премиальные карточки */
     .block-card {
-        background: var(--glass-bg);
-        border: 1px solid var(--glass-border);
-        border-radius: var(--radius-lg);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-        box-shadow: var(--glass-shadow);
+        background: var(--block-bg);
+        border: 1px solid var(--block-border);
+        border-radius: var(--block-radius);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        box-shadow: var(--block-shadow);
         transition: var(--transition);
-        position: relative;
         overflow: hidden;
-    }
-
-    .block-card::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(to bottom, rgba(255,255,255,0.03), transparent);
-        pointer-events: none;
+        position: relative;
     }
 
     .block-card:hover {
-        transform: translateY(-5px);
-        border-color: var(--glass-border-hover);
-        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), var(--accent-glow);
+        transform: translateY(-8px);
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.9);
     }
 
-    /* Шапка сайта */
     header {
         text-align: center;
-        padding: 12vh 0 8vh;
+        padding: 100px 0 60px;
         position: relative;
     }
 
-    .hero-badge {
-        display: inline-block;
-        padding: 8px 16px;
-        background: rgba(255,255,255,0.03);
-        border: 1px solid var(--glass-border);
-        border-radius: 100px;
-        font-size: 0.85rem;
-        font-weight: 500;
-        color: var(--text-muted);
-        margin-bottom: 24px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        backdrop-filter: blur(10px);
-    }
-
     h1 {
-        font-size: 5.5rem;
-        margin-bottom: 24px;
-        font-weight: 900;
-        letter-spacing: -3px;
-        line-height: 1.1;
-        background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+        font-size: 4.5rem;
+        margin-bottom: 20px;
+        font-weight: 800;
+        letter-spacing: -2px;
+        background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         opacity: 0;
@@ -209,13 +153,14 @@
 
     .subtitle {
         font-size: 1.25rem;
-        color: var(--text-muted);
-        max-width: 700px;
+        color: var(--gray-300);
+        max-width: 650px;
         margin: 0 auto;
         font-weight: 400;
         opacity: 0;
         transform: translateY(20px);
         transition: var(--transition) 0.2s;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
     .subtitle.animate {
@@ -223,26 +168,21 @@
         transform: translateY(0);
     }
 
-    /* Блок кода (SEO) */
     .seo-text {
-        max-width: 900px;
+        max-width: 1000px;
         margin: 0 auto 60px;
         padding: 0;
         opacity: 0;
         transform: translateY(30px);
-    }
-
-    .seo-text.animate {
-        opacity: 1;
-        transform: translateY(0);
+        animation: fadeInUp 0.8s ease forwards 0.3s;
     }
 
     .mac-header {
         display: flex;
         align-items: center;
-        padding: 16px 24px;
-        background: rgba(0,0,0,0.2);
-        border-bottom: 1px solid var(--glass-border);
+        padding: 15px 20px;
+        background: rgba(255,255,255,0.05);
+        border-bottom: 1px solid var(--block-border);
     }
 
     .mac-dots {
@@ -255,65 +195,50 @@
         height: 12px;
         border-radius: 50%;
     }
-    .dot-red { background: #ff0000; }
+    .dot-red { background: #8b00ff; }
     .dot-yellow { background: #ffbd2e; }
     .dot-green { background: #27c93f; }
 
     .mac-title {
         margin: 0 auto;
-        color: var(--text-muted);
+        color: var(--gray-400);
         font-family: 'Fira Code', monospace;
         font-size: 0.85rem;
         transform: translateX(-24px);
     }
 
     .seo-content {
-        padding: 48px;
-    }
-
-    .seo-content h2 {
-        font-size: 2rem;
-        margin-bottom: 16px;
-        font-weight: 700;
-        color: var(--white);
-    }
-
-    .seo-content p {
-        color: var(--text-muted);
-        font-size: 1.1rem;
-        max-width: 700px;
+        padding: 40px;
+        position: relative;
     }
 
     .grid-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px;
-        margin-top: 32px;
+        gap: 10px;
+        justify-content: center;
+        margin: 30px 0;
     }
 
     .tag {
-        background: rgba(255,255,255,0.03);
-        padding: 8px 20px;
-        border-radius: 100px;
-        border: 1px solid var(--glass-border);
+        background: rgba(255,255,255,0.07);
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.1);
         font-size: 0.85rem;
-        color: var(--text-main);
+        color: var(--gray-300);
         transition: var(--transition);
         font-weight: 500;
-        letter-spacing: 0.5px;
     }
 
     .tag:hover {
-        background: rgba(255,255,255,0.1);
-        border-color: rgba(255,255,255,0.3);
-        color: var(--white);
-        box-shadow: 0 0 15px rgba(255,255,255,0.05);
+        background: rgba(255,255,255,0.15);
+        color: #fff;
     }
 
-    /* Сетка карточек */
     .cards-container {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
         gap: 24px;
     }
 
@@ -331,9 +256,9 @@
 
     .card-image-wrapper {
         position: relative;
-        height: 180px;
+        height: 150px;
         overflow: hidden;
-        border-bottom: 1px solid rgba(255,255,255,0.02);
+        border-bottom: 1px solid var(--block-border);
     }
 
     .card-image-wrapper::after {
@@ -342,21 +267,21 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 60%;
-        background: linear-gradient(to top, var(--bg-secondary), transparent);
+        height: 50%;
+        background: linear-gradient(to top, rgba(15,15,18,1), transparent);
     }
 
     .card-image {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        filter: brightness(0.7) saturate(0.8);
+        transition: transform 0.7s ease;
+        filter: brightness(0.8) contrast(1.1);
     }
 
     .card:hover .card-image {
-        transform: scale(1.05);
-        filter: brightness(1) saturate(1.1);
+        transform: scale(1.08);
+        filter: brightness(1);
     }
 
     .card-content {
@@ -364,28 +289,27 @@
         flex-grow: 1;
         display: flex;
         flex-direction: column;
-        background: linear-gradient(to bottom, var(--bg-secondary) 0%, transparent 100%);
     }
 
     .card-title {
-        font-size: 1.35rem;
+        font-size: 1.25rem;
         font-weight: 700;
-        margin-bottom: 24px;
+        margin-bottom: 20px;
         color: var(--white);
         letter-spacing: -0.5px;
     }
 
     .card-buttons {
         display: flex;
-        gap: 12px;
+        gap: 10px;
         margin-top: auto;
     }
 
     .card-btn {
         flex: 1;
         padding: 12px 0;
-        border-radius: 12px;
-        font-size: 0.9rem;
+        border-radius: 10px;
+        font-size: 0.85rem;
         font-weight: 600;
         text-align: center;
         text-decoration: none;
@@ -397,117 +321,105 @@
     }
 
     .key-btn {
-        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-        color: var(--white);
-        border: 1px solid rgba(255,255,255,0.1);
-        box-shadow: 0 4px 15px rgba(255, 0, 0, 1);
+        background: var(--white);
+        color: var(--black);
     }
 
     .key-btn:hover {
+        background: var(--gray-300);
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(255,255,255,0.1);
-        filter: brightness(1.1);
     }
 
     .info-btn {
-        background: rgba(255, 255, 255, 0.03);
+        background: transparent;
         color: var(--white);
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--block-border);
     }
 
     .info-btn:hover {
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.05);
         border-color: rgba(255, 255, 255, 0.2);
     }
 
     .card-status {
         position: absolute;
-        top: 16px;
-        right: 16px;
+        top: 15px;
+        right: 15px;
         display: flex;
         align-items: center;
-        padding: 6px 14px;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(8px);
-        border-radius: 100px;
-        border: 1px solid rgba(255,255,255,0.05);
-        font-size: 0.75rem;
+        padding: 6px 12px;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(5px);
+        border-radius: 30px;
+        border: 1px solid rgba(255,255,255,0.1);
+        font-size: 0.7rem;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.5px;
         z-index: 2;
-        color: var(--white);
     }
 
     .status-dot {
-        width: 8px;
-        height: 8px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
         background: #10b981;
-        margin-right: 8px;
-        box-shadow: 0 0 12px #10b981;
-        animation: pulse 2s infinite;
+        margin-right: 6px;
+        box-shadow: 0 0 8px #10b981;
     }
 
-    @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-        70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-    }
-
-    /* Статистика пользователей */
     .active-users-card {
-        padding: 60px;
+        padding: 50px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: linear-gradient(135deg, rgba(20,20,25,0.6) 0%, rgba(10,10,15,0.8) 100%);
     }
 
     .users-value {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 5rem;
-        font-weight: 900;
+        font-size: 4rem;
+        font-weight: 800;
         line-height: 1;
-        background: linear-gradient(135deg, #ffffff, #64748b);
+        background: linear-gradient(90deg, #ffffff, var(--gray-400));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         letter-spacing: -2px;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
     }
 
     .users-label {
         font-size: 1rem;
-        color: var(--accent-primary);
+        color: var(--accent);
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 3px;
-        margin-bottom: 16px;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
     }
 
-    /* Телевизоры / Демонстрация */
     .tv-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 24px;
     }
 
+    /* Экраны-телевизоры: Запрет взаимодействия и эффект экрана */
     .tv-screen {
         position: relative;
         padding-bottom: 56.25%;
         height: 0;
-        border-radius: var(--radius-md);
+        border-radius: 12px;
         overflow: hidden;
-        pointer-events: none;
-        border: 1px solid var(--glass-border);
+        pointer-events: none; /* Запрещаем любые клики */
     }
 
-    .tv-screen::before {
+    .tv-screen::after {
         content: '';
         position: absolute;
-        inset: 0;
-        box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
-        z-index: 2;
+        top: 0; left: 0; right: 0; bottom: 0;
+        /* Эффект сетки экрана */
+        background: linear-gradient(rgba(255,255,255,0.03) 50%, rgba(0,0,0,0.1) 50%);
+        background-size: 100% 4px;
+        z-index: 1;
+        pointer-events: none;
     }
 
     .tv-screen iframe {
@@ -517,10 +429,39 @@
         width: 100%;
         height: 100%;
         border: none;
-        transform: scale(1.05);
+        transform: scale(1.05); /* Увеличиваем, чтобы скрыть края плеера YouTube */
     }
 
-    /* Технологии */
+    .telegram-block {
+        padding: 50px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        text-decoration: none;
+        margin-top: 100px;
+    }
+
+    .tg-icon-wrap {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(42, 171, 238, 0.1);
+        border-radius: 50%;
+        color: var(--tg);
+        font-size: 2.5rem;
+        transition: var(--transition);
+    }
+
+    .telegram-block:hover .tg-icon-wrap {
+        transform: scale(1.1);
+        background: var(--tg);
+        color: #fff;
+    }
+
     .tech-grid {
         display: flex;
         flex-wrap: wrap;
@@ -530,108 +471,57 @@
 
     .tech-item {
         padding: 12px 24px;
-        background: rgba(255,255,255,0.02);
-        border: 1px solid var(--glass-border);
-        border-radius: 100px;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid var(--block-border);
+        border-radius: 12px;
         display: flex;
         align-items: center;
-        gap: 12px;
-        color: var(--text-muted);
+        gap: 10px;
+        color: var(--gray-300);
         font-weight: 500;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         transition: var(--transition);
-        backdrop-filter: blur(10px);
     }
 
     .tech-item img {
-        width: 22px;
-        height: 22px;
-        object-fit: contain;
-        filter: grayscale(100%) opacity(0.5);
+        width: 20px;
+        height: 20px;
+        object-fit: contain; /* Картинки больше не растягиваются */
+        filter: grayscale(100%) opacity(0.7);
         transition: var(--transition);
     }
 
     .tech-item:hover {
-        background: rgba(255,255,255,0.06);
-        border-color: rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.1);
         color: var(--white);
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        transform: translateY(-2px);
     }
 
     .tech-item:hover img {
         filter: grayscale(0%) opacity(1);
     }
 
-    /* Блок Telegram */
-    .telegram-block {
-        padding: 60px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 24px;
-        text-decoration: none;
-        margin-top: 80px;
-        background: linear-gradient(135deg, rgba(42, 171, 238, 0.05) 0%, rgba(13, 14, 18, 0.4) 100%);
-    }
-
-    .telegram-block:hover {
-        border-color: rgba(42, 171, 238, 0.3);
-        box-shadow: 0 20px 40px rgba(42, 171, 238, 0.1);
-    }
-
-    .tg-icon-wrap {
-        width: 88px;
-        height: 88px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(42, 171, 238, 0.1);
-        border-radius: 50%;
-        color: var(--tg-color);
-        font-size: 2.8rem;
-        transition: var(--transition);
-        border: 1px solid rgba(42, 171, 238, 0.2);
-    }
-
-    .telegram-block:hover .tg-icon-wrap {
-        transform: scale(1.1) rotate(-5deg);
-        background: var(--tg-color);
-        color: #fff;
-        box-shadow: 0 0 30px rgba(42, 171, 238, 0.4);
-    }
-
-    /* Футер */
     footer {
-        border-top: 1px solid var(--glass-border);
-        padding: 80px 0 40px;
-        margin-top: 120px;
-        background: rgba(3, 3, 5, 0.9);
-        backdrop-filter: blur(20px);
-        width: 100%;
+        border-top: 1px solid var(--block-border);
+        padding: 60px 0 40px;
+        margin-top: 100px;
+        background: rgba(5,5,7,0.8);
+        width: 100%; /* Футер на 100% ширины */
     }
 
     .footer-grid {
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr;
-        gap: 60px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 40px;
     }
 
     .footer-col h3 {
-        font-size: 1rem;
+        font-size: 0.9rem;
         color: var(--white);
         text-transform: uppercase;
-        letter-spacing: 1.5px;
-        margin-bottom: 24px;
-        font-weight: 700;
-    }
-
-    .footer-col p {
-        color: var(--text-muted);
-        font-size: 0.95rem;
-        max-width: 320px;
-        line-height: 1.8;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
     }
 
     .footer-col ul {
@@ -639,29 +529,29 @@
     }
 
     .footer-col li {
-        margin-bottom: 16px;
-        font-size: 0.95rem;
-    }
-
-    .footer-col a {
-        color: var(--text-muted);
-        text-decoration: none;
+        margin-bottom: 12px;
+        color: var(--gray-400);
+        font-size: 0.9rem;
         transition: var(--transition);
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
+    }
+
+    .footer-col a {
+        color: var(--gray-400);
+        text-decoration: none;
+        transition: var(--transition);
     }
 
     .footer-col a:hover {
         color: var(--white);
-        transform: translateX(4px);
     }
 
-    /* Прелоадер */
     .preloader {
         position: fixed;
         inset: 0;
-        background: var(--bg-main);
+        background: var(--black);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -671,80 +561,50 @@
     }
 
     .spinner {
-        width: 48px;
-        height: 48px;
-        border: 2px solid rgba(255,255,255,0.05);
-        border-top-color: var(--accent-primary);
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(255,255,255,0.1);
+        border-top-color: var(--white);
         border-radius: 50%;
-        animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-        margin-bottom: 24px;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
     }
 
     .preloader-text {
         font-family: 'Fira Code', monospace;
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        letter-spacing: 3px;
+        font-size: 0.8rem;
+        color: var(--gray-500);
+        letter-spacing: 2px;
         text-transform: uppercase;
     }
 
     @keyframes spin { 100% { transform: rotate(360deg); } }
-
-    @media (max-width: 992px) {
-        .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-        h1 { font-size: 4rem; }
-    }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
     @media (max-width: 768px) {
-        h1 { font-size: 3rem; letter-spacing: -1px; }
-        .active-users-card { flex-direction: column; text-align: center; padding: 40px 24px; }
-        .users-value { font-size: 3.5rem; }
-        section { margin: 80px 0; }
+        h1 { font-size: 2.8rem; }
+        .active-users-card { flex-direction: column; text-align: center; padding: 30px; gap: 30px; }
+        .users-value { font-size: 3rem; }
     }
 
-.tv-screen {
-    position: relative;
-    background: #000;
-    min-height: 200px; /* Обязательно укажите высоту или убедитесь, что она есть у родителя */
-    width: 100%;
-}
-
-/* Шторка */
-.tv-screen::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: black;
-    z-index: 10;
-    opacity: 1;
-    transition: opacity 2s ease;
-    pointer-events: none;
-}
-
-/* Убираем шторку */
-.tv-screen.is-ready::after {
-    opacity: 0;
-}
     </style>
 </head>
 <body>
     <div class="preloader" id="preloader">
         <div class="spinner"></div>
-        <div class="preloader-text">Loading Core...</div>
+        <div class="preloader-text">Loading System...</div>
     </div>
     
-    <div class="ambient-glow"></div>
     <div class="video-background">
-        <img src="https://i.pinimg.com/1200x/f4/75/87/f47587e2db5bb4ecd337fb47863ea816.jpg" alt="Background">
+        <img src="https://i.pinimg.com/1200x/f4/75/87/f47587e2db5bb4ecd337fb47863ea816.jpg" alt="Water background">
+        
     </div>
     <div class="video-overlay"></div>
     
     <div class="container">
         <header>
-            
-            <h1>Pepesoft</h1>
-            <p class="subtitle">Универсальные боты без бана Максимальный профит Полная анонимность.</p>
+            <h1 class="wave-animation">Pepesoft</h1>
+            <p class="subtitle">Универсальные боты для разных игр. Один инструмент — тысячи возможностей.</p>
         </header>
 
         <div class="seo-text block-card">
@@ -754,12 +614,12 @@
                     <div class="mac-dot dot-red"></div>
                     <div class="mac-dot dot-red"></div>
                 </div>
-                <div class="mac-title">~/3c8%dj#n&:^</div>
+                <div class="mac-title">8#"3$/.&*%j@.py</div>
             </div>
             <div class="seo-content">
-                <h2>Инструменты уважаемого игрока 2026</h2>
-                <p>
-                    Мы создаем передовое программное обеспечение для автоматизации игровых процессов Фарм ресурсов, рыбалка, крафт, прокачка — всё работает как круто благодаря умным алгоритмам
+                <h2 style="font-size: 1.8rem; margin-bottom: 15px; font-weight: 600;">Боты для игр 2026</h2>
+                <p style="color: var(--gray-300); font-size: 1.1rem; max-width: 800px;">
+                    Мы разрабатываем передовое программное обеспечение для автоматизации. Фарм ресурсов, рыбалка, крафт, прокачка — с защитой уровня ядра и полной анонимностью.
                 </p>
                 
                 <div class="grid-tags">
@@ -775,7 +635,7 @@
         </div>
 
         <section class="cards-section">
-            <h2 class="section-title">Каталог панелей</h2>
+            <h2 class="section-title">Наши боты</h2>
             <div class="cards-container">
                 
                 <div class="card block-card">
@@ -787,7 +647,7 @@
                         <h3 class="card-title">GTA 5 RP Auto</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=43543471" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="gtawiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                            <a href="gtawiki1.html" class="card-btn info-btn"><i class="fas fa-info-circle"></i> Детали</a>
                         </div>
                     </div>
                 </div>
@@ -801,7 +661,7 @@
                         <h3 class="card-title">GTA 5 Triggerbot</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=41637268" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="trigmenu.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                            <a href="trigmenu.html" class="card-btn info-btn"><i class="fas fa-info-circle"></i> Детали</a>
                         </div>
                     </div>
                 </div>
@@ -815,7 +675,7 @@
                         <h3 class="card-title">Majestic Panel</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=63612008" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="majesticwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                            <a href="majesticwiki.html" class="card-btn info-btn"><i class="fas fa-info-circle"></i> Детали</a>
                         </div>
                     </div>
                 </div>
@@ -829,7 +689,7 @@
                         <h3 class="card-title">GRAND RP</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=41770971" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="grandwiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                            <a href="grandwiki1.html" class="card-btn info-btn"><i class="fas fa-info-circle"></i> Детали</a>
                         </div>
                     </div>
                 </div>
@@ -843,7 +703,7 @@
                         <h3 class="card-title">Albion Panel</h3>
                         <div class="card-buttons">
                             <a href="#" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="albionwiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                            <a href="albionwiki1.html" class="card-btn info-btn"><i class="fas fa-info-circle"></i> Детали</a>
                         </div>
                     </div>
                 </div>
@@ -857,7 +717,7 @@
                         <h3 class="card-title">Profit Calculator</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=45541073" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="calcwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                            <a href="calcwiki.html" class="card-btn info-btn"><i class="fas fa-info-circle"></i> Детали</a>
                         </div>
                     </div>
                 </div>
@@ -871,7 +731,7 @@
                         <h3 class="card-title">Russian Fishing 4</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=41769340" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="rufishwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                            <a href="rufishwiki.html" class="card-btn info-btn"><i class="fas fa-info-circle"></i> Детали</a>
                         </div>
                     </div>
                 </div>
@@ -885,7 +745,7 @@
                         <h3 class="card-title">R M R P</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=41638780" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="rmrpwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                            <a href="rmrpwiki.html" class="card-btn info-btn"><i class="fas fa-info-circle"></i> Детали</a>
                         </div>
                     </div>
                 </div>
@@ -951,7 +811,7 @@
                         <h3 class="card-title">Amazing Panel</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=53635814" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="amazingwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                            <a href="amazingwiki.html" class="card-btn info-btn"><i class="fas fa-info-circle"></i> Детали</a>
                         </div>
                     </div>
                 </div>
@@ -965,7 +825,7 @@
                         <h3 class="card-title">Lineage 2 Essence</h3>
                         <div class="card-buttons">
                             <a href="" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="l2wiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                            <a href="l2wiki.html" class="card-btn info-btn"><i class="fas fa-info-circle"></i> Детали</a>
                         </div>
                     </div>
                 </div>
@@ -978,29 +838,23 @@
                 <div>
                     <div class="users-label">Доверие комьюнити</div>
                     <div class="users-value"><span id="activeUsers">15,000</span>+</div>
-                    <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 450px;">
-                        Активных пользователей, которые уже вывели свой геймплей на новый уровень эффективности вместе с нами
-                    </p>
+                    <p style="color: var(--gray-300); font-size: 1rem; max-width: 400px;">Активных пользователей, которые уже оптимизировали свой игровой процесс вместе с нами.</p>
                 </div>
-                <div style="font-size: 7rem; color: rgba(255,255,255,0.03); filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.2));">
+                <div style="font-size: 6rem; color: rgba(255,255,255,0.05);">
                     <i class="fas fa-shield-halved"></i>
                 </div>
             </div>
         </section>
 
-
-
-
         <section class="tv-section">
-            <h2 class="section-title">Демонстрация работы</h2>
+            <h2 class="section-title">Демонстрация</h2>
             <div class="tv-container">
-                <!-- Заменяем iframe на div с id -->
-                <div class="block-card tv-screen" id="player1" data-video="jWY8WAXraJc"></div>
-                <div class="block-card tv-screen" id="player2" data-video="FkVvY86PM8k"></div>
-                <div class="block-card tv-screen" id="player3" data-video="Ft7XDADCwlc"></div>
-                <div class="block-card tv-screen" id="player4" data-video="noRCsSRkYkU"></div>
-                <div class="block-card tv-screen" id="player5" data-video="PTA1m-M4CAY"></div>
-                <div class="block-card tv-screen" id="player6" data-video="y9b7ncMQpw4"></div>
+                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/jWY8WAXraJc?autoplay=1&mute=1&loop=1&playlist=jWY8WAXraJc&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1&iv_load_policy=3" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/FkVvY86PM8k?autoplay=1&mute=1&loop=1&playlist=FkVvY86PM8k&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1&iv_load_policy=3" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/Ft7XDADCwlc?autoplay=1&mute=1&loop=1&playlist=Ft7XDADCwlc&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1&iv_load_policy=3" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/noRCsSRkYkU?autoplay=1&mute=1&loop=1&playlist=noRCsSRkYkU&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1&iv_load_policy=3" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/PTA1m-M4CAY?autoplay=1&mute=1&loop=1&playlist=PTA1m-M4CAY&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1&iv_load_policy=3" allow="autoplay; encrypted-media"></iframe></div>
+                <div class="block-card tv-screen"><iframe src="https://www.youtube.com/embed/y9b7ncMQpw4?autoplay=1&mute=1&loop=1&playlist=y9b7ncMQpw4&controls=0&modestbranding=1&rel=0&disablekb=1&playsinline=1&iv_load_policy=3" allow="autoplay; encrypted-media"></iframe></div>
             </div>
         </section>
 
@@ -1021,64 +875,61 @@
                 <div class="tg-icon-wrap">
                     <i class="fab fa-telegram-plane"></i>
                 </div>
-                <h3 style="color: var(--white); font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px;">Мы в телеге</h3>
-                <p style="color: var(--text-muted); font-size: 1.1rem;">Анонсы, закрытые обновления и прямая связь с разработчиком</p>
+                <h3 style="color: var(--white); font-size: 1.5rem; font-weight: 600;">Присоединяйся к Telegram-каналу</h3>
+                <p style="color: var(--gray-400);">Анонсы, обновления и техническая поддержка</p>
             </div>
         </a>
 
-    </div> 
-    
-    <footer>
-        <div class="container"> 
-            <div class="footer-grid">
+    </div> <footer>
+        <div class="container"> <div class="footer-grid">
                 <div class="footer-col">
-                    <h3 style="font-size: 1.6rem; letter-spacing: -1px; font-weight: 900;">PEPESOFT</h3>
-                    <p>
-                        Профессиональные решения для автоматизации в современных играх Экономьте время, максимизируйте результат
+                    <h3 style="font-size: 1.5rem; letter-spacing: -1px;">Pepesoft</h3>
+                    <p style="color: var(--gray-500); font-size: 0.85rem; max-width: 300px;">
+                        Профессиональные инструменты автоматизации для современных игр.
                     </p>
                 </div>
                 
                 <div class="footer-col">
                     <h3>Популярное</h3>
                     <ul>
-                        <li><a href="#">GTA 5 RP Auto</a></li>
-                        <li><a href="#">Majestic Panel</a></li>
+                        <li><a href="#">GTA 5 RP</a></li>
+                        <li><a href="#">Majestic RP</a></li>
                         <li><a href="#">Albion Online</a></li>
-                        <li><a href="#">Throne & Liberty</a></li>
+                        <li><a href="#">Russian Fishing 4</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
-                    <h3>Контакты</h3>
+                    <h3>Связь</h3>
                     <ul>
-                        <li><a href="https://t.me/pepesoft777"><i class="fab fa-telegram" style="color: var(--tg-color);"></i> @pepesoft777</a></li>
-                        <li><a href="#"><i class="fas fa-globe"></i> bots.pepesoft.ru</a></li>
-                        <li><a href="#"><i class="fas fa-clock"></i> Поддержка: 12:00 - 04:00 MSK</a></li>
+                        <li><i class="fab fa-telegram" style="color: var(--tg);"></i> <a href="https://t.me/pepesoft777">@pepesoft777</a></li>
+                        <li><i class="fas fa-globe"></i> bots.pepesoft.ru</li>
+                        <li><i class="fas fa-clock"></i> Поддержка: 12:00 - 04:00 MSK</li>
                     </ul>
                 </div>
             </div>
             
-            <div style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px; padding-top: 24px; display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">
-                <div>© 2021-2026 Pepesoft. Все права защищены. Мы превращаем сложные идеи в совершенный код, уделяя внимание мельчайшим деталям архитектуры и производительности</div>
-                
+            <div style="border-top: 1px solid var(--block-border); margin-top: 40px; padding-top: 20px; display: flex; justify-content: space-between; color: var(--gray-600); font-size: 0.8rem;">
+                <div>© 2021-2026 Pepesoft | Все права защищены.</div>
+                <div>v.4.2.6</div>
             </div>
         </div>
     </footer>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Прелоадер
+        // 1. Прелоадер
         setTimeout(() => {
             const loader = document.getElementById('preloader');
             if (loader) {
                 loader.style.opacity = '0';
                 setTimeout(() => loader.remove(), 600);
             }
-        }, 1000);
+        }, 800);
 
-        // Плавный скролл (Lenis)
+        // 2. Инициализация Lenis (Плавный скролл)
         const lenis = new Lenis({ 
-            duration: 1.4, 
+            duration: 1.2, 
             smooth: true,
             wheelMultiplier: 1,
             touchMultiplier: 2
@@ -1090,29 +941,24 @@
         }
         requestAnimationFrame(raf);
 
-        // Фикс взаимодействия с iframe при скролле
+        // FIX: Решение бага скролла над видео
         lenis.on('scroll', () => {
             document.body.classList.add('is-scrolling');
+            
             clearTimeout(window.scrollTimeout);
             window.scrollTimeout = setTimeout(() => {
                 document.body.classList.remove('is-scrolling');
             }, 150);
         });
 
-        // Анимации при появлении в области видимости
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
+        // 3. Анимации при появлении
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate');
-                    observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.card, .section-title, h1, .subtitle, .seo-text').forEach(el => observer.observe(el));
         
@@ -1122,11 +968,10 @@
             document.querySelector('.subtitle')?.classList.add('animate');
         }, 100);
 
-        // Инициализация счетчика
+        // 4. Счетчик активных пользователей
         initializeActiveUsers();
     });
 
-    // Получение данных пользователей
     async function loadActiveUsersFromSheet() {
         const proxies = [
             'https://api.allorigins.win/raw?url=',
@@ -1148,7 +993,7 @@
                 const response = await fetch(proxy + encodeURIComponent(sheetUrl), {
                     signal: controller.signal,
                     cache: 'no-store',
-                    headers: { 'Accept': 'application/json' }
+                    headers: { 'Accept': 'application/json', 'Origin': window.location.origin }
                 });
                 clearTimeout(timeoutId);
                 
@@ -1168,7 +1013,7 @@
                     if (rows[0].c && rows[0].c[0]) activeUsers = parseInt(rows[0].c[0].v);
                     if (activeUsers && !isNaN(activeUsers)) return activeUsers;
                 }
-            } catch (error) { console.log(`Proxy skip...`); }
+            } catch (error) { console.log(`Proxy error:`, error.message); }
         }
         return null;
     }
@@ -1190,75 +1035,21 @@
     }
 
     function animateCounter(element, target) {
-        const duration = 2500;
+        const duration = 2000;
         const steps = 60;
         const stepTime = duration / steps;
         let current = 0;
-        // Эффект плавного замедления в конце
+        const increment = Math.ceil(target / steps);
+        
         const timer = setInterval(() => {
-            const distance = target - current;
-            const increment = Math.ceil(distance / 10);
-            
-            if (distance <= increment) {
+            current += increment;
+            if (current >= target) {
                 element.textContent = target.toLocaleString();
                 clearInterval(timer);
             } else {
-                current += increment;
                 element.textContent = current.toLocaleString();
             }
         }, stepTime);
-    }
-
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    let players = [];
-    const videoContainers = document.querySelectorAll('.tv-screen');
-
-    function onYouTubeIframeAPIReady() {
-        const screens = document.querySelectorAll('.tv-screen');
-        
-        screens.forEach((container) => {
-            const videoId = container.getAttribute('data-video');
-            
-            new YT.Player(container, { // Передаем сам элемент, а не ID
-                videoId: videoId,
-                playerVars: {
-                    'autoplay': 1,
-                    'mute': 1,
-                    'controls': 0,
-                    'loop': 1,
-                    'playlist': videoId,
-                    'modestbranding': 1,
-                    'rel': 0,
-                    'iv_load_policy': 3
-                },
-                events: {
-                    'onReady': (event) => {
-                        event.target.playVideo(); // Принудительный старт
-                    },
-                    'onStateChange': (event) => {
-                        // Как только видео начало играть (статус 1)
-                        if (event.data == YT.PlayerState.PLAYING) {
-                            setTimeout(() => {
-                                // Добавляем класс родителю (контейнеру)
-                                event.target.getIframe().parentElement.classList.add('is-ready');
-                            }, 5000);
-                        }
-                    }
-                }
-            });
-        });
-    }
-
-    // Загрузка API (если еще не загружено)
-    if (!window.YT) {
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     }
     </script>
 </body>
