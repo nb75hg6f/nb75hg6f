@@ -737,6 +737,130 @@
     height: 120%; /* Делаем выше, чтобы скрыть панель управления */
     transform: translate(-50%, -50%); /* Центрируем */
 }
+
+/* --- БЛОК СОЦСЕТЕЙ (YouTube, Telegram, TikTok) --- */
+    .socials-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 40px;
+    }
+
+    .social-card {
+        padding: 40px 30px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        text-decoration: none;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-lg);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .social-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(255,255,255,0.03), transparent);
+        pointer-events: none;
+    }
+
+    /* Индивидуальные эффекты при наведении */
+    .social-card.yt:hover {
+        border-color: rgba(255, 0, 0, 0.4);
+        box-shadow: 0 20px 40px rgba(255, 0, 0, 0.15), inset 0 0 20px rgba(255, 0, 0, 0.05);
+        transform: translateY(-5px);
+    }
+    .social-card.tg:hover {
+        border-color: rgba(42, 171, 238, 0.4);
+        box-shadow: 0 20px 40px rgba(42, 171, 238, 0.15), inset 0 0 20px rgba(42, 171, 238, 0.05);
+        transform: translateY(-5px);
+    }
+    .social-card.tt:hover {
+        border-color: rgba(0, 242, 254, 0.4);
+        box-shadow: 0 20px 40px rgba(0, 242, 254, 0.15), inset 0 0 20px rgba(254, 44, 85, 0.05);
+        transform: translateY(-5px);
+    }
+
+    .social-icon-wrap {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 2.5rem;
+        transition: var(--transition);
+        position: relative;
+        z-index: 2;
+    }
+    
+    /* Стили иконок по умолчанию */
+    .social-card.yt .social-icon-wrap {
+        background: rgba(255, 0, 0, 0.05);
+        color: #ff0000;
+        border: 1px solid rgba(255, 0, 0, 0.2);
+    }
+    .social-card.tg .social-icon-wrap {
+        background: rgba(42, 171, 238, 0.05);
+        color: #2AABEE;
+        border: 1px solid rgba(42, 171, 238, 0.2);
+    }
+    .social-card.tt .social-icon-wrap {
+        background: rgba(255, 255, 255, 0.03);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Анимация иконок при наведении */
+    .social-card:hover .social-icon-wrap {
+        transform: scale(1.1);
+    }
+    .social-card.yt:hover .social-icon-wrap {
+        background: #ff0000;
+        color: #ffffff;
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+    }
+    .social-card.tg:hover .social-icon-wrap {
+        background: #2AABEE;
+        color: #ffffff;
+        box-shadow: 0 0 30px rgba(42, 171, 238, 0.4);
+    }
+    .social-card.tt:hover .social-icon-wrap {
+        background: linear-gradient(45deg, #00f2fe, #fe2c55);
+        color: #ffffff;
+        border-color: transparent;
+        box-shadow: 0 0 30px rgba(254, 44, 85, 0.4);
+    }
+
+    .social-title {
+        color: var(--white);
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        z-index: 2;
+    }
+    
+    .social-desc {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        z-index: 2;
+    }
+
+    @media (max-width: 992px) {
+        .socials-container {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+    }
     </style>
 </head>
 <body>
@@ -1062,15 +1186,36 @@
             </div>
         </section>
 
-        <a href="https://t.me/pepesoft777" target="_blank" style="text-decoration: none;">
-            <div class="telegram-block block-card">
-                <div class="tg-icon-wrap">
-                    <i class="fab fa-telegram-plane"></i>
-                </div>
-                <h3 style="color: var(--white); font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px;">Мы в телеге</h3>
-                <p style="color: var(--text-muted); font-size: 1.1rem;">Анонсы, закрытые обновления и прямая связь с разработчиком</p>
+        <section class="socials-section" style="margin-top: 100px;">
+            <h2 class="section-title">Мы в соцсетях</h2>
+            <div class="socials-container">
+                
+                <a href="ВАШ_YOUTUBE_ЛИНК" target="_blank" class="social-card yt">
+                    <div class="social-icon-wrap">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <h3 class="social-title">YouTube</h3>
+                    <p class="social-desc">Гайды, обзоры обновлений и секреты максимального профита</p>
+                </a>
+
+                <a href="ВАШ_TIKTOK_ЛИНК" target="_blank" class="social-card tt">
+                    <div class="social-icon-wrap">
+                        <i class="fab fa-tiktok"></i>
+                    </div>
+                    <h3 class="social-title">TikTok</h3>
+                    <p class="social-desc">Короткие демонстрации работы софта и лучшие моменты</p>
+                </a>
+
+                <a href="https://t.me/pepesoft777" target="_blank" class="social-card tg">
+                    <div class="social-icon-wrap">
+                        <i class="fab fa-telegram-plane"></i>
+                    </div>
+                    <h3 class="social-title">Telegram</h3>
+                    <p class="social-desc">Анонсы, закрытые обновления и прямая связь с разработчиком</p>
+                </a>
+
             </div>
-        </a>
+        </section>
 
     </div> 
     
