@@ -18,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+    <meta name="referrer" content="no-referrer">
     
     <style>
     :root {
@@ -430,9 +431,13 @@
         background: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(8px);
         border-radius: 100px;
-        border: 1px solid rgba(255,255,255,0.05);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        
+        /* Добавленное свойство для шрифта */
+        font-family: 'Montserrat', sans-serif;
+        
         font-size: 0.75rem;
-        font-weight: 600;
+        font-weight: 600; /* Жирность (Semi-Bold) */
         text-transform: uppercase;
         letter-spacing: 0.5px;
         z-index: 2;
@@ -871,7 +876,7 @@
     
     <div class="ambient-glow"></div>
     <div class="video-background">
-        <img src="https://i.pinimg.com/1200x/f4/75/87/f47587e2db5bb4ecd337fb47863ea816.jpg" alt="Background">
+        <img id="bg-image" src="" alt="Background">
     </div>
     <div class="video-overlay"></div>
     
@@ -914,12 +919,12 @@
             <div class="cards-container">
                 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./gta5rp.png" alt="GTA 5 RP" class="card-image">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">GTA 5 RP Auto</h3>
+                        <h3 class="card-title">GTA5RP</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=43543471" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                             <a href="gtawiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
@@ -928,12 +933,12 @@
                 </div>
 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./trig.png" alt="GTA 5 Trigger" class="card-image">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">GTA 5 Triggerbot</h3>
+                        <h3 class="card-title">Triggerbot <br> GTA5RP / Majestic</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=41637268" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                             <a href="trigmenu.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
@@ -942,12 +947,12 @@
                 </div>
 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./maj.png" alt="Majestic Panel" class="card-image">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Majestic Panel</h3>
+                        <h3 class="card-title">Majestic</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=63612008" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                             <a href="majesticwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
@@ -956,7 +961,7 @@
                 </div>
 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./grand.png" alt="GRAND RP" class="card-image">
                     </div>
@@ -970,12 +975,12 @@
                 </div>
 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./albion2.jpg" alt="Albion Panel" class="card-image">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Albion Panel</h3>
+                        <h3 class="card-title">Albion Online</h3>
                         <div class="card-buttons">
                             <a href="#" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                             <a href="albionwiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
@@ -984,7 +989,7 @@
                 </div>
 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./calc.png" alt="Profit Calculator" class="card-image">
                     </div>
@@ -998,7 +1003,7 @@
                 </div>
 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./rf4.png" alt="Russian Fishing 4" class="card-image">
                     </div>
@@ -1012,7 +1017,7 @@
                 </div>
 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./rmrp.png" alt="R M R P" class="card-image">
                     </div>
@@ -1026,7 +1031,7 @@
                 </div>
 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./poe.png" alt="POE" class="card-image">
                     </div>
@@ -1039,12 +1044,12 @@
                 </div>
 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./tl.png" alt="Throne and Liberty AutoFarm" class="card-image">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">TL AutoFarm</h3>
+                        <h3 class="card-title">Throne and Liberty <br> Auto - Farm</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=41768984" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
                         </div>
@@ -1052,12 +1057,12 @@
                 </div>
 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./tl.png" alt="Throne and Liberty AutoFish" class="card-image">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">TL AutoFish</h3>
+                        <h3 class="card-title">Throne and Liberty <br> Auto - Fishing</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=41768873" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
                         </div>
@@ -1065,12 +1070,12 @@
                 </div>
 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./cs2.png" alt="CS2 Macro" class="card-image">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">CS2 Macro</h3>
+                        <h3 class="card-title">Counter Strike 2 <br> Macros</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=42408839" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
                         </div>
@@ -1078,12 +1083,12 @@
                 </div>
 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./amazing.jpg" alt="Amazing Panel" class="card-image">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Amazing Panel</h3>
+                        <h3 class="card-title">Amazing RP</h3>
                         <div class="card-buttons">
                             <a href="https://funpay.com/lots/offer?id=53635814" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                             <a href="amazingwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
@@ -1092,7 +1097,7 @@
                 </div>
 
                 <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> Active</div>
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./l2fon.png" alt="Lineage 2" class="card-image">
                     </div>
@@ -1174,17 +1179,7 @@
             </div>
         </section>
 
-        <section>
-            <div class="tech-grid">
-                <div class="tech-item"><img src="./python.png" alt="Python"></div>
-                <div class="tech-item"><img src="./ahk.png" alt="AHK"></div>
-                <div class="tech-item"><img src="./sublime.jfif" alt="Sublime"></div>
-                <div class="tech-item"><img src="./visual.png" alt="VS"></div>
-                <div class="tech-item"><img src="./github.png" alt="Git"></div>
-                <div class="tech-item"><img src="./excel.png" alt="Excel"></div>
-                <div class="tech-item"><img src="./telegram.png" alt="TG API"></div>
-            </div>
-        </section>
+        
 
         <section class="socials-section" style="margin-top: 100px;">
             <h2 class="section-title">Мы в соцсетях</h2>
@@ -1214,6 +1209,22 @@
                     <p class="social-desc">Анонсы, закрытые обновления и прямая связь с разработчиком</p>
                 </a>
 
+            </div>
+        </section>
+
+
+        <section>
+            <div class="tech-grid">
+                <div class="tech-item"><img src="./python.png" alt="Python"></div>
+                <div class="tech-item"><img src="./ahk.png" alt="AHK"></div>
+                <div class="tech-item"><img src="./sublime.jfif" alt="Sublime"></div>
+                <div class="tech-item"><img src="./visual.png" alt="VS"></div>
+                <div class="tech-item"><img src="./github.png" alt="Git"></div>
+                <div class="tech-item"><img src="./excel.png" alt="Excel"></div>
+                <div class="tech-item"><img src="./с#.png" alt="c#"></div>
+                <div class="tech-item"><img src="./google.png" alt="google"></div>
+                <div class="tech-item"><img src="./vkapi.png" alt="vkapi"></div>
+                <div class="tech-item"><img src="./telegram.png" alt="TG API"></div>
             </div>
         </section>
 
@@ -1257,6 +1268,38 @@
     </footer>
 
     <script>
+
+    const images = [
+        "https://i.pinimg.com/1200x/f4/75/87/f47587e2db5bb4ecd337fb47863ea816.jpg",
+        "https://i.pinimg.com/736x/de/c0/3f/dec03faa9005f158fcf7ccdebfdbe114.jpg",
+        "https://i.pinimg.com/736x/3b/5f/72/3b5f72c5d496bb21a5b2f7cf646614f2.jpg",
+        "https://i.pinimg.com/1200x/5a/63/b8/5a63b835c02b1de3721d8d7affb8c696.jpg",
+        "https://i.pinimg.com/736x/f2/93/b9/f293b999fa77d0791caabd0f50eeb41c.jpg",
+        "https://i.pinimg.com/736x/db/0c/c8/db0cc882706b5c771824286c52edce12.jpg",
+        "https://i.pinimg.com/736x/aa/d6/da/aad6dafd0b99493487fe02811e6055be.jpg",
+        "https://i.pinimg.com/1200x/a4/a1/d5/a4a1d518d7fcd7d68519c613ca36c284.jpg",
+        "https://i.pinimg.com/1200x/40/ee/35/40ee35097c7ac292f712a4dec7b2bd9a.jpg",
+        "https://i.pinimg.com/736x/8f/68/1e/8f681eb7dc800532a6326446360be8f0.jpg",
+        "https://i.pinimg.com/1200x/c9/57/74/c95774a29a6a4e871b5392cb93349e99.jpg",
+
+
+    ];
+
+    function setRandomBackground() {
+        const randomIndex = Math.floor(Math.random() * images.length);
+        const imgElement = document.getElementById('bg-image');
+        
+        if (imgElement) {
+            imgElement.src = images[randomIndex];
+        }
+    }
+
+    // Запускается сразу, как только готов HTML (гораздо быстрее, чем window.onload)
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setRandomBackground);
+    } else {
+        setRandomBackground(); // Если HTML уже готов
+    }
     document.addEventListener('DOMContentLoaded', () => {
         // Прелоадер
         setTimeout(() => {
@@ -1399,6 +1442,8 @@
             }
         }, stepTime);
     }
+
+    
     </script>
 </body>
 </html>
