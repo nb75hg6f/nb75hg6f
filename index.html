@@ -723,23 +723,27 @@
     background: #000;
 }
 
-/* Обертка для "зума" видео */
 .video-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Отключает клики (паузу, переход на YT) */
+    position: relative;
+    padding-bottom: 56.25%; /* Пропорции экрана 16:9 */
+    height: 0;
+    overflow: hidden;
+    background-color: #000; /* Черный фон, пока видео загружается */
 }
 
-/* Сам плеер */
-.video-wrapper iframe {
+.video-wrapper video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover; /* Растягивает видео на всю площадь карточки без искажения пропорций */
+}
+
+.lazy-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Или contain, в зависимости от дизайна */
 }
 
 /* --- БЛОК СОЦСЕТЕЙ (YouTube, Telegram, TikTok) --- */
@@ -1134,51 +1138,46 @@
             <h2 class="section-title">Демонстрация работы</h2>
             
             <div class="tv-container">
+
+                <!-- Блок 3 -->
                 <div class="block-card tv-screen">
                     <div class="video-wrapper">
-                        <iframe src="https://www.youtube-nocookie.com/embed/jWY8WAXraJc?autoplay=1&mute=1&loop=1&playlist=jWY8WAXraJc&controls=0&modestbranding=1&rel=0&disablekb=1&iv_load_policy=3" 
-                                allow="autoplay; encrypted-media; picture-in-picture" 
-                                allowfullscreen></iframe>
+                        <video class="lazy-video" data-src="https://huggingface.co/buckets/pepegit666/videos/resolve/vid6.mkv" muted loop playsinline></video>
                     </div>
                 </div>
 
+                <!-- Блок 4 -->
                 <div class="block-card tv-screen">
                     <div class="video-wrapper">
-                        <iframe src="https://www.youtube-nocookie.com/embed/FkVvY86PM8k?autoplay=1&mute=1&loop=1&playlist=FkVvY86PM8k&controls=0&modestbranding=1&rel=0&disablekb=1&iv_load_policy=3" 
-                                allow="autoplay; encrypted-media; picture-in-picture" 
-                                allowfullscreen></iframe>
+                        <video class="lazy-video" data-src="https://huggingface.co/buckets/pepegit666/videos/resolve/vid5.mkv" muted loop playsinline></video>
                     </div>
                 </div>
 
+                <!-- Блок 5 -->
                 <div class="block-card tv-screen">
                     <div class="video-wrapper">
-                        <iframe src="https://www.youtube-nocookie.com/embed/Ft7XDADCwlc?autoplay=1&mute=1&loop=1&playlist=Ft7XDADCwlc&controls=0&modestbranding=1&rel=0&disablekb=1&iv_load_policy=3" 
-                                allow="autoplay; encrypted-media; picture-in-picture" 
-                                allowfullscreen></iframe>
+                        <video class="lazy-video" data-src="https://huggingface.co/buckets/pepegit666/videos/resolve/vid4.mkv" muted loop playsinline></video>
                     </div>
                 </div>
 
+                <!-- Блок 6 -->
                 <div class="block-card tv-screen">
                     <div class="video-wrapper">
-                        <iframe src="https://www.youtube-nocookie.com/embed/noRCsSRkYkU?autoplay=1&mute=1&loop=1&playlist=noRCsSRkYkU&controls=0&modestbranding=1&rel=0&disablekb=1&iv_load_policy=3" 
-                                allow="autoplay; encrypted-media; picture-in-picture" 
-                                allowfullscreen></iframe>
+                        <video class="lazy-video" data-src="https://huggingface.co/buckets/pepegit666/videos/resolve/vid3.mkv" muted loop playsinline></video>
                     </div>
                 </div>
 
+                <!-- Блок 7 -->
                 <div class="block-card tv-screen">
                     <div class="video-wrapper">
-                        <iframe src="https://www.youtube-nocookie.com/embed/PTA1m-M4CAY?autoplay=1&mute=1&loop=1&playlist=PTA1m-M4CAY&controls=0&modestbranding=1&rel=0&disablekb=1&iv_load_policy=3" 
-                                allow="autoplay; encrypted-media; picture-in-picture" 
-                                allowfullscreen></iframe>
+                        <video class="lazy-video" data-src="https://huggingface.co/buckets/pepegit666/videos/resolve/vid2.mkv" muted loop playsinline></video>
                     </div>
                 </div>
 
+                <!-- Блок 8 -->
                 <div class="block-card tv-screen">
                     <div class="video-wrapper">
-                        <iframe src="https://www.youtube-nocookie.com/embed/y9b7ncMQpw4?autoplay=1&mute=1&loop=1&playlist=y9b7ncMQpw4&controls=0&modestbranding=1&rel=0&disablekb=1&iv_load_policy=3" 
-                                allow="autoplay; encrypted-media; picture-in-picture" 
-                                allowfullscreen></iframe>
+                        <video class="lazy-video" data-src="https://huggingface.co/buckets/pepegit666/videos/resolve/vid1.mkv" muted loop playsinline></video>
                     </div>
                 </div>
             </div>
@@ -1272,6 +1271,39 @@
     </footer>
 
     <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+        const lazyVideos = document.querySelectorAll(".lazy-video");
+
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const video = entry.target;
+
+                if (entry.isIntersecting) {
+                    // Если у видео еще нет src, добавляем его (ленивая загрузка)
+                    if (!video.src) {
+                        video.src = video.getAttribute("data-src");
+                        video.load();
+                    }
+                    
+                    // Запускаем видео, только когда пользователь его видит
+                    video.play().catch(error => {
+                        console.log("Автозапуск заблокирован браузером или видео еще загружается:", error);
+                    });
+                } else {
+                    // Если видео ушло из зоны видимости — ставим на паузу, чтобы не лагало
+                    if (video.src) {
+                        video.pause();
+                    }
+                }
+            });
+        }, {
+            root: null, // следим относительно окна браузера
+            threshold: 0.2 // запускать, когда видно 20% карточки
+        });
+
+        lazyVideos.forEach(video => videoObserver.observe(video));
+    });
 
     const images = [
         "https://i.pinimg.com/1200x/f4/75/87/f47587e2db5bb4ecd337fb47863ea816.jpg",
