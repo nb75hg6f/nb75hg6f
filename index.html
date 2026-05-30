@@ -15,6 +15,15 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Days+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Days+One&family=Prosto+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
@@ -55,7 +64,8 @@
     body {
         background-color: var(--bg-main);
         color: var(--text-main);
-        font-family: 'Inter', -apple-system, sans-serif;
+        font-family: 'Geologica', sans-serif;
+        font-size: 0.8rem;
         line-height: 1.6;
         overflow-x: hidden;
         -webkit-font-smoothing: antialiased;
@@ -124,6 +134,8 @@
     }
 
     .section-title {
+        font-family: 'Unbounded', sans-serif;
+        text-transform: uppercase;
         text-align: center;
         margin-bottom: 70px;
         font-size: 3rem;
@@ -269,6 +281,8 @@
     }
 
     .seo-content {
+        font-family: 'Unbounded', sans-serif;
+        text-transform: uppercase;
         padding: 48px;
     }
 
@@ -331,6 +345,7 @@
     }
 
     .card-image-wrapper {
+        
         position: relative;
         height: 180px;
         overflow: hidden;
@@ -361,6 +376,7 @@
     }
 
     .card-content {
+
         padding: 24px;
         flex-grow: 1;
         display: flex;
@@ -369,14 +385,17 @@
     }
 
     .card-title {
-        font-size: 1.35rem;
-        font-weight: 700;
+        font-family: "Unbounded", sans-serif;
+        text-transform: uppercase;
+        font-weight: 400;
         margin-bottom: 24px;
         color: var(--white);
-        letter-spacing: -0.5px;
+        letter-spacing: 1px;
     }
 
     .card-buttons {
+        font-family: 'Unbounded', sans-serif;
+        text-transform: uppercase;
         display: flex;
         gap: 12px;
         margin-top: auto;
@@ -445,6 +464,8 @@
     }
 
     .status-dot {
+        font-family: 'Unbounded', sans-serif;
+        text-transform: uppercase;
         width: 8px;
         height: 8px;
         border-radius: 50%;
@@ -482,6 +503,8 @@
     }
 
     .users-label {
+        font-family: 'Unbounded', sans-serif;
+        text-transform: uppercase;
         font-size: 1rem;
         color: var(--accent-primary);
         font-weight: 600;
@@ -624,6 +647,8 @@
     }
 
     .footer-col h3 {
+        font-family: 'Unbounded', sans-serif;
+        text-transform: uppercase;
         font-size: 1rem;
         color: var(--white);
         text-transform: uppercase;
@@ -849,6 +874,8 @@
     }
 
     .social-title {
+        font-family: 'Unbounded', sans-serif;
+        text-transform: uppercase;
         color: var(--white);
         font-size: 1.5rem;
         font-weight: 700;
@@ -868,6 +895,60 @@
             grid-template-columns: 1fr;
             gap: 16px;
         }
+    }
+
+    .download-btn-glass {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px; /* Небольшой отступ между иконкой и текстом */
+        
+        /* Сделали размеры кнопки по-настоящему миниатюрными */
+        padding: 6px 14px; 
+        width: auto;
+        min-width: 110px; /* Аккуратная фиксированная минимальная ширина */
+        
+        /* Стеклянный стиль сайта */
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px; /* Чуть уменьшили скругление для пропорций */
+        
+        /* Шрифт кнопки — привязка к основному шрифту сайта */
+        font-family: 'Unbounded', sans-serif;
+        text-transform: uppercase;
+        color: var(--text-main);
+        font-size: 1rem; /* Сделали текст компактнее */
+        font-weight: 600;
+        text-transform: none; /* Убирает капс, если он наследовался */
+        text-decoration: none;
+        transition: var(--transition);
+        cursor: pointer;
+        margin-top: 12px;
+    }
+
+    /* Компактный размер для локальной иконки Гугл Диска */
+    .google-drive-local-img {
+        width: 28px;  /* Уменьшили картинку до идеального баланса со шрифтом 0.75rem */
+        height: 28px;
+        object-fit: contain;
+        display: block;
+        transition: var(--transition);
+        pointer-events: none;
+    }
+
+    /* Анимация при наведении */
+    .download-btn-glass:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(0, 242, 254, 0.3);
+        color: var(--white);
+        transform: translateY(-1px); /* Мягкий подъем вверх */
+        box-shadow: 0 4px 12px rgba(0, 242, 254, 0.1);
+    }
+
+    /* Эффект для картинки при наведении */
+    .download-btn-glass:hover .google-drive-local-img {
+        transform: scale(1.05);
+        filter: drop-shadow(0 1px 4px rgba(26, 115, 232, 0.4));
     }
     </style>
 </head>
@@ -1197,13 +1278,20 @@
                     <p class="social-desc">Гайды, обзоры обновлений и секреты максимального профита</p>
                 </a>
 
-                <a href="https://www.tiktok.com/@pepesoft_" target="_blank" class="social-card tt">
-                    <div class="social-icon-wrap">
-                        <i class="fab fa-tiktok"></i>
-                    </div>
-                    <h3 class="social-title">TikTok</h3>
-                    <p class="social-desc">Короткие демонстрации работы софта и лучшие моменты</p>
-                </a>
+                <div class="social-card tt">
+                    <a href="https://www.tiktok.com/@pepesoft_" target="_blank" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%;">
+                        <div class="social-icon-wrap">
+                            <i class="fab fa-tiktok"></i>
+                        </div>
+                        <h3 class="social-title">TikTok</h3>
+                        <p class="social-desc">Короткие демонстрации работы софта и лучшие моменты</p>
+                    </a>
+                    
+                    <a href="https://drive.google.com/drive/folders/1TnYAep28PjjRwMwb4lJ2kJc68RW1TcvZ?usp=drive_link" target="_blank" class="download-btn-glass">
+                        <img src="./192px.svg" class="google-drive-local-img" alt="Google Drive">
+                        Скачать
+                    </a>
+                </div>
 
                 <a href="https://t.me/pepesoft777" target="_blank" class="social-card tg">
                     <div class="social-icon-wrap">
