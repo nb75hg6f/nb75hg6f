@@ -2191,15 +2191,21 @@
                 const targetMod = (360 - point) % 360;
                 const currentMod = ((currentAngle % 360) + 360) % 360;
                 const diff = (targetMod - currentMod + 360) % 360;
-                const extraSpins = 6 + Math.floor(Math.random() * 3); // 6-8 полных оборотов
+                
+                // Увеличиваем количество полных оборотов (от 30 до 35), 
+                // чтобы колесо активно крутилось все 30 секунд
+                const extraSpins = 30 + Math.floor(Math.random() * 5); 
 
                 const finalAngle = currentAngle + diff + extraSpins * 360;
 
-                wheelCircle.style.transition = 'transform 6.2s cubic-bezier(0.11, 0.79, 0.15, 1)';
+                // Меняем время на 30s и ставим функцию ease-in-out 
+                // (плавный старт, равномерная середина, плавный финиш)
+                wheelCircle.style.transition = 'transform 30s cubic-bezier(0.2, 0.1, 0.1, 1)';
                 wheelCircle.style.transform = `rotate(${finalAngle}deg)`;
                 currentAngle = finalAngle;
 
-                return new Promise(resolve => setTimeout(resolve, 6300));
+                // Ждем 30.1 секунд (30100 мс) до появления результата
+                return new Promise(resolve => setTimeout(resolve, 30100));
             }
 
             spinBtn.addEventListener('click', async () => {
