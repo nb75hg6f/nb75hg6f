@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="yandex-verification" content="ce0bf6ddd454c9de" />
     <meta name="google-site-verification" content="aerCIsY79eS0t6NsRf4MltV5rLw7VvaBFZdabMq9WsM" />
-    <title>2026 Боты для ALBION | GTA5RP | MAJESTIC FISH | pepesoft777</title>
+    <title>PEPESOFT | 1.5 ГОДА В ПРОДАЖЕ</title>
     <link rel="canonical" href="https://bots.pepesoft.ru/" />
     
     <meta name="description" content="Скачать боты для Albion Online, GTA 5 RP, Majestic, CS2, Throne and Liberty, Russian Fishing 4. Автоматизация фарма, рыбалки, прокачки. Безопасно и анонимно.">
@@ -205,7 +205,7 @@
     /* Шапка сайта */
     header {
         text-align: center;
-        padding: 12vh 0 8vh;
+        padding: 0vh 0 1vh;
         position: relative;
     }
 
@@ -255,7 +255,7 @@
         margin: 0 auto;
         font-weight: 400;
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(-120px);
         transition: var(--transition) 0.2s;
     }
 
@@ -365,6 +365,7 @@
         flex-direction: column;
         opacity: 0;
         transform: translateY(30px);
+        position: relative;
     }
 
     .card.animate {
@@ -397,17 +398,72 @@
         filter: brightness(0.7) saturate(0.8);
     }
 
-    .card:hover .card-image {
+    .card-image-wrapper:hover .card-image {
         transform: scale(1.05);
         filter: brightness(1) saturate(1.1);
     }
 
     .card-content {
-        padding: 24px;
+        padding: 24px 24px 0 24px;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
         background: linear-gradient(to bottom, var(--bg-secondary) 0%, transparent 100%);
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Заголовок исчезает только при наведении на изображение карточки */
+    .card-image-wrapper:hover ~ .card-content {
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+    }
+
+    /* Кнопки вынесены из card-content, чтобы всегда оставаться поверх тултипа */
+    .card-buttons {
+        font-family: 'Unbounded', sans-serif;
+        text-transform: uppercase;
+        display: flex;
+        gap: 12px;
+        padding: 16px 24px 24px 24px;
+        position: relative;
+        z-index: 5;
+    }
+
+    /* Tooltip стили - растянут на всю область карточки */
+    .card-tooltip {
+        position: absolute;
+        inset: 0;
+        padding: 24px;
+        color: white;
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: linear-gradient(135deg, rgba(20, 20, 30, 0.88) 0%, rgba(10, 10, 15, 0.92) 100%);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-top: 2px solid rgba(255, 255, 255, 0.15);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none;
+        border-radius: inherit;
+        z-index: 4;
+    }
+
+    /* Tooltip появляется только при наведении на изображение карточки */
+    .card-image-wrapper:hover ~ .card-tooltip {
+        opacity: 1;
+        transform: translateY(0);
     }
 
     .card-title {
@@ -418,14 +474,6 @@
         margin-bottom: 24px;
         color: var(--white);
         letter-spacing: 1px;
-    }
-
-    .card-buttons {
-        font-family: 'Unbounded', sans-serif;
-        text-transform: uppercase;
-        display: flex;
-        gap: 12px;
-        margin-top: auto;
     }
 
     .card-btn {
@@ -734,8 +782,8 @@
 
     .footer-grid {
         display: grid;
-        grid-template-columns: 2fr 1fr 1fr;
-        gap: 60px;
+        grid-template-columns: 2fr 1.2fr 1.2fr 1.2fr;
+        gap: 50px;
     }
 
     .footer-col h3 {
@@ -812,11 +860,12 @@
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
     @media (max-width: 992px) {
-        .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+        .footer-grid { grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
         h1 { font-size: 4rem; }
     }
 
     @media (max-width: 768px) {
+        .footer-grid { grid-template-columns: 1fr; gap: 40px; }
         h1 { font-size: 3rem; letter-spacing: -1px; }
         .active-users-card { flex-direction: column; text-align: center; padding: 40px 24px; }
         .users-value { font-size: 3.5rem; }
@@ -991,6 +1040,323 @@
         filter: drop-shadow(0 1px 4px rgba(26, 115, 232, 0.4));
     }
 
+    /* --- PEPESOFT ЛОГОТИП И КАРТОЧКА --- */
+    .cyber-container {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      justify-content: center;
+      padding: 160px 20px;
+      padding-bottom: 60px;
+      margin-bottom: 60px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .pepesoft-logo {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+    }
+
+    .pepesoft-name {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 900;
+      font-size: 2.8rem;
+      letter-spacing: -2px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 60%, #64748b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .pepesoft-name:hover {
+      background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.5));
+      transform: scale(1.05);
+    }
+
+    .pepesoft-subtitle {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      color: #64748b;
+      letter-spacing: 2.5px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .pepesoft-logo:hover .pepesoft-subtitle {
+      color: #ffffff;
+    }
+
+    .tenure-card-wrapper {
+      position: relative;
+      padding: 1px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tenure-card-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.05) 50%, #ff003c 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 0;
+    }
+
+    .tenure-card-wrapper:hover::before {
+      opacity: 1;
+    }
+
+    .tenure-block-unified {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(10, 11, 16, 0.75);
+      border-radius: 13px;
+      padding: 14px 20px;
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .tenure-block-unified::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+      background-size: 8px 8px;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .tenure-badge {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 60px;
+      height: 54px;
+      background: linear-gradient(180deg, #12131a 0%, #07080c 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tenure-number {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 900;
+      font-size: 1.35rem;
+      letter-spacing: -1.2px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 60%, #64748b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tenure-info {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tenure-title {
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 60%, #64748b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tenure-subtitle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Unbounded', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.55rem;
+      color: #64748b;
+      letter-spacing: 1.5px;
+      margin-top: 4px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tag-dot {
+      width: 4px;
+      height: 4px;
+      background-color: #ff003c;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #ff003c;
+    }
+
+    .tenure-card-wrapper:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
+    }
+
+    .tenure-card-wrapper:hover .tenure-badge {
+      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.2), 0 0 15px rgba(255, 255, 255, 0.05);
+    }
+
+    .tenure-card-wrapper:hover .tenure-number,
+    .tenure-card-wrapper:hover .tenure-title {
+      background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+    }
+
+    .tenure-card-wrapper:hover .tenure-subtitle {
+      color: #ffffff;
+    }
+
+    @media (max-width: 900px) {
+      .cyber-container {
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .pepesoft-logo {
+        align-items: center;
+      }
+
+      .pepesoft-name {
+        font-size: 2.2rem;
+      }
+    }
+
+    /* Контейнер для новых фраз - ПОЛНАЯ ШИРИНА */
+    .hero-benefits {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 16px auto 24px auto;
+        width: 100%;
+        background: transparent;
+    }
+
+    .hero-benefits-row {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        padding: 0 24px;
+        box-sizing: border-box;
+    }
+
+    .hero-benefits-scroll {
+        display: flex;
+        gap: 12px;
+        animation: scrollBenefits 45s linear infinite;
+        white-space: nowrap;
+        will-change: transform;
+    }
+
+    /* Разные скорости для каждой строки */
+    .hero-benefits-row:nth-child(1) .hero-benefits-scroll {
+        animation: scrollBenefits 45s linear infinite;
+    }
+
+    .hero-benefits-row:nth-child(2) .hero-benefits-scroll {
+        animation: scrollBenefitsReverse 50s linear infinite;
+    }
+
+    .hero-benefits-row:nth-child(3) .hero-benefits-scroll {
+        animation: scrollBenefits 48s linear infinite;
+    }
+
+    @keyframes scrollBenefits {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    @keyframes scrollBenefitsReverse {
+        0% {
+            transform: translateX(-50%);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    .hero-benefits-scroll:hover {
+        animation-play-state: paused;
+    }
+
+    /* Стиль отдельной плашки */
+    .benefit-tag {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 10px 18px;
+        border-radius: 12px;
+        font-family: 'Unbounded', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #cbd5e1;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
+        cursor: default;
+    }
+
+    /* Эффект при наведении на плашку */
+    .benefit-tag:hover {
+        border-color: rgba(255, 0, 60, 0.4); /* Используем твой акцентный красный цвет */
+        background: rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Красная точка-индикатор (используем тот же класс, что и в блоке "1.5 года") */
+    .hero-benefits .tag-dot {
+        width: 6px;
+        height: 6px;
+        background-color: var(--accent-red, #ff003c);
+        border-radius: 50%;
+        box-shadow: 0 0 8px var(--accent-red, #ff003c);
+        flex-shrink: 0;
+    }
+
     </style>
 </head>
 <body>
@@ -1005,72 +1371,159 @@
     </div>
     <div class="video-overlay"></div>
     
-    <div class="container">
-        <header>
-            <h1 style="
-                font-size: clamp(4rem, 12vw, 9rem);
-                font-weight: 900;
-                letter-spacing: -0.06em;
-                line-height: 1;
-                margin-bottom: 16px;
-                font-family: 'Montserrat', sans-serif;
-                
-                /* Устанавливаем чистый белый цвет */
-                color: #ffffff; 
-                
-                /* Полностью очищаем все фоновые и обтравочные свойства */
-                background: none !important;
-                -webkit-background-clip: unset !important;
-                background-clip: unset !important;
-                -webkit-text-fill-color: unset !important;
-                
-                /* Убираем фильтр, если полоска была тенью */
-                filter: none;
-                
-                display: block;
-                position: relative;
-                
-                opacity: 0;
-                transform: translateY(30px);
-                transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            ">
-                PEPESOFT
-            </h1>
-            
-            <p class="subtitle">Универсальные боты без бана Максимальный профит Полная анонимность.</p>
-        </header>
+    <!-- PEPESOFT CYBER BLOCK -->
+    <div class="cyber-container">
+        <!-- PEPESOFT ЛОГОТИП -->
+        <div class="pepesoft-logo">
+            <div class="pepesoft-name">PEPESOFT</div>
+            <div class="pepesoft-subtitle">Core</div>
+        </div>
 
-        <div class="seo-text block-card">
-            <div class="mac-header">
-                <div class="mac-dots">
-                    <div class="mac-dot dot-red"></div>
-                    <div class="mac-dot dot-red"></div>
-                    <div class="mac-dot dot-red"></div>
+        <!-- КАРТОЧКА 1.5 ГОДА -->
+        <div class="tenure-card-wrapper">
+            <div class="tenure-block-unified">
+                <!-- Значок с цифрой -->
+                <div class="tenure-badge">
+                    <span class="tenure-number">1.5</span>
                 </div>
-                <div class="mac-title">~/3c8%dj#n&:^</div>
-            </div>
-            <div class="seo-content">
-                <h2>Инструменты уважаемого игрока 2026</h2>
-                <p>
-                    Мы создаем передовое программное обеспечение для автоматизации игровых процессов Фарм ресурсов, рыбалка, крафт, прокачка — всё работает как круто благодаря умным алгоритмам
-                </p>
                 
-                <div class="grid-tags">
-                    <span class="tag">Albion Online</span>
-                    <span class="tag">GTA 5 RP</span>
-                    <span class="tag">Majestic</span>
-                    <span class="tag">Russian Fishing 4</span>
-                    <span class="tag">Amazing RP</span>
-                    <span class="tag">Path of Exile</span>
-                    <span class="tag">Throne & Liberty</span>
+                <!-- Текст -->
+                <div class="tenure-info">
+                    <div class="tenure-title">ГОДА</div>
+                    <div class="tenure-subtitle">
+                        <span class="tag-dot"></span>
+                        В ПРОДАЖЕ!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ПОЛНОШИРИННЫЙ БЛОК ПРОКРУТКИ -->
+    <div class="hero-benefits">
+        <!-- СТРОКА 1 -->
+        <div class="hero-benefits-row">
+            <div class="hero-benefits-scroll">
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Фармим 24/7 Без банов Без проблем
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Лучшие боты Безопасно Прибыльно
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Качай аккаунт на автомате Никакого риска
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Максимальная скорость фарма Оптимизация
+                </div>
+                <!-- Дублируем для безшовной прокрутки -->
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Фармим 24/7 Без банов Без проблем
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Лучшие боты Безопасно Прибыльно
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Качай аккаунт на автомате Никакого риска
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Максимальная скорость фарма Оптимизация
                 </div>
             </div>
         </div>
 
+        <!-- СТРОКА 2 -->
+        <div class="hero-benefits-row">
+            <div class="hero-benefits-scroll">
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Работает на всех ПК Легкая установка
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Обновления каждую неделю Никогда не заскучаешь
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Поддержка 24/7 Быстрая помощь в любое время
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Анонимность гарантирована VPN интегрирован
+                </div>
+                <!-- Дублируем для безшовной прокрутки -->
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Работает на всех ПК Легкая установка
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Обновления каждую неделю Никогда не заскучаешь
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Поддержка 24/7 Быстрая помощь в любое время
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Анонимность гарантирована VPN интегрирован
+                </div>
+            </div>
+        </div>
+
+        <!-- СТРОКА 3 -->
+        <div class="hero-benefits-row">
+            <div class="hero-benefits-scroll">
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Экономь время Получай профит автоматически
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Лучше конкурентов Технологии нового уровня
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Никаких ограничений Полная свобода
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Заработок идет в твой карман Без комиссий
+                </div>
+                <!-- Дублируем для безшовной прокрутки -->
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Экономь время Получай профит автоматически
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Лучше конкурентов Технологии нового уровня
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Никаких ограничений Полная свобода
+                </div>
+                <div class="benefit-tag">
+                    <span class="tag-dot"></span>
+                    Заработок идет в твой карман Без комиссий
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+
         <section class="cards-section">
             <h2 class="section-title">Каталог панелей</h2>
             <div class="cards-container">
-                
                 <div class="card block-card">
                     <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
@@ -1078,11 +1531,12 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">GTA5RP</h3>
-                        <div class="card-buttons">
-                            <a href="https://funpay.com/lots/offer?id=43543471" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="gtawiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/lots/offer?id=43543471" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="gtawiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                    </div>
+                    <div class="card-tooltip">Фарм колеса удачи с релогом в заданное время и множество функций для работ и мини-игр. Некоторые функции панели управляются прямиком с Telegram бота</div>
                 </div>
 
                 <div class="card block-card">
@@ -1092,11 +1546,12 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Triggerbot <br> GTA5RP / Majestic</h3>
-                        <div class="card-buttons">
-                            <a href="https://funpay.com/lots/offer?id=41637268" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="trigmenu.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/lots/offer?id=41637268" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="trigmenu.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                    </div>
+                    <div class="card-tooltip">При наведении на противника ваш персонаж сам начинает стрельбу. Не прийдется контролировать нажатие, а только наводку на head противника</div>
                 </div>
 
                 <div class="card block-card">
@@ -1106,11 +1561,12 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Majestic</h3>
-                        <div class="card-buttons">
-                            <a href="https://funpay.com/lots/offer?id=63612008" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="majesticwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/lots/offer?id=63612008" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="majesticwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                    </div>
+                    <div class="card-tooltip">Панель с массой полезных функций фарма BattlePass, стоять AFK, Бот на рыбалку с отправкой улова в Telegram бота</div>
                 </div>
 
                 <div class="card block-card">
@@ -1120,11 +1576,12 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">GRAND RP</h3>
-                        <div class="card-buttons">
-                            <a href="https://funpay.com/lots/offer?id=41770971" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="grandwiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/lots/offer?id=41770971" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="grandwiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                    </div>
+                    <div class="card-tooltip">Инструмент для фарма бочек Бензина / Нефти на нефтевышках с обходом CAPTCHA</div>
                 </div>
 
                 <div class="card block-card">
@@ -1134,11 +1591,12 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Albion Online</h3>
-                        <div class="card-buttons">
-                            <a href="#" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="albionwiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="#" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="albionwiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                    </div>
+                    <div class="card-tooltip">Бот на рыбалку, а также Автопрожатие скиллов для фарма леса</div>
                 </div>
 
                 <div class="card block-card">
@@ -1148,11 +1606,12 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Profit Calculator</h3>
-                        <div class="card-buttons">
-                            <a href="https://funpay.com/lots/offer?id=45541073" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="calcwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/lots/offer?id=45541073" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="calcwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                    </div>
+                    <div class="card-tooltip">Калькулятор прибыли айтемов, купленных и проданных на 5VITO</div>
                 </div>
 
                 <div class="card block-card">
@@ -1162,11 +1621,12 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Russian Fishing 4</h3>
-                        <div class="card-buttons">
-                            <a href="https://funpay.com/lots/offer?id=41769340" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="rufishwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/lots/offer?id=41769340" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="rufishwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                    </div>
+                    <div class="card-tooltip">Бот на рыбалку поддерживает Поплавок / Спиннинг / Донная ловля. Присутствует тонкая настройка подсечек, пополнение еды</div>
                 </div>
 
                 <div class="card block-card">
@@ -1176,11 +1636,12 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">R M R P</h3>
-                        <div class="card-buttons">
-                            <a href="https://funpay.com/lots/offer?id=41638780" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="rmrpwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/lots/offer?id=41638780" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="rmrpwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                    </div>
+                    <div class="card-tooltip">Бот на рыбалку, присылает статистику улова в Telegram, когда рыба заканчивается в зоне вылова, пришлет уведомление</div>
                 </div>
 
                 <div class="card block-card">
@@ -1190,10 +1651,11 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Path of Exile</h3>
-                        <div class="card-buttons">
-                            <a href="https://funpay.com/lots/offer?id=41767501" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/lots/offer?id=41767501" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
+                    </div>
+                    <div class="card-tooltip">Пополнение Здоровья и Маны персонажа банками, не дает умереть персонажу</div>
                 </div>
 
                 <div class="card block-card">
@@ -1203,10 +1665,11 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Throne and Liberty <br> Auto - Farm</h3>
-                        <div class="card-buttons">
-                            <a href="https://funpay.com/lots/offer?id=41768984" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/lots/offer?id=41768984" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
+                    </div>
+                    <div class="card-tooltip">Фарм мобов с авторотацией скиллов, также отслеживание и пополнение Здоровья и Маны автоматически</div>
                 </div>
 
                 <div class="card block-card">
@@ -1216,10 +1679,11 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Throne and Liberty <br> Auto - Fishing</h3>
-                        <div class="card-buttons">
-                            <a href="https://funpay.com/lots/offer?id=41768873" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/lots/offer?id=41768873" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
+                    </div>
+                    <div class="card-tooltip">Бот на рыбалку. особенностей нет, просто ловит рыбу</div>
                 </div>
 
                 <div class="card block-card">
@@ -1229,10 +1693,11 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Counter Strike 2 <br> Macros</h3>
-                        <div class="card-buttons">
-                            <a href="https://funpay.com/lots/offer?id=42408839" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/lots/offer?id=42408839" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
+                    </div>
+                    <div class="card-tooltip">При наведении на персонажа правильно перемещает и делает клики, что делает отдачу минимальной, а все пули летят ровно в центр</div>
                 </div>
 
                 <div class="card block-card">
@@ -1242,11 +1707,12 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Amazing RP</h3>
-                        <div class="card-buttons">
-                            <a href="https://funpay.com/lots/offer?id=53635814" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="amazingwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/lots/offer?id=53635814" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="amazingwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                    </div>
+                    <div class="card-tooltip">Панель для фарма на работах, помогает с прохождением мини-игр. Бот на рыбалку с уведомлениями в Telegram</div>
                 </div>
 
                 <div class="card block-card">
@@ -1256,13 +1722,13 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Lineage 2 Essence</h3>
-                        <div class="card-buttons">
-                            <a href="" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                            <a href="l2wiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
-                        </div>
                     </div>
+                    <div class="card-buttons">
+                        <a href="" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="l2wiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
+                    </div>
+                    <div class="card-tooltip">Помогает персонажу когда убили самому встать и улететь на спот и фармить дальше, имеет настройку полета до 12 рандомных спотов</div>
                 </div>
-
             </div>
         </section>
 
@@ -2373,32 +2839,43 @@
                 <div class="footer-col">
                     <h3 style="font-size: 1.6rem; letter-spacing: -1px; font-weight: 900;">PEPESOFT</h3>
                     <p>
-                        Профессиональные решения для автоматизации в современных играх Экономьте время, максимизируйте результат
+                        Профессиональные боты и автоматизация для игр. Более 1.5 лет на рынке. Доверено тысячами игроков по всему миру.
                     </p>
                 </div>
                 
                 <div class="footer-col">
-                    <h3>Популярное</h3>
+                    <h3>Популярные боты</h3>
                     <ul>
-                        <li><a href="#">GTA 5 RP Auto</a></li>
+                        <li><a href="#">GTA 5 RP Panel</a></li>
+                        <li><a href="#">Albion Online Bot</a></li>
                         <li><a href="#">Majestic Panel</a></li>
-                        <li><a href="#">Albion Online</a></li>
                         <li><a href="#">Throne & Liberty</a></li>
+                        <li><a href="#">Russian Fishing 4</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Преимущества</h3>
+                    <ul>
+                        <li><a href="#">Безопасная работа</a></li>
+                        <li><a href="#">Автоматизация фарма</a></li>
+                        <li><a href="#">Быстрая прокачка</a></li>
+                        <li><a href="#">Детектов нет</a></li>
+                        <li><a href="#">Техподдержка 24/7</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
                     <h3>Контакты</h3>
                     <ul>
-                        <li><a href="https://t.me/pepesoft777"><i class="fab fa-telegram" style="color: var(--tg-color);"></i> @pepesoft777</a></li>
-                        <li><a href="#"><i class="fas fa-globe"></i> bots.pepesoft.ru</a></li>
-                        <li><a href="#"><i class="fas fa-clock"></i> Поддержка: 12:00 - 04:00 MSK</a></li>
+                        <li><a href="https://t.me/pepesoft777"><i class="fab fa-telegram" style="color: var(--tg-color);"></i> Telegram</a></li>
+                        <li><a href="https://t.me/pepesoft777"><i class="fas fa-envelope"></i> Support 12:00 - 04:00 MSK</a></li>
                     </ul>
                 </div>
             </div>
             
-            <div style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px; padding-top: 24px; display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">
-                <div>© 2021-2026 Pepesoft. Все права защищены. Мы превращаем сложные идеи в совершенный код, уделяя внимание мельчайшим деталям архитектуры и производительности</div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px; padding-top: 24px; text-align: center; color: var(--text-muted); font-size: 0.85rem; font-weight: 500;">
+                <div>© 2021-2026 PEPESOFT. Все права защищены. | Лучшие боты для автоматизации игровых процессов</div>
             </div>
         </div>
     </footer>
