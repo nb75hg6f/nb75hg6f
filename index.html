@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="yandex-verification" content="1346b31b4048d74b" />
+    <meta name="yandex-verification" content="ce0bf6ddd454c9de" />
     <meta name="google-site-verification" content="aerCIsY79eS0t6NsRf4MltV5rLw7VvaBFZdabMq9WsM" />
     <title>PEPESOFT боты для игр - боты на рыбалку | Официальный сайт</title>
     <link rel="canonical" href="https://bots.pepesoft.ru/" />
@@ -447,7 +447,7 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        background: linear-gradient(135deg, rgba(20, 20, 30, 0.88) 0%, rgba(10, 10, 15, 0.92) 100%);
+        background: linear-gradient(135deg, rgba(10, 10, 15, 0.92) 0%, rgba(10, 10, 15, 0.92) 100%);
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
         border-top: 2px solid rgba(255, 255, 255, 0.15);
@@ -1357,6 +1357,208 @@
         flex-shrink: 0;
     }
 
+    /* --- СОВРЕМЕННЫЙ ИНТЕРАКТИВНЫЙ БЛОК ЛАУНЧЕРА --- */
+    .launcher-section {
+        margin: 80px 0 120px;
+        position: relative;
+        z-index: 10;
+        perspective: 1200px;
+    }
+
+    .launcher-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 20px;
+        align-items: center;
+        position: relative;
+    }
+
+    .launcher-info {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        align-items: flex-start;
+        position: relative;
+        z-index: 1;
+    }
+
+    .launcher-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 16px;
+        background: rgba(255, 0, 60, 0.08);
+        border: 1px solid rgba(255, 0, 60, 0.25);
+        border-radius: 100px;
+        color: #ff003c;
+        font-family: 'Unbounded', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        box-shadow: 0 0 15px rgba(255, 0, 60, 0.15);
+    }
+
+    .launcher-title {
+        font-family: 'Unbounded', sans-serif;
+        font-size: 2.8rem;
+        font-weight: 900;
+        color: var(--white);
+        text-transform: uppercase;
+        line-height: 1.15;
+        letter-spacing: -1px;
+    }
+
+    .launcher-title span {
+        background: linear-gradient(135deg, #ff003c 0%, #ff5252 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 20px rgba(255, 0, 60, 0.3));
+    }
+
+    .launcher-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 10px;
+    }
+
+    .launcher-btn-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 18px 36px;
+        background: linear-gradient(135deg, #ff003c 0%, #b3002d 100%);
+        color: var(--white);
+        border-radius: 16px;
+        font-family: 'Unbounded', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-decoration: none;
+        box-shadow: 0 10px 30px rgba(255, 0, 60, 0.4);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .launcher-btn-primary:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 15px 40px rgba(255, 0, 60, 0.6);
+        filter: brightness(1.15);
+        color: var(--white);
+    }
+
+    .launcher-btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 18px 28px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text-muted);
+        border-radius: 16px;
+        font-family: 'Unbounded', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        text-decoration: none;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+    }
+
+    .launcher-btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.25);
+        color: var(--white);
+        transform: translateY(-2px);
+    }
+
+    /* --- 3D КАРТИНКА БЕЗ РАМОК, СКРУГЛЕНИЙ И БЛИКОВ --- */
+    .launcher-img-wrapper {
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        perspective: 1000px;
+        z-index: 20;
+        margin-left: -40px;
+    }
+
+    /* Мягкое неоновое свечение */
+    .launcher-img-glow {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(255, 0, 60, 0.4) 0%, rgba(255, 0, 60, 0) 70%);
+        filter: blur(60px);
+        z-index: 1;
+        pointer-events: none;
+        animation: glowPulse 4s infinite alternate ease-in-out;
+        transition: all 0.6s ease;
+    }
+
+    @keyframes glowPulse {
+        0% { opacity: 0.5; transform: scale(0.9); }
+        100% { opacity: 0.9; transform: scale(1.1); }
+    }
+
+    .launcher-img-box {
+        position: relative;
+        z-index: 2;
+        border-radius: 0; /* Прямые углы без скруглений */
+        overflow: hidden;
+        /* Исходное 3D-положение под углом */
+        transform: rotateY(-22deg) rotateX(10deg) rotateZ(3deg) scale(0.95);
+        transform-origin: left center;
+        box-shadow: -25px 25px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 0, 60, 0.2);
+        transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.7s ease;
+        border: none; /* Убрана рамка */
+        cursor: pointer;
+    }
+
+    .launcher-img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        border-radius: 0; /* Прямые углы для самого изображения */
+    }
+
+    /* === ЭФФЕКТ ПРИ НАВЕДЕНИИ === */
+    .launcher-grid:hover .launcher-img-box {
+        /* Приближение и нахлест на текст */
+        transform: translateX(-80px) translateY(-10px) rotateY(-4deg) rotateX(2deg) rotateZ(0deg) scale(1.12);
+        box-shadow: -40px 40px 80px rgba(0, 0, 0, 0.95), 0 0 60px rgba(255, 255, 255, 0.2);
+    }
+
+    .launcher-grid:hover .launcher-img-glow {
+        transform: translateX(-60px) scale(1.25);
+        opacity: 1;
+    }
+
+    /* Адаптируемость под мобильные устройства */
+    @media (max-width: 992px) {
+        .launcher-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+            text-align: center;
+        }
+        .launcher-info {
+            align-items: center;
+        }
+        .launcher-img-wrapper {
+            margin-left: 0;
+            justify-content: center;
+        }
+        .launcher-img-box {
+            transform: rotateY(-10deg) rotateX(5deg) scale(1);
+        }
+        .launcher-grid:hover .launcher-img-box {
+            transform: translateY(-10px) rotateY(0deg) scale(1.05);
+        }
+    }
+
     </style>
 </head>
 <body>
@@ -1391,7 +1593,6 @@
                 <div class="tenure-info">
                     <div class="tenure-title">ГОДА</div>
                     <div class="tenure-subtitle">
-                        <span class="tag-dot"></span>
                         В ПРОДАЖЕ!
                     </div>
                 </div>
@@ -1518,6 +1719,35 @@
             </div>
         </div>
     </div>
+
+    <section class="launcher-section">
+        <div class="container">
+            <div class="launcher-grid">
+                
+                <!-- Информационный блок -->
+                <div class="launcher-info">
+                    
+                    
+                    <h2 class="launcher-title">Управляй игрой в один клик с <span>PEPESOFT LAUNCHER</span></h2>
+
+                    <div class="launcher-actions">
+                        <a href="https://huggingface.co/buckets/pepegit666/launch/resolve/archive.zip?download=true" download class="launcher-btn-primary">
+                            Скачать Лаунчер
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Картинка с бликом и приближением поверх текста -->
+                <div class="launcher-img-wrapper">
+                    <div class="launcher-img-glow"></div>
+                    <div class="launcher-img-box">
+                        <img src="im_launcher.png" alt="PEPESOFT Launcher" class="launcher-img">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
     
     <div class="container">
 
@@ -1533,7 +1763,7 @@
                         <h3 class="card-title">GTA5RP</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="https://funpay.com/lots/offer?id=43543471" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="gtawiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
                     <div class="card-tooltip">Фарм колеса удачи с релогом в заданное время и множество функций для работ и мини-игр. Некоторые функции панели управляются прямиком с Telegram бота</div>
@@ -1548,7 +1778,7 @@
                         <h3 class="card-title">Triggerbot <br> GTA5RP / Majestic</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="https://funpay.com/lots/offer?id=41637268" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="trigmenu.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
                     <div class="card-tooltip">При наведении на противника ваш персонаж сам начинает стрельбу. Не прийдется контролировать нажатие, а только наводку на head противника</div>
@@ -1563,7 +1793,7 @@
                         <h3 class="card-title">Majestic</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="https://funpay.com/lots/offer?id=63612008" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="majesticwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
                     <div class="card-tooltip">Панель с массой полезных функций фарма BattlePass, стоять AFK, Бот на рыбалку с отправкой улова в Telegram бота</div>
@@ -1578,7 +1808,7 @@
                         <h3 class="card-title">GRAND RP</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="https://funpay.com/lots/offer?id=41770971" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="grandwiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
                     <div class="card-tooltip">Инструмент для фарма бочек Бензина / Нефти на нефтевышках с обходом CAPTCHA</div>
@@ -1593,7 +1823,7 @@
                         <h3 class="card-title">Albion Online</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="#" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="albionwiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
                     <div class="card-tooltip">Бот на рыбалку, а также Автопрожатие скиллов для фарма леса</div>
@@ -1608,7 +1838,7 @@
                         <h3 class="card-title">Profit Calculator</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="https://funpay.com/lots/offer?id=45541073" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="calcwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
                     <div class="card-tooltip">Калькулятор прибыли айтемов, купленных и проданных на 5VITO</div>
@@ -1623,7 +1853,7 @@
                         <h3 class="card-title">Russian Fishing 4</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="https://funpay.com/lots/offer?id=41769340" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="rufishwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
                     <div class="card-tooltip">Бот на рыбалку поддерживает Поплавок / Спиннинг / Донная ловля. Присутствует тонкая настройка подсечек, пополнение еды</div>
@@ -1638,7 +1868,7 @@
                         <h3 class="card-title">R M R P</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="https://funpay.com/lots/offer?id=41638780" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="rmrpwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
                     <div class="card-tooltip">Бот на рыбалку, присылает статистику улова в Telegram, когда рыба заканчивается в зоне вылова, пришлет уведомление</div>
@@ -1653,7 +1883,7 @@
                         <h3 class="card-title">Path of Exile</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="https://funpay.com/lots/offer?id=41767501" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
                     </div>
                     <div class="card-tooltip">Пополнение Здоровья и Маны персонажа банками, не дает умереть персонажу</div>
                 </div>
@@ -1667,7 +1897,7 @@
                         <h3 class="card-title">Throne and Liberty <br> Auto - Farm</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="https://funpay.com/lots/offer?id=41768984" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
                     </div>
                     <div class="card-tooltip">Фарм мобов с авторотацией скиллов, также отслеживание и пополнение Здоровья и Маны автоматически</div>
                 </div>
@@ -1681,7 +1911,7 @@
                         <h3 class="card-title">Throne and Liberty <br> Auto - Fishing</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="https://funpay.com/lots/offer?id=41768873" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
                     </div>
                     <div class="card-tooltip">Бот на рыбалку. особенностей нет, просто ловит рыбу</div>
                 </div>
@@ -1695,7 +1925,7 @@
                         <h3 class="card-title">Counter Strike 2 <br> Macros</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="https://funpay.com/lots/offer?id=42408839" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
                     </div>
                     <div class="card-tooltip">При наведении на персонажа правильно перемещает и делает клики, что делает отдачу минимальной, а все пули летят ровно в центр</div>
                 </div>
@@ -1709,7 +1939,7 @@
                         <h3 class="card-title">Amazing RP</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="https://funpay.com/lots/offer?id=53635814" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="amazingwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
                     <div class="card-tooltip">Панель для фарма на работах, помогает с прохождением мини-игр. Бот на рыбалку с уведомлениями в Telegram</div>
@@ -1724,7 +1954,7 @@
                         <h3 class="card-title">Lineage 2 Essence</h3>
                     </div>
                     <div class="card-buttons">
-                        <a href="" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="l2wiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
                     <div class="card-tooltip">Помогает персонажу когда убили самому встать и улететь на спот и фармить дальше, имеет настройку полета до 12 рандомных спотов</div>
@@ -1735,136 +1965,6 @@
         <!-- QUICK START BLOCKS -->
         <section style="margin: 140px 0;">
           <div class="container" style="display: flex; flex-direction: column; gap: 32px; align-items: center;">
-
-            <!-- Block 1: .NET CLI -->
-            <div class="w-full" style="max-width: 768px; width: 100%;">
-              <div style="width:100%; background:rgba(255,255,255,0.05); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); border-radius:1rem; border:1px solid rgba(255,255,255,0.1); padding:2rem; box-shadow:0 8px 32px 0 rgba(0,0,0,0.5); transition:all 0.5s; position:relative;" id="netcliBlock">
-                <div style="position:absolute;inset:0;border:1px solid #a855f7;border-radius:1rem;opacity:0;pointer-events:none;transition:opacity 0.3s;z-index:10;" id="successBorder1"></div>
-                <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.1);">
-                  <div>
-                    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">
-                      <span style="background:#a855f7;color:#000;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:2px 8px;border-radius:4px;">.NET CLI</span>
-                      <h2 style="font-size:1.125rem;font-family:'Unbounded',sans-serif;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:-0.025em;margin:0;">Быстрый запуск</h2>
-                    </div>
-                    <p style="color:rgba(255,255,255,0.5);font-size:0.75rem;font-family:'Geologica',sans-serif;font-weight:500;letter-spacing:0.05em;margin:0;">Установите окружение и выберите сборку для автоматического копирования команды.</p>
-                  </div>
-                  <div style="display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:6px 12px;border-radius:0.75rem;font-size:0.75rem;font-family:'Geologica',sans-serif;font-weight:700;color:#c084fc;letter-spacing:0.1em;">
-                    <span style="width:8px;height:8px;border-radius:50%;background:#c084fc;display:inline-block;animation:pulse2 2s infinite;"></span>
-                    <span>SDK READY</span>
-                  </div>
-                </div>
-                <div style="margin-bottom:1.5rem;">
-                  <a href="https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.301/dotnet-sdk-10.0.301-win-x64.exe" download="dotnet-sdk-10.0.301-win-x64.exe" style="display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to right,rgba(168,85,247,0.2),rgba(88,28,135,0.3));border:1px solid rgba(168,85,247,0.4);border-radius:0.75rem;padding:1.25rem;transition:all 0.3s;text-decoration:none;">
-                    <div style="display:flex;align-items:center;gap:1.25rem;">
-                      <div style="color:#a855f7;flex-shrink:0;">
-                        <svg width="48" height="48" viewBox="0 0 88 88" fill="currentColor"><path d="M0 12.402l35.687-4.86.016 34.423-35.67.203-.033-29.766zm35.67 33.529l.016 34.42-35.686-4.846v-29.37l35.67-.204zm4.326-39.022l47.966-6.909v41.01l-47.966.273v-34.374zm47.966 39.467v41.012l-47.966-6.91v-34.373l47.966.271z"/></svg>
-                      </div>
-                      <div>
-                        <h3 style="font-size:0.875rem;font-family:'Unbounded',sans-serif;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 4px 0;">Скачать .NET SDK / CLI</h3>
-                        <p style="color:rgba(255,255,255,0.4);font-family:'Geologica',sans-serif;font-size:0.75rem;margin:0;">Необходимый компонент для компиляции и работы всех игровых модулей</p>
-                      </div>
-                    </div>
-                    <svg style="color:rgba(168,85,247,0.6);width:20px;height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                  </a>
-                </div>
-                <div style="background:rgba(0,0,0,0.4);border-radius:0.75rem;padding:1.25rem;border:1px solid rgba(255,255,255,0.05);position:relative;">
-                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">
-                    <div style="display:flex;align-items:center;gap:0.5rem;font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;font-family:monospace;">
-                      <div style="display:flex;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block;"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block;"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block;"></span></div>
-                      <span style="font-family:'Geologica',sans-serif;font-size:10px;text-transform:uppercase;margin-left:4px;">Administrator: cmd</span>
-                    </div>
-                    <div style="color:rgba(255,255,255,0.4);cursor:pointer;" id="copyIcon1">
-                      <svg id="iconCopy1" style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-                      <svg id="iconCheck1" style="width:16px;height:16px;color:#c084fc;display:none;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    </div>
-                  </div>
-                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;color:rgba(255,255,255,0.9);font-size:0.875rem;font-family:monospace;">
-                    <span style="color:#c084fc;font-weight:bold;">></span>
-                    <span>dotnet</span>
-                    <span style="color:rgba(255,255,255,0.5);">tool update -g</span>
-                    <button id="dropBtn1" onclick="toggleDropdown1(event)" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);color:#c084fc;border:1px solid rgba(168,85,247,0.3);padding:6px 12px;border-radius:8px;font-size:0.75rem;font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">
-                      <span id="selectedLabel1">выбрать панель</span>
-                      <svg id="chevron1" style="width:14px;height:14px;transition:transform 0.3s;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <span style="color:rgba(255,255,255,0.5);" id="commandSuffix1"></span>
-                    <span style="width:8px;height:16px;background:#c084fc;display:inline-block;animation:pulse2 1s infinite;"></span>
-                  </div>
-                  <div id="copyBadge1" style="position:absolute;right:16px;bottom:16px;background:#a855f7;color:#000;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:4px 8px;border-radius:4px;opacity:0;transition:all 0.3s;pointer-events:none;">СКОПИРОВАНО!</div>
-                </div>
-                <div style="margin-top:1.25rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.1);border-radius:0.75rem;padding:1rem;display:flex;align-items:flex-start;gap:1rem;">
-                  <div style="color:#c084fc;flex-shrink:0;margin-top:2px;">
-                    <svg style="width:20px;height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"/></svg>
-                  </div>
-                  <div>
-                    <h4 style="color:#fff;font-family:'Unbounded',sans-serif;font-weight:700;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 4px 0;">Требуются права Администратора</h4>
-                    <p style="color:rgba(255,255,255,0.4);font-family:'Geologica',sans-serif;font-size:0.75rem;line-height:1.6;margin:0;">Запускайте вашу командную строку (Терминал / Командная строка) строго от имени Администратора. Без этих привилегий .NET CLI заблокирует инициализацию сетевых хуков решения.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Block 2: POWERSHELL -->
-            <div style="max-width: 768px; width: 100%;">
-              <div style="width:100%;background:rgba(255,255,255,0.05);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:1rem;border:1px solid rgba(255,255,255,0.1);padding:2rem;box-shadow:0 8px 32px 0 rgba(0,0,0,0.5);transition:all 0.5s;position:relative;" id="psBlock">
-                <div style="position:absolute;inset:0;border:1px solid #a855f7;border-radius:1rem;opacity:0;pointer-events:none;transition:opacity 0.3s;z-index:10;" id="successBorder2"></div>
-                <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.1);">
-                  <div>
-                    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.5rem;">
-                      <span style="background:#a855f7;color:#000;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:2px 8px;border-radius:4px;">POWERSHELL</span>
-                      <h2 style="font-size:1.125rem;font-family:'Unbounded',sans-serif;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:-0.025em;margin:0;">Быстрый запуск</h2>
-                    </div>
-                    <p style="color:rgba(255,255,255,0.5);font-size:0.75rem;font-family:'Geologica',sans-serif;font-weight:500;letter-spacing:0.05em;margin:0;">Выберите сборку. Скрипт автоматически сформирует команду для скачивания и запуска.</p>
-                  </div>
-                  <div style="display:flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:6px 12px;border-radius:0.75rem;font-size:0.75rem;font-family:'Geologica',sans-serif;font-weight:700;color:#c084fc;letter-spacing:0.1em;">
-                    <span style="width:8px;height:8px;border-radius:50%;background:#c084fc;display:inline-block;animation:pulse2 2s infinite;"></span>
-                    <span>POWERSHELL READY</span>
-                  </div>
-                </div>
-                <div style="background:rgba(0,0,0,0.4);border-radius:0.75rem;padding:1.25rem;border:1px solid rgba(255,255,255,0.05);position:relative;">
-                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(255,255,255,0.05);">
-                    <div style="display:flex;align-items:center;gap:0.5rem;font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.1em;font-family:monospace;">
-                      <div style="display:flex;gap:6px;"><span style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block;"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block;"></span><span style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.1);display:inline-block;"></span></div>
-                      <span style="font-family:'Geologica',sans-serif;font-size:10px;text-transform:uppercase;margin-left:4px;">Administrator: powershell</span>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:0.75rem;position:relative;">
-                      <div id="copyBadge2" style="background:#a855f7;color:#000;font-size:10px;font-family:'Unbounded',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;padding:2px 8px;border-radius:4px;opacity:0;transition:all 0.3s;pointer-events:none;">СКОПИРОВАНО!</div>
-                      <div style="color:rgba(255,255,255,0.4);cursor:pointer;" onclick="executeCopy2()" title="Копировать команду">
-                        <svg id="iconCopy2" style="width:16px;height:16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-                        <svg id="iconCheck2" style="width:16px;height:16px;color:#c084fc;display:none;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div style="margin-bottom:1.25rem;">
-                    <button id="dropBtn2" onclick="toggleDropdown2(event)" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);color:#c084fc;border:1px solid rgba(168,85,247,0.3);padding:8px 16px;border-radius:0.75rem;font-size:0.75rem;font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">
-                      <span id="selectedLabel2">GTA 5 RP</span>
-                      <svg id="chevron2" style="width:14px;height:14px;transition:transform 0.3s;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                  </div>
-                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 6px;color:rgba(255,255,255,0.9);font-size:0.875rem;font-family:monospace;background:rgba(0,0,0,0.2);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);word-break:break-all;">
-                    <span style="color:#c084fc;font-weight:bold;margin-right:4px;">></span>
-                    <span>iwr</span>
-                    <span style="color:rgba(255,255,255,0.4);">"</span><span id="cmdUrl2" style="color:#c084fc;font-weight:bold;transition:all 0.3s;">https://api.pepesoft.com/dw/gta5rp.exe</span><span style="color:rgba(255,255,255,0.4);">"</span>
-                    <span style="color:rgba(255,255,255,0.6);">-outf</span>
-                    <span id="cmdFile2a" style="color:#c084fc;font-weight:bold;transition:all 0.3s;">gta5.exe</span><span style="color:rgba(255,255,255,0.4);">;</span>
-                    <span>start</span>
-                    <span id="cmdFile2b" style="color:#c084fc;font-weight:bold;transition:all 0.3s;">gta5.exe</span>
-                    <span style="width:8px;height:16px;background:#c084fc;display:inline-block;animation:pulse2 1s infinite;margin-left:4px;"></span>
-                  </div>
-                </div>
-                <div style="margin-top:1.25rem;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.1);border-radius:0.75rem;padding:1rem;display:flex;align-items:flex-start;gap:1rem;">
-                  <div style="color:#c084fc;flex-shrink:0;margin-top:2px;">
-                    <svg style="width:20px;height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"/></svg>
-                  </div>
-                  <div>
-                    <h4 style="color:#fff;font-family:'Unbounded',sans-serif;font-weight:700;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 4px 0;">Требуются права Администратора</h4>
-                    <p style="color:rgba(255,255,255,0.4);font-family:'Geologica',sans-serif;font-size:0.75rem;line-height:1.6;margin:0;">Запускайте вашу командную строку (Терминал / Командная строка) строго от имени Администратора. Без этих привилегий PowerShell заблокирует инициализацию сетевых хуков решения.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </section>
 
         <style>
           @keyframes pulse2 { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
