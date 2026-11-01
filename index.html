@@ -417,13 +417,6 @@
             z-index: 1;
         }
 
-        /* Заголовок исчезает только при наведении на изображение карточки */
-        .card-image-wrapper:hover ~ .card-content {
-            opacity: 0;
-            transform: translateY(10px);
-            pointer-events: none;
-        }
-
         /* Кнопки вынесены из card-content, чтобы всегда оставаться поверх тултипа */
         .card-buttons {
             font-family: 'Unbounded', sans-serif;
@@ -435,37 +428,193 @@
             z-index: 5;
         }
 
-        /* Tooltip стили - растянут на всю область карточки */
-        .card-tooltip {
-            position: absolute;
-            inset: 0;
-            padding: 24px;
-            color: white;
-            font-size: 1rem;
-            font-weight: 500;
-            line-height: 1.8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(10, 10, 15, 0.92) 0%, rgba(10, 10, 15, 0.92) 100%);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-top: 2px solid rgba(255, 255, 255, 0.15);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            pointer-events: none;
-            border-radius: inherit;
-            z-index: 4;
+        /* ================= SPOTLIGHT: описание по центру экрана ================= */
+        .card-tooltip { display: none !important; } /* текст описания хранится в карточке, но показывается в #spotlight */
+
+        @property --sp-m { syntax: '<percentage>'; inherits: false; initial-value: 130%; }
+
+        #spotlight {
+            --ease: cubic-bezier(.16, 1, .3, 1);
+            --t0: .15s; --i0: .45s; --cx: 50%; --cy: 50%;
+            position: fixed; inset: 0; z-index: 9500;
+            display: flex; align-items: center; justify-content: center;
+            pointer-events: none; visibility: hidden;
+            transition: visibility 0s linear .9s;
+        }
+        #spotlight.open { visibility: visible; transition-delay: 0s; }
+        #spotlight.touch.open { pointer-events: auto; }
+
+        /* --- затемнение --- */
+        .sp-bd {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% 45%, rgba(70, 0, 0, .30) 0%, transparent 60%), rgba(3, 3, 5, .86);
+            -webkit-backdrop-filter: blur(16px) saturate(.7); backdrop-filter: blur(16px) saturate(.7);
+        }
+        /* 1. Плавное размытие */
+        #spotlight[data-ov="fade"] .sp-bd { opacity: 0; transition: opacity .35s ease; }
+        #spotlight[data-ov="fade"].open .sp-bd { opacity: 1; transition: opacity .7s ease; }
+        /* 2. Круг из карточки */
+        #spotlight[data-ov="iris"] .sp-bd { clip-path: circle(0px at var(--cx) var(--cy)); transition: clip-path .5s cubic-bezier(.65, 0, .35, 1); }
+        #spotlight[data-ov="iris"].open .sp-bd { clip-path: circle(150vmax at var(--cx) var(--cy)); transition: clip-path 1.1s cubic-bezier(.16, 1, .3, 1); }
+        /* 3. Кино-шторка */
+        #spotlight[data-ov="curtain"] .sp-bd { clip-path: inset(50% 0 50% 0); transition: clip-path .5s cubic-bezier(.76, 0, .24, 1); }
+        #spotlight[data-ov="curtain"].open .sp-bd { clip-path: inset(0 0 0 0); transition: clip-path .85s cubic-bezier(.76, 0, .24, 1); }
+        .sp-flash { position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; opacity: 0; display: none;
+            background: linear-gradient(90deg, transparent, #ff3b3b 50%, transparent); box-shadow: 0 0 24px 2px rgba(255, 40, 40, .7); }
+        #spotlight[data-ov="curtain"] .sp-flash { display: block; }
+        #spotlight[data-ov="curtain"].open .sp-flash { animation: spFlash .9s ease-out; }
+        @keyframes spFlash { 0% { opacity: 0; transform: scaleX(0); } 35% { opacity: 1; transform: scaleX(1); } 100% { opacity: 0; transform: scaleX(1); } }
+        /* 4. Виньетка к центру */
+        #spotlight[data-ov="vignette"] .sp-bd {
+            --sp-m: 130%;
+            -webkit-mask-image: radial-gradient(circle farthest-corner at 50% 50%, transparent var(--sp-m), #000 calc(var(--sp-m) + 40%));
+            mask-image: radial-gradient(circle farthest-corner at 50% 50%, transparent var(--sp-m), #000 calc(var(--sp-m) + 40%));
+            transition: --sp-m .5s ease;
+        }
+        #spotlight[data-ov="vignette"].open .sp-bd { --sp-m: -45%; transition: --sp-m 1.1s cubic-bezier(.16, 1, .3, 1); }
+        /* 5. Жалюзи */
+        .sp-blinds { position: absolute; inset: 0; display: none; }
+        #spotlight[data-ov="blinds"] .sp-blinds { display: flex; }
+        .sp-strip { flex: 1 0 0; margin-right: -1px; background: rgba(3, 3, 5, .9); transform: scaleY(0); transform-origin: 50% 0; transition: transform .35s cubic-bezier(.76, 0, .24, 1); }
+        .sp-strip:nth-child(even) { transform-origin: 50% 100%; }
+        #spotlight[data-ov="blinds"].open .sp-strip { transform: scaleY(1); transition: transform .75s cubic-bezier(.76, 0, .24, 1) calc(var(--d) * 55ms); }
+        #spotlight[data-ov="blinds"] .sp-bd { background: rgba(3, 3, 5, .25); opacity: 0; transition: opacity .3s; }
+        #spotlight[data-ov="blinds"].open .sp-bd { opacity: 1; transition: opacity .9s ease .2s; }
+
+        /* --- контент --- */
+        .sp-inner {
+            position: relative; z-index: 2; width: min(820px, 90vw); max-height: 96vh;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            gap: clamp(10px, 2vh, 20px); opacity: 0; transition: opacity .25s ease;
+        }
+        #spotlight.open .sp-inner { opacity: 1; transition: opacity 0s; }
+
+        .sp-kicker { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: .7rem; letter-spacing: .38em; text-transform: uppercase; color: #ff4d4d; }
+        .sp-title { font-family: 'Unbounded', sans-serif; font-weight: 700; text-transform: uppercase; color: #fff; letter-spacing: 1px; line-height: 1.25; font-size: clamp(1.25rem, 3vw, 2.3rem); margin: 0; }
+        .sp-kicker, .sp-title { opacity: 0; transform: translateY(14px); transition: opacity .25s, transform .25s; }
+        #spotlight.open .sp-kicker { opacity: 1; transform: none; transition: opacity .7s var(--ease) var(--t0), transform .8s var(--ease) var(--t0); }
+        #spotlight.open .sp-title { opacity: 1; transform: none; transition: opacity .7s var(--ease) calc(var(--t0) + .08s), transform .8s var(--ease) calc(var(--t0) + .08s); }
+        .sp-rule { width: 84px; height: 2px; background: linear-gradient(90deg, transparent, #ff2a2a, transparent); transform: scaleX(0); transition: transform .25s; }
+        #spotlight.open .sp-rule { transform: scaleX(1); transition: transform .9s var(--ease) calc(var(--t0) + .2s); }
+
+        .sp-text { font-family: 'Geologica', sans-serif; font-weight: 400; font-size: clamp(1.05rem, 1.7vw, 1.5rem); line-height: 1.7; color: #e8ecf3; max-width: 720px; white-space: pre-line; }
+        .sp-text .sp-line { display: block; white-space: normal; }
+        .sp-text .sp-gap { display: block; height: .75em; }
+        .sp-text .sp-li { position: relative; padding-left: 1.2em; }
+        .sp-text .sp-li::before { content: '•'; position: absolute; left: .2em; color: #ff4d4d; }
+
+        /* --- ДЛИННОЕ ОПИСАНИЕ: слева заголовок и картинка, справа весь текст --- */
+        #spotlight .sp-inner.long {
+            display: grid; grid-template-columns: minmax(240px, 330px) 1fr; grid-template-rows: auto auto auto 1fr;
+            column-gap: 56px; row-gap: 14px; align-items: start; text-align: left;
+            width: 96vw; max-height: 94vh;   /* на всю ширину окна браузера */
+            grid-template-columns: minmax(320px, 32vw) 1fr;
+        }
+        #spotlight .sp-inner.long .sp-kicker { grid-column: 1; grid-row: 1; }
+        #spotlight .sp-inner.long .sp-title { grid-column: 1; grid-row: 2; font-size: clamp(1.2rem, 2.2vw, 1.9rem); }
+        #spotlight .sp-inner.long .sp-rule { grid-column: 1; grid-row: 3; background: linear-gradient(90deg, #ff2a2a, transparent); }
+        #spotlight .sp-inner.long .sp-img { grid-column: 1; grid-row: 4; margin-top: 8px; }
+        #spotlight .sp-inner.long .sp-img { width: 100%; }
+        #spotlight .sp-inner.long .sp-img-in { width: 100%; height: auto; aspect-ratio: 16 / 9; max-height: 44vh; }
+        #spotlight .sp-inner.long .sp-text {
+            grid-column: 2; grid-row: 1 / span 4; max-width: none; align-self: center; text-align: left;
+            font-size: clamp(.82rem, 1.08vw, 1rem); line-height: 1.6;
+            max-height: 92vh; overflow: hidden;   /* на ПК текст целиком помещается: без ползунка и без сдвигов после анимации */
+        }
+        #spotlight.touch .sp-inner.long .sp-text { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
+        #spotlight.touch .sp-inner.long .sp-text::-webkit-scrollbar { display: none; }
+        #spotlight .sp-inner.long .sp-gap { height: .55em; }
+
+        /* ОЧЕНЬ ДЛИННОЕ ОПИСАНИЕ: текст в две колонки, размер шрифта подгоняется под высоту экрана (JS: fitText) */
+        #spotlight .sp-inner.long.xl { grid-template-columns: minmax(300px, 28vw) 1fr; column-gap: 4vw; }
+        @media (min-width: 1700px) { #spotlight .sp-inner.long.xl .sp-text { column-count: 3; } }
+        #spotlight .sp-inner.long.xl .sp-text { column-count: 2; column-gap: 40px; line-height: 1.5; }
+        #spotlight .sp-inner.long.xl .sp-text .sp-line { break-inside: avoid; }
+        #spotlight .sp-inner.long.xl .sp-gap { height: .4em; }
+        /* на время замера размера анимационные сдвиги слов отключены */
+        #spotlight.sp-measure .sp-text .w, #spotlight.sp-measure .sp-text .wi { transform: none !important; filter: none !important; transition: none !important; }
+        @media (max-width: 820px) {
+            #spotlight .sp-inner.long.xl .sp-text { column-count: 1; }
+            #spotlight .sp-inner.long { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+            #spotlight .sp-inner.long .sp-img { width: min(560px, 88vw); }
+            #spotlight .sp-inner.long .sp-img-in { width: 100%; max-height: 26vh; }
+            #spotlight .sp-inner.long .sp-img { order: 4; }
+            #spotlight .sp-inner.long .sp-text { order: 5; max-height: 52vh; width: 100%; font-size: .9rem; }
         }
 
-        /* Tooltip появляется только при наведении на изображение карточки */
-        .card-image-wrapper:hover ~ .card-tooltip {
-            opacity: 1;
-            transform: translateY(0);
+        /* Текст 1: слова из размытия */
+        .sp-text .w { display: inline-block; opacity: 0; transform: translateY(22px); filter: blur(10px); transition: opacity .25s, transform .25s, filter .25s; }
+        #spotlight.open .sp-text .w { opacity: 1; transform: none; filter: none;
+            transition: opacity .7s var(--ease), transform .9s var(--ease), filter .7s var(--ease);
+            transition-delay: calc(var(--t0) + .2s + var(--i) * 38ms); }
+        /* Текст 2: выезд из-под маски */
+        .sp-text .wm { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .2em; margin-bottom: -.2em; }
+        .sp-text .wi { display: inline-block; transform: translateY(120%); transition: transform .25s ease-in; }
+        #spotlight.open .sp-text .wi { transform: none; transition: transform .95s var(--ease) calc(var(--t0) + .2s + var(--i) * 34ms); }
+        /* Текст 3: печатная машинка */
+        .sp-text .ghost { visibility: hidden; }
+        .sp-text .typed { box-shadow: 3px 0 0 #ff3b3b; animation: spCaret 1s steps(1) infinite; }
+        @keyframes spCaret { 0%, 100% { box-shadow: 3px 0 0 #ff3b3b; } 50% { box-shadow: 3px 0 0 transparent; } }
+        /* Текст 4: расшифровка */
+        .sp-text .sw { display: inline-block; white-space: nowrap; }
+        .sp-text .c { display: inline-block; vertical-align: top; text-align: center; }
+        .sp-text .c.scr { color: #ff4d4d; }
+        /* Текст 5: плавное появление целиком */
+        #spotlight[data-tx="fade"] .sp-text { opacity: 0; transform: translateY(18px); filter: blur(8px); transition: all .25s; }
+        #spotlight[data-tx="fade"].open .sp-text { opacity: 1; transform: none; filter: none; transition: all 1.1s var(--ease) calc(var(--t0) + .2s); }
+
+        /* --- картинка --- */
+        .sp-img { perspective: 1400px; margin-top: clamp(2px, 1vh, 12px); }
+        .sp-img-in {
+            position: relative; width: min(560px, 86vw); height: min(315px, 31vh);
+            border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, .14);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .6), 0 0 90px rgba(255, 0, 0, .16);
+            transition: opacity .25s, transform .25s, clip-path .25s;
         }
+        .sp-img-in img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s, filter .25s; }
+        .sp-img-in::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(3, 3, 5, .35), transparent 45%); }
+        /* Картинка 1: подъём снизу */
+        #spotlight[data-im="rise"] .sp-img-in { opacity: 0; transform: translateY(80px) scale(.92); }
+        #spotlight[data-im="rise"].open .sp-img-in { opacity: 1; transform: none; transition: opacity .8s var(--ease) var(--i0), transform 1.1s var(--ease) var(--i0); }
+        /* Картинка 2: раскрытие от центра */
+        #spotlight[data-im="unfold"] .sp-img-in { clip-path: inset(0 50% 0 50% round 20px); }
+        #spotlight[data-im="unfold"] .sp-img-in img { transform: scale(1.35); }
+        #spotlight[data-im="unfold"].open .sp-img-in { clip-path: inset(-240px -240px -240px -240px round 20px); transition: clip-path 1.4s cubic-bezier(.77, 0, .18, 1) var(--i0); }
+        #spotlight[data-im="unfold"].open .sp-img-in img { transform: none; transition: transform 1.8s var(--ease) var(--i0); }
+        /* Картинка 3: поднимается (3D) */
+        #spotlight[data-im="flip"] .sp-img-in { opacity: 0; transform-origin: 50% 100%; transform: rotateX(80deg) translateY(30px); }
+        #spotlight[data-im="flip"].open .sp-img-in { opacity: 1; transform: none; transition: opacity .6s ease var(--i0), transform 1.2s var(--ease) var(--i0); }
+        /* Картинка 4: фокусировка */
+        #spotlight[data-im="focus"] .sp-img-in { opacity: 0; transform: scale(.94); }
+        #spotlight[data-im="focus"] .sp-img-in img { transform: scale(1.4); filter: blur(28px) brightness(1.7); }
+        #spotlight[data-im="focus"].open .sp-img-in { opacity: 1; transform: none; transition: opacity .6s ease var(--i0), transform 1.2s var(--ease) var(--i0); }
+        #spotlight[data-im="focus"].open .sp-img-in img { transform: none; filter: none; transition: transform 1.5s var(--ease) var(--i0), filter 1.2s ease var(--i0); }
+        /* Картинка 5: вайп слева */
+        #spotlight[data-im="wipe"] .sp-img-in { clip-path: inset(0 100% 0 0 round 20px); }
+        #spotlight[data-im="wipe"] .sp-img-in img { transform: translateX(-12%) scale(1.2); }
+        #spotlight[data-im="wipe"].open .sp-img-in { clip-path: inset(-240px -240px -240px -240px round 20px); transition: clip-path 1.3s cubic-bezier(.77, 0, .18, 1) var(--i0); }
+        #spotlight[data-im="wipe"].open .sp-img-in img { transform: none; transition: transform 1.6s var(--ease) var(--i0); }
+
+        /* мгновенный сброс в начальное состояние перед запуском анимации */
+        #spotlight.sp-reset, #spotlight.sp-reset * { transition: none !important; animation: none !important; }
+
+        /* --- временная панель выбора анимаций --- */
+        #sp-picker { position: fixed; left: 16px; bottom: 16px; width: 280px; max-height: calc(100vh - 32px); overflow: auto; z-index: 9600;
+            background: rgba(10, 10, 14, .94); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, .14); border-radius: 16px; box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+            font-family: 'Montserrat', sans-serif; font-size: 12px; color: #e2e8f0; }
+        #sp-picker button { font-family: inherit; cursor: pointer; }
+        .spp-head { width: 100%; display: flex; justify-content: space-between; padding: 12px 14px; background: none; border: 0; color: #fff; font-weight: 700; font-size: 13px; }
+        .spp-body { padding: 0 12px 12px; }
+        #sp-picker.collapsed .spp-body { display: none; }
+        .spp-title { margin: 10px 2px 6px; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #ff6b6b; font-weight: 700; }
+        .spp-opt { width: 100%; display: flex; gap: 10px; align-items: center; text-align: left; padding: 7px 10px; margin-bottom: 4px;
+            background: rgba(255, 255, 255, .03); border: 1px solid rgba(255, 255, 255, .06); border-radius: 10px; color: #cbd5e1; transition: .2s; }
+        .spp-opt b { color: #ff6b6b; min-width: 10px; }
+        .spp-opt:hover { background: rgba(255, 255, 255, .08); }
+        .spp-opt.on { background: rgba(255, 40, 40, .18); border-color: rgba(255, 70, 70, .6); color: #fff; }
+        .spp-sum { margin: 10px 2px 8px; color: #94a3b8; font-size: 11px; line-height: 1.5; }
+        .spp-play { width: 100%; padding: 10px; border: 0; border-radius: 10px; background: #e11; color: #fff; font-weight: 700; }
 
         .card-title {
             font-family: "Unbounded", sans-serif;
@@ -1371,6 +1520,9 @@
             grid-template-columns: 1.1fr 0.9fr;
             gap: 20px;
             align-items: center;
+            justify-content: center;
+            max-width: 1100px;
+            margin: 0 auto;
             position: relative;
         }
 
@@ -1480,11 +1632,11 @@
         .launcher-img-wrapper {
             position: relative;
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
             perspective: 1000px;
             z-index: 20;
-            margin-left: -40px;
+            margin-left: 0;
         }
 
         /* Мягкое неоновое свечение */
@@ -1512,7 +1664,7 @@
             overflow: hidden;
             /* Исходное 3D-положение под углом */
             transform: rotateY(-22deg) rotateX(10deg) rotateZ(3deg) scale(0.95);
-            transform-origin: left center;
+            transform-origin: center center;
             box-shadow: -25px 25px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 0, 60, 0.2);
             transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.7s ease;
             border: none; /* Убрана рамка */
@@ -1562,7 +1714,7 @@
 
         /* --- БЛОК FUNPAY СЕКЦИИ --- */
         .funpay-section {
-            margin: 100px 0;
+            margin: 100px auto;   /* auto по бокам — иначе перебивает .container и блок прижимается влево */
             text-align: center;
         }
 
@@ -1878,7 +2030,7 @@
                     <h2 class="launcher-title">Управляй игрой в один клик с <span>PEPESOFT LAUNCHER</span></h2>
 
                     <div class="launcher-actions">
-                        <a href="https://huggingface.co/buckets/pepegit666/launch/resolve/archive.zip?download=true" download class="launcher-btn-primary">
+                        <a href="https://clck.ru/3Wo3hS" download class="launcher-btn-primary">
                             Скачать Лаунчер
                         </a>
                     </div>
@@ -1982,7 +2134,7 @@
         <section class="cards-section">
             <h2 class="section-title">Каталог панелей</h2>
             <div class="cards-container">
-                <div class="card block-card">
+                <div class="card block-card" data-sp-img="./gta5rp_pnl.jpg">
                     <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./gta5rp1.jpg" alt="GTA 5 RP" class="card-image">
@@ -1994,10 +2146,51 @@
                         <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="gtawiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
-                    <div class="card-tooltip">Фарм колеса удачи с релогом в заданное время и множество функций для работ и мини-игр. Некоторые функции панели управляются прямиком с Telegram бота</div>
+                    <div class="card-tooltip">
+                    Фарм колеса удачи с релогом в заданное время и множество функций для работ и мини-игр. Некоторые функции панели управляются прямиком с Telegram бота
+
+                    ⚙️ Системные требования
+                    ОС: Windows 10 / 11
+                    Разрешение экрана: 2560x1440 | 1920x1080
+                    Разрешение окна игры: 2560x1440 | 1920x1080 (рекомендовано)
+
+                    📝 Описание и функционал (что входит в софт/бот):  
+                    🎡 Колесо удачи: автоматическая прокрутка колеса удачи каждые 4 часа 🎰
+
+                    🏋️ Качалка: автоматическая прокачка силы (требуется предварительная покупка билета) 💪 
+
+                    🎟️ Лотерея: автоматическая покупка лотерейного билета за 1500$ каждые 2 часа 🎰  
+
+                    🎒 Автолут: мгновенный сбор оружия с пола без необходимости нажимать клавишу E 🔫  
+
+                    💤 Анти-АФК: 2 режима работы (безопасный режим и режим для выполнения контрактов) ⏳ 
+
+                    🧵 Мини-игры и крафт: автоматическое прохождение швейки, скрутка косяков и крафт схем (требуется EN раскладка) ✂️  
+
+                    ⛏️ Работы: ферма (доение коров 🐄), стройка 🧱, шахта ⛏️, порт (прохождение мини-игры 📦) 
+
+                    ⚡ Электрик: выполняет мини-игру на диагностике сети
+
+                    ⚡ Электрик ур.2 - выполняет мини-игру на диагностике сети
+
+                    🔧 Механик: проходит мини-игру починки машины 🚗🛠️
+
+                    🚨 Деморган: режимы «Рубашки», «Станок» и «АФК-Деморган» (пока вы стоите в АФК, софт сам отвечает на вопросы, которые выбрасывает сервер; персонаж при этом сам не бегает) 💬  
+
+                    🍳 Кулинария: автоматический крафт любой еды 🍕  
+
+                    🍔 Анти-голод: авто-прожим еды из инвентаря по заданному таймеру ⏱️  
+
+                    🔄 АвтоРелог: автоматический перезаход на сервер (обычный полный перезапуск игры или быстрый релог через F1) 🚪  
+
+                    📲 Telegram-управление: удаленный контроль функций через ТГ-бота, отправка скриншота игры по команде, авто-переподключение к серверу 📸  
+
+                    🎯 Дополнительный функционал: автобег (персонаж сам не бежит — направлением нужно управлять мышью самостоятельно 🏃), кастомный прицел по центру экрана с выбором цвета, обновленный интерфейс рулетки  
+
+                    </div>
                 </div>
 
-                <div class="card block-card">
+                <div class="card block-card" data-sp-img="./trig_pnl.jpg">
                     <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./trig1.jpg" alt="GTA 5 Trigger" class="card-image">
@@ -2009,10 +2202,26 @@
                         <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="trigmenu.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
-                    <div class="card-tooltip">При наведении на противника ваш персонаж сам начинает стрельбу. Не прийдется контролировать нажатие, а только наводку на head противника</div>
+                    <div class="card-tooltip">При наведении на противника ваш персонаж сам начинает стрельбу. Не прийдется контролировать нажатие, а только наводку на head противника
+
+                    ⚙️ Системные требования
+                    ОС: Windows 10 / 11
+                    Разрешение экрана: 2560x1440 | 1920x1080
+                    Разрешение окна игры: 2560x1440 | 1920x1080 (рекомендовано)
+
+                    📝 Описание и функционал (что входит в софт/бот):
+
+                    ⚡ Автоматический выстрел (автовыстрел) при наведении прицела на цель / противника 🎯
+
+                    ⏱️ Настройка задержки перед выстрелом (кастомные тайминги реакции) ⚙️  
+
+                    ⌨️ Быстрое включение и отключение по горячей клавише (хоткею) 🔘 
+
+                    🛡️ Безопасная работа и обход систем защиты ввода 🔒  
+                    </div>
                 </div>
 
-                <div class="card block-card">
+                <div class="card block-card" data-sp-img="./maj_pnl.jpg">
                     <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./maj1.jpg" alt="Majestic Panel" class="card-image">
@@ -2024,10 +2233,151 @@
                         <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="majesticwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
-                    <div class="card-tooltip">Панель с массой полезных функций фарма BattlePass, стоять AFK, Бот на рыбалку с отправкой улова в Telegram бота</div>
+                    <div class="card-tooltip">Панель с массой полезных функций фарма BattlePass, стоять AFK, Бот на рыбалку с отправкой улова в Telegram бота
+
+                    ⚙️ Системные требования
+                    ОС: Windows 10 / 11
+                    Разрешение экрана: 2560x1440 | 1920x1080
+                    Разрешение окна игры: 2560x1440 | 1920x1080 (рекомендовано)
+
+                    📋 Описание и функционал (что входит в софт/бот):
+                    • 💤 Анти-АФК: персонаж остается на сервере, идет зачисление PayDay 💵 и игрового времени ⏳; авто-пополнение еды 🍔 и воды 🥤 из инвентаря
+                    • 🏥 Больница: при попадании в больницу автоматически пробивает диалог 💬 и продолжает стоять в AFK 💤
+                    • 🚑 EMS / Медики: автоматическая выдача таблеток 💊 (спам в AFK режиме или прожим по хоткею ⌨️)
+                    • ⛓️ Деморган: комплексное прохождение тюремных работ 🧹 (чистка туалетов 🚽, мытье 🧽 и подметание полов 🧹, лепить кекс 🧁, работа электриком ⚡ (тумблеры 🎛️))
+                    • 🛠️ Работы и фарм:
+
+                    🍊 Апельсины: сбор апельсинов с деревьев 🌳
+
+                    🪓 Лесоруб: рубка деревьев 🌲 и заготовка бревен 🪵
+
+                    ⛏️ Шахта и Карьер: добыча камня 🪨 и полезных ископаемых 💎
+
+                    🍄 Грибник: собирает грибы нажатием E ⌨️
+
+                    📦 Неизвестные контейнеры: Скипает анимацию при складывании коробки на контракте организации. Работает при открытом багажнике вертолета 🚁
+
+                    🔨 Стройка: Выполняет мини-игру на забитие гвоздей в доски на работе строителя 🏗️
+
+                    🚒 Пожарный (Утечка Газ): Выполняет мини-игру на утечку газа на работе пожарного 💨
+
+                    ⚡ Электрик: Проходит игру на вольтметре за вас 🔌
+
+                    🏹 Охотник: разделывает шкуру за вас (мини-игра) 🥩
+
+                    🏋️ Ферма/Качалка: проходит мини-игру с буквами 🌾
+                    • 🎫 Авто-Батл Пасс (выполнение заданий БП):
+
+                    🔧 Отвертка: (снятие номеров с ТС 🚗)
+
+                    🎰 Казино: (ставки на скачках 🐎, игральные автоматы 🎰, рулетка красно-черное 🔴⚫)
+
+                    🚤 Водный транспорт: (заплыв на катере/гидроцикле 🌊)
+
+                    🚬 Курение сигарет и 🚲 катание на велосипеде
+
+                    🔫 Фарм оружие: Подходит для заданий: Сломайте оружие стреляя из него 💥, Потратьте боеприпасы стреляя из оружия 🎯
+
+                    🏇 Выполнение задания БП «Скачки» в Казино: Персонаж автоматически делает ставки на лошадиных бегах в казино до тех пор, пока не наберет необходимую сумму выигрышей для закрытия квеста Battle Pass.
+
+                    🤿 Дышать под водой: Подходит для заданий: Прокачайте навык дыхание на % находясь под водой 🌊
+
+                    🎰 Автоматы: Подходит для заданий: Выиграйте ставки в игральных автоматах казино 🎲
+
+                    ⛏️ Копать Червей: Подходит для заданий: Выкопайте червей около рыбалки 🎣
+
+                    🪜 Первая Лестница / Вторая Лестница: Подходит для заданий: Поднимитесь по лестнице 🏃
+                    • 🎣 Авто-рыбалка: полная авто-ловля рыбы 🐟 (доступно в тарифах PLATINUM+ 💎➕ и AQUA+ 🎣)
+                    • 🎒 Подлут с инвентаря
+                    • 🤲 Подлут с пола (E) ⌨️
+                    • 🍕 Авто-Еда (отдельно от afk, также есть вместе) 🥤
+                    • 🗑️ Выкидывать инвентарь (выбираете изображение и при запуске выкинете все предметы из инвентаря) 🖼️
+                    • 📲 TG Уведомления (может присылать скрин программы/игры 📸, а также для рыбалки присылает статистику улова 📊)
+                    • 🔄 Реконнект (выберите сервер подключения 🌐, и после рестарта у вас перезайдет в игру полностью через лаунчер 🚀 (работает на hd 🖥️ и 2k экран 🖥️ (рекомендуемо))
+                    • 🏃 Автобег (нужно управлять 🎮) 2 - бежать 🏃 / shift нажать и потом x - остановиться 🛑
+
+
+                    </div>
                 </div>
 
-                <div class="card block-card">
+                <div class="card block-card" data-sp-img="./maj_pnl.jpg">
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
+                    <div class="card-image-wrapper">
+                        <img src="./rus1.jpg" alt="Russia Online" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Russia Online</h3>
+                    </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                    </div>
+                    <div class="card-tooltip">Панель с массой полезных функций фарма BattlePass, стоять AFK
+
+                    ⚙️ Системные требования
+                    ОС: Windows 10 / 11
+                    Разрешение экрана: 2560x1440 | 1920x1080
+                    Разрешение окна игры: 2560x1440 | 1920x1080 (рекомендовано)
+
+                    📋 Описание и функционал (что входит в софт/бот):
+                    • 💤 Анти-АФК: персонаж остается на сервере, идет зачисление PayDay 💵 и игрового времени ⏳; авто-пополнение еды 🍔 и воды 🥤 из инвентаря
+                    • 🏥 Больница: при попадании в больницу автоматически пробивает диалог 💬 и продолжает стоять в AFK 💤
+                    • 🚑 EMS / Медики: автоматическая выдача таблеток 💊 (спам в AFK режиме или прожим по хоткею ⌨️)
+                    • ⛓️ Деморган: комплексное прохождение тюремных работ 🧹 (чистка туалетов 🚽, мытье 🧽 и подметание полов 🧹, лепить кекс 🧁, работа электриком ⚡ (тумблеры 🎛️))
+                    • 🛠️ Работы и фарм:
+
+                    🍊 Апельсины: сбор апельсинов с деревьев 🌳
+
+                    🪓 Лесоруб: рубка деревьев 🌲 и заготовка бревен 🪵
+
+                    ⛏️ Шахта и Карьер: добыча камня 🪨 и полезных ископаемых 💎
+
+                    🍄 Грибник: собирает грибы нажатием E ⌨️
+
+                    📦 Неизвестные контейнеры: Скипает анимацию при складывании коробки на контракте организации. Работает при открытом багажнике вертолета 🚁
+
+                    🔨 Стройка: Выполняет мини-игру на забитие гвоздей в доски на работе строителя 🏗️
+
+                    🚒 Пожарный (Утечка Газ): Выполняет мини-игру на утечку газа на работе пожарного 💨
+
+                    ⚡ Электрик: Проходит игру на вольтметре за вас 🔌
+
+                    🏹 Охотник: разделывает шкуру за вас (мини-игра) 🥩
+
+                    🏋️ Ферма/Качалка: проходит мини-игру с буквами 🌾
+                    • 🎫 Авто-Батл Пасс (выполнение заданий БП):
+
+                    🔧 Отвертка: (снятие номеров с ТС 🚗)
+
+                    🎰 Казино: (ставки на скачках 🐎, игральные автоматы 🎰, рулетка красно-черное 🔴⚫)
+
+                    🚤 Водный транспорт: (заплыв на катере/гидроцикле 🌊)
+
+                    🚬 Курение сигарет и 🚲 катание на велосипеде
+
+                    🔫 Фарм оружие: Подходит для заданий: Сломайте оружие стреляя из него 💥, Потратьте боеприпасы стреляя из оружия 🎯
+
+                    🏇 Выполнение задания БП «Скачки» в Казино: Персонаж автоматически делает ставки на лошадиных бегах в казино до тех пор, пока не наберет необходимую сумму выигрышей для закрытия квеста Battle Pass.
+
+                    🤿 Дышать под водой: Подходит для заданий: Прокачайте навык дыхание на % находясь под водой 🌊
+
+                    🎰 Автоматы: Подходит для заданий: Выиграйте ставки в игральных автоматах казино 🎲
+
+                    ⛏️ Копать Червей: Подходит для заданий: Выкопайте червей около рыбалки 🎣
+
+                    🪜 Первая Лестница / Вторая Лестница: Подходит для заданий: Поднимитесь по лестнице 🏃
+                    • 🎒 Подлут с инвентаря
+                    • 🤲 Подлут с пола (E) ⌨️
+                    • 🍕 Авто-Еда (отдельно от afk, также есть вместе) 🥤
+                    • 🗑️ Выкидывать инвентарь (выбираете изображение и при запуске выкинете все предметы из инвентаря) 🖼️
+                    • 📲 TG Уведомления (может присылать скрин программы/игры 📸, а также для рыбалки присылает статистику улова 📊)
+                    • 🔄 Реконнект (выберите сервер подключения 🌐, и после рестарта у вас перезайдет в игру полностью через лаунчер 🚀 (работает на hd 🖥️ и 2k экран 🖥️ (рекомендуемо))
+                    • 🏃 Автобег (нужно управлять 🎮) 2 - бежать 🏃 / shift нажать и потом x - остановиться 🛑
+
+
+                    </div>
+                </div>
+
+                <div class="card block-card" data-sp-img="./grand_pnl.jpg">
                     <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./grand1.jpg" alt="GRAND RP" class="card-image">
@@ -2039,10 +2389,25 @@
                         <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="grandwiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
-                    <div class="card-tooltip">Инструмент для фарма бочек Бензина / Нефти на нефтевышках с обходом CAPTCHA</div>
+                    <div class="card-tooltip">Инструмент для фарма бочек Бензина / Нефти на нефтевышках с обходом CAPTCHA
+
+                    ⚙️ Системные требования
+                    ОС: Windows 10 / 11
+                    Разрешение экрана: 2560x1440 | 1920x1080
+                    Разрешение окна игры: 2560x1440 | 1920x1080 (рекомендовано)
+
+                    🟡 ГЛАВНЫЙ ФУНКЦИОНАЛ
+                    ⛽ НЕФТЕВЫШКА - добыча всех видов топлива: Бензин, Керосин, Солярка.
+                    🎣 АВТО-РЫБАЛКА - идеальное прохождение мини-игры.
+                    ⛏️ КАРЬЕР (Добыча руды) - полный цикл добычи полезных ископаемых.
+                    💪 КАЧАЛКА / ТРЕНАЖЕРЫ - прокачка характеристик персонажа на 100%.
+
+                    🔥Авто-капча на все: Встроенная система обходтит капчу, позволяет фармить бесконечно без вашего участия.
+                    Полный цикл работы без сбоев и зависаний - есть функция выключения обхода капчи и тогда за вас проходит просто мини игру, а вы уже сами вводите капчу.
+                    </div>
                 </div>
 
-                <div class="card block-card">
+                <div class="card block-card" data-sp-img="./albion_pnl.jpg">
                     <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./albion21.jpg" alt="Albion Panel" class="card-image">
@@ -2054,25 +2419,29 @@
                         <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="albionwiki1.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
-                    <div class="card-tooltip">Бот на рыбалку, а также Автопрожатие скиллов для фарма леса</div>
+                    <div class="card-tooltip">Бот на рыбалку, а также Автопрожатие скиллов для фарма леса
+
+                    ⚙️ Системные требования
+                    ОС: Windows 10 / 11
+                    Разрешение экрана: 2560x1440 | 1920x1080
+                    Разрешение окна игры: 2560x1440 | 1920x1080 (рекомендовано)
+
+                    📝 Описание и функционал (что входит в софт/бот):  
+
+
+                    ⚡ Полная автоматизация рыбалки 🎣 (работает в AFK режиме 💤 без участия игрока 👤)  
+
+                    🎯 Автоматическая подсечка и ловля рыбы 🐟 удочкой 🎣 
+
+                    🪱 Автоматический прожим и обновление наживки 🐛 и еды 🥩 
+
+                    ⚔️ Ротация скиллов для эффективного фарма 💎  
+
+                    ⚙️ Гибкая и легкая настройка кастомных задержек ⏱️  
+                    </div>
                 </div>
 
-                <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> активна</div>
-                    <div class="card-image-wrapper">
-                        <img src="./calc1.jpg" alt="Profit Calculator" class="card-image">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Profit Calculator</h3>
-                    </div>
-                    <div class="card-buttons">
-                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                        <a href="calcwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
-                    </div>
-                    <div class="card-tooltip">Калькулятор прибыли айтемов, купленных и проданных на 5VITO</div>
-                </div>
-
-                <div class="card block-card">
+                <div class="card block-card" data-sp-img="./rf4_pnl.jpg">
                     <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./rf41.jpg" alt="Russian Fishing 4" class="card-image">
@@ -2084,10 +2453,31 @@
                         <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="rufishwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
-                    <div class="card-tooltip">Бот на рыбалку поддерживает Поплавок / Спиннинг / Донная ловля. Присутствует тонкая настройка подсечек, пополнение еды</div>
+                    <div class="card-tooltip">Бот на рыбалку поддерживает Поплавок / Спиннинг / Донная ловля. Присутствует тонкая настройка подсечек, пополнение еды
+
+                    ⚙️ Системные требования
+                    ОС: Windows 10 / 11
+                    Разрешение экрана: 2560x1440 | 1920x1080
+                    Разрешение окна игры: 2560x1440 | 1920x1080 (рекомендовано)
+
+                    📝 Описание и функционал (что входит в софт/бот): 
+
+                    🎣 Поддержка основных видов ловли: 
+
+                      • Спиннинг (равномерная проводка, твичинг на воблеры и топвотеры, джиговая ловля) ⚙️  
+                      • Поплавочная ловля 🎈  
+
+                      • Доночная ловля (фидер) 🔔  
+
+                    🌊 Морская ловля: находится в процессе разработки ⏳  
+
+                    📲 Telegram-уведомления: отправка скриншотов каждого улова в ваш личный Telegram-чат 📸 
+
+                    ⚙️ Удобство: простой интерфейс и понятная пошаговая инструкция по настройке 🛠️  
+                    </div>
                 </div>
 
-                <div class="card block-card">
+                <div class="card block-card" data-sp-img="./rmrp_pnl.jpg">
                     <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./rmrp1.jpg" alt="R M R P" class="card-image">
@@ -2099,7 +2489,21 @@
                         <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="rmrpwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
-                    <div class="card-tooltip">Бот на рыбалку, присылает статистику улова в Telegram, когда рыба заканчивается в зоне вылова, пришлет уведомление</div>
+                    <div class="card-tooltip">Бот на рыбалку, присылает статистику улова в Telegram, когда рыба заканчивается в зоне вылова, пришлет уведомление
+
+                    ⚙️ Системные требования
+                    ОС: Windows 10 / 11
+                    Разрешение экрана: 2560x1440 | 1920x1080
+                    Разрешение окна игры: 2560x1440 | 1920x1080 (рекомендовано)
+
+                    📝 Описание и функционал (что входит в софт/бот):  
+
+                    ⚡ Автоматическая ловля рыбы (авто-рыбалка) 🎣  
+
+                    📲 Интеграция с Telegram: отправка уведомлений на телефон, когда заканчивается рыба в зоне улова 🔔  
+
+                    💤 автономный режим работы (AFK) 💤  
+                    </div>
                 </div>
 
                 <div class="card block-card">
@@ -2116,7 +2520,7 @@
                     <div class="card-tooltip">Пополнение Здоровья и Маны персонажа банками, не дает умереть персонажу</div>
                 </div>
 
-                <div class="card block-card">
+                <div class="card block-card" data-sp-img="./tl_pnl.jpg">
                     <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./tl2.jpg" alt="Throne and Liberty AutoFarm" class="card-image">
@@ -2127,38 +2531,30 @@
                     <div class="card-buttons">
                         <a href="https://funpay.com/users/21042002/" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
                     </div>
-                    <div class="card-tooltip">Фарм мобов с авторотацией скиллов, также отслеживание и пополнение Здоровья и Маны автоматически</div>
+                    <div class="card-tooltip">Фарм мобов с авторотацией скиллов, также отслеживание и пополнение Здоровья и Маны автоматически
+
+                    ⚙️ Системные требования
+                    ОС: Windows 10 / 11
+                    Разрешение экрана: 2560x1440 | 1920x1080
+                    Разрешение окна игры: 2560x1440 | 1920x1080 (рекомендовано)
+
+                    📝 Описание и функционал (что входит в софт/бот): 
+
+                    🎯 Автофарм спота: автоматическая зачистка мобов на выбранных локациях 🧟‍♂️  
+                    
+                    ⚔️ Авторотация скиллов: прожим связок умений в PvP и во время сражений с боссами 💥  
+                    
+                    🧪 Авто-отхил и авто-реген: автоматическое использование зелий (банок) и умений для восстановления ХП и МП 💚  
+                    
+                    🛡️ Автоблок (парирование): автоматический зажим блока при оверхитах и спец-атаках врагов/боссов ⚡ 
+
+                    работает на евро-серверах и на ру серверах (россия)
+                    </div>
                 </div>
 
-                <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> активна</div>
-                    <div class="card-image-wrapper">
-                        <img src="./tl1.jpg" alt="Throne and Liberty AutoFish" class="card-image">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Throne and Liberty <br> Auto - Fishing</h3>
-                    </div>
-                    <div class="card-buttons">
-                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
-                    </div>
-                    <div class="card-tooltip">Бот на рыбалку. особенностей нет, просто ловит рыбу</div>
-                </div>
+                
 
-                <div class="card block-card">
-                    <div class="card-status"><span class="status-dot"></span> активна</div>
-                    <div class="card-image-wrapper">
-                        <img src="./cs21.jpg" alt="CS2 Macro" class="card-image">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Counter Strike 2 <br> Macros</h3>
-                    </div>
-                    <div class="card-buttons">
-                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn" style="flex: 1;"><i class="fas fa-key"></i> Ключ</a>
-                    </div>
-                    <div class="card-tooltip">При наведении на персонажа правильно перемещает и делает клики, что делает отдачу минимальной, а все пули летят ровно в центр</div>
-                </div>
-
-                <div class="card block-card">
+                <div class="card block-card" data-sp-img="./amazing_pnl.jpg">
                     <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
                         <img src="./amazing1.jpg" alt="Amazing Panel" class="card-image">
@@ -2170,24 +2566,143 @@
                         <a href="https://t.me/ppftplata_bot" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
                         <a href="amazingwiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
-                    <div class="card-tooltip">Панель для фарма на работах, помогает с прохождением мини-игр. Бот на рыбалку с уведомлениями в Telegram</div>
+                    <div class="card-tooltip">Панель для фарма на работах, помогает с прохождением мини-игр. Бот на рыбалку с уведомлениями в Telegram
+
+                    ⚙️ Системные требования
+                    ОС: Windows 10 / 11
+                    Разрешение экрана: 2560x1440 | 1920x1080
+                    Разрешение окна игры: 2560x1440 | 1920x1080 (рекомендовано)
+
+
+                    📝 Описание и функционал (что входит в софт/бот):
+
+                    💼 Панель для фарма на работах: помогает с прохождением мини-игр 🎯
+
+                    🎣 Бот на рыбалку: автоматическая ловля рыбы 🐟 с уведомлениями в Telegram 📲
+                     
+
+                    ⚙️ Функции:
+
+                    ⛏️ Карьер: автоматическая добыча на карьере 🪨
+
+                    🏭 Завод: автоматическое прохождение мини-игры на станке 🔧
+
+                    🪵 Лесопилка: фарм на лесопилке 🌲
+
+                    🧹 Уборщик: автоматическое выполнение работы уборщика 🧽
+
+                    🪚 Лесопилка (станок): автоматическое прохождение мини-игры на станке 🪵
+
+                    🔄 Перезаход в рестарт: автоматический перезаход на сервер после рестарта 🚪
+
+                    🎁 Карта подарков: автоматическое прохождение 🗺️
+
+                    🎣 Бот на рыбалку: полная авто-ловля рыбы 🐟
+
+
+                     
+                    📲 Функции Telegram-бота:
+
+
+                    📸 /screen — делает скриншот игры и отправляет его в бота 🎮
+
+                    🖥️ /pscreen — присылает скриншот программы 💻
+
+                    🐟 Присылает улов 🎣
+
+                    </div>
                 </div>
 
-                <div class="card block-card">
+
+                <div class="card block-card" data-sp-img="./region_pnl.jpg">
                     <div class="card-status"><span class="status-dot"></span> активна</div>
                     <div class="card-image-wrapper">
-                        <img src="./l2fone1.jpg" alt="Lineage 2" class="card-image">
+                        <img src="./region1.jpg" alt="Region Panel" class="card-image">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Lineage 2 Essence</h3>
+                        <h3 class="card-title">Region RP</h3>
                     </div>
                     <div class="card-buttons">
                         <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
-                        <a href="l2wiki.html" class="card-btn info-btn"><i class="fas fa-bars"></i> Инфо</a>
                     </div>
-                    <div class="card-tooltip">Помогает персонажу когда убили самому встать и улететь на спот и фармить дальше, имеет настройку полета до 12 рандомных спотов</div>
+                    <div class="card-tooltip">
+                    🔥Ищешь способ получать стабильный пассивный доход и не тратить часы на рутину? Этот помощник возьмёт всю грязную работу на себя! Работает стабильно, бесшумно и без перерывов.🔥
+
+                    ⚙️ Системные требования
+                    ОС: Windows 10 / 11
+                    Разрешение экрана: 2560x1440 | 1920x1080
+                    Разрешение окна игры: 2560x1440 | 1920x1080 (рекомендовано)
+                    
+
+                    🔄 Авто-перезаход - сам перезапускает игру и заходит на нужного персонажа. Вам не нужно следить за сессией и вручную входить после сбоя или перезапуска.
+
+                    🎣 Автоматическая рыбалка
+
+                    - 🔔 Уведомляет, когда инвентарь заполнен, чтобы вы не пропустили момент.
+
+                    - 🐟 Режим «Отпускать»: пойманная рыба сразу возвращается в воду, инвентарь не заполняется.
+
+                    - 🎒 Режим «Забирать»: рыба сохраняется в инвентаре для продажи или использования.
+
+                    💰 Сбор RCoin
+
+                    - ⏱️ Собирает RCoin за активность в игре.
+
+                    - 👀Отслеживает, когда награда станет доступна, и вовремя её забирает.
+
+                    - 📱 Удалённый сбор через Telegram: можно нажать кнопку в Telegram и забрать награду принудительно, даже когда вы не у компьютера.
+
+
+                    🏃 Автобег - Персонаж бегает автоматически, без участия игрока. (мышкой направлять вам надо)
+
+                    ⌨️ Автопроклик E - автоматически нажимает клавишу E там, где это нужно для взаимодействия с объектами и NPС и работами
+
+                    </div>
                 </div>
-            </div>
+
+                <div class="card block-card" data-sp-img="./radmir_pnl.jpg">
+                    <div class="card-status"><span class="status-dot"></span> активна</div>
+                    <div class="card-image-wrapper">
+                        <img src="./radmir1.jpg" alt="Radmir Panel" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Radmir RP</h3>
+                    </div>
+                    <div class="card-buttons">
+                        <a href="https://funpay.com/users/21042002/" class="card-btn key-btn"><i class="fas fa-key"></i> Ключ</a>
+                    </div>
+                    <div class="card-tooltip">
+                    🔥Ищешь способ получать стабильный пассивный доход и не тратить часы на рутину? Этот помощник возьмёт всю грязную работу на себя! Работает стабильно, бесшумно и без перерывов.🔥
+
+                    ⚙️ Системные требования
+                    ОС: Windows 10 / 11
+                    Разрешение экрана: 2560x1440 | 1920x1080
+                    Разрешение окна игры: 2560x1440 | 1920x1080 (рекомендовано)
+                    
+
+                    📝 Описание и функционал (что входит в софт/бот):
+
+                    ✅ 🚗 Авто-вскрытие машины 🔓: проходит обе мини-игры — 🔧 монтировка и 💻 код-граббер. Работает в режимах 🚐 бусик и 🚘 угонка
+
+                    ✅ 🔄 Авто-релог на сервер:
+
+                    - 📡 Автоматически заходит обратно при дисконнектах и рестартах сервера
+                    - ⌨️ Перезаход по кнопке F1
+                    - 🎮 Полный перезаход в игру: сам закрывает и заново запускает игру, 🖱️ заход в игру по кнопке
+                    - ⏰ Можно задать время перезахода
+                    - 📱 Управление через Telegram, то есть удалённо, не находясь за ПК
+
+                    ✅ 💪 Авто-качалка
+
+                    ✅ 🏃 Автобег (Shift + W)
+                    ⚠️ НЕ бегает по траектории, направлять персонажа нужно мышкой 🖱️
+
+                    ✅ 🌸 Авто-нажатие E для работ, например, сбор цветов
+
+                    ✅ 🔒 Авто-застёгивание ремня безопасности
+                    </div>
+                </div>
+           
         </section>
 
         <!-- QUICK START BLOCKS -->
@@ -3065,47 +3580,6 @@
             </div>
         </section>
         
-        <section class="tv-section">
-            <h2 class="section-title">Демонстрация работы</h2>
-            
-            <div class="tv-container">
-                <div class="block-card tv-screen">
-                    <div class="video-wrapper">
-                        <video class="lazy-video" data-src="https://huggingface.co/buckets/pepegit666/videos/resolve/vid6.mkv" muted loop playsinline></video>
-                    </div>
-                </div>
-
-                <div class="block-card tv-screen">
-                    <div class="video-wrapper">
-                        <video class="lazy-video" data-src="https://huggingface.co/buckets/pepegit666/videos/resolve/vid5.mkv" muted loop playsinline></video>
-                    </div>
-                </div>
-
-                <div class="block-card tv-screen">
-                    <div class="video-wrapper">
-                        <video class="lazy-video" data-src="https://huggingface.co/buckets/pepegit666/videos/resolve/vid4.mkv" muted loop playsinline></video>
-                    </div>
-                </div>
-
-                <div class="block-card tv-screen">
-                    <div class="video-wrapper">
-                        <video class="lazy-video" data-src="https://huggingface.co/buckets/pepegit666/videos/resolve/vid3.mkv" muted loop playsinline></video>
-                    </div>
-                </div>
-
-                <div class="block-card tv-screen">
-                    <div class="video-wrapper">
-                        <video class="lazy-video" data-src="https://huggingface.co/buckets/pepegit666/videos/resolve/vid2.mkv" muted loop playsinline></video>
-                    </div>
-                </div>
-
-                <div class="block-card tv-screen">
-                    <div class="video-wrapper">
-                        <video class="lazy-video" data-src="https://huggingface.co/buckets/pepegit666/videos/resolve/vid1.mkv" muted loop playsinline></video>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <section class="socials-section" style="margin-top: 100px;">
             <h2 class="section-title">Мы в соцсетях</h2>
@@ -3159,8 +3633,11 @@
             </div>
         </section>
 
-    </div> 
-    
+          </div><!-- /container flex (QUICK START) -->
+        </section><!-- /QUICK START section -->
+
+    </div><!-- /главный .container -->
+
     <footer>
         <div class="container"> 
             <div class="footer-grid">
@@ -3509,5 +3986,282 @@
             requestAnimationFrame(update);
         }
     </script>
+<script>
+/* ===== Spotlight: описание карточки по центру экрана ===== */
+(function () {
+    const SHOW_PICKER = false; // панель выбора анимаций скрыта
+
+    const OPTS = {
+        ov: { title: 'Затемнение', list: [
+            ['fade', 'Плавное размытие'], ['iris', 'Круг из карточки'], ['curtain', 'Кино-шторка'],
+            ['vignette', 'Виньетка к центру'], ['blinds', 'Жалюзи']] },
+        tx: { title: 'Текст', list: [
+            ['words', 'Слова из размытия'], ['mask', 'Выезд из-под маски'], ['typing', 'Печатная машинка'],
+            ['scramble', 'Расшифровка'], ['fade', 'Плавное появление']] },
+        im: { title: 'Картинка', list: [
+            ['rise', 'Подъём снизу'], ['unfold', 'Раскрытие от центра'], ['flip', 'Поднимается (3D)'],
+            ['focus', 'Фокусировка'], ['wipe', 'Вайп слева']] }
+    };
+    const T0 = { fade: .12, iris: .3, curtain: .4, vignette: .3, blinds: .55 };
+
+    const state = { ov: 'fade', tx: 'words', im: 'focus' };   // выбранные анимации: затемнение 1, текст 1, картинка 4
+    Object.keys(OPTS).forEach(k => { if (!OPTS[k].list.some(o => o[0] === state[k])) state[k] = OPTS[k].list[0][0]; });
+
+    const reduce = false;
+    const isTouch = window.matchMedia('(hover: none)').matches;
+
+    // ---- DOM ----
+    const sp = document.createElement('div');
+    sp.id = 'spotlight';
+    sp.setAttribute('aria-hidden', 'true');
+    sp.setAttribute('data-lenis-prevent', '');   // внутри окна текст можно прокручивать (телефон)
+    if (isTouch) sp.classList.add('touch');
+    const N = 14;
+    let strips = '';
+    for (let i = 0; i < N; i++) strips += '<div class="sp-strip" style="--d:' + Math.abs(i - (N - 1) / 2).toFixed(1) + '"></div>';
+    sp.innerHTML =
+        '<div class="sp-bd"></div><div class="sp-blinds">' + strips + '</div><div class="sp-flash"></div>' +
+        '<div class="sp-inner">' +
+            '<div class="sp-kicker">Описание панели</div>' +
+            '<h3 class="sp-title"></h3><div class="sp-rule"></div>' +
+            '<p class="sp-text"></p>' +
+            '<div class="sp-img"><div class="sp-img-in"><img alt=""></div></div>' +
+        '</div>';
+    document.body.appendChild(sp);
+    const elTitle = sp.querySelector('.sp-title'), elText = sp.querySelector('.sp-text'), elImg = sp.querySelector('img');
+
+    // ---- анимации текста на JS ----
+    const anim = { t: 0, raf: 0 };
+    function stopAnim() { clearTimeout(anim.t); cancelAnimationFrame(anim.raf); }
+
+    // Разбор текста на строки: пустая строка = отступ, "- " в начале = пункт списка
+    function parseLines(text) {
+        return text.split('\n').map(l => {
+            const t = l.trim();
+            if (!t) return { gap: true };
+            const li = /^[-–•]\s+/.test(t);
+            return { li: li, words: (li ? t.replace(/^[-–•]\s+/, '') : t).split(/\s+/).filter(Boolean) };
+        });
+    }
+    function makeLine(l) {
+        const d = document.createElement('span');
+        d.className = l.gap ? 'sp-gap' : 'sp-line' + (l.li ? ' sp-li' : '');
+        elText.appendChild(d);
+        return d;
+    }
+    function plainText(text) { return text.replace(/^[-–]\s+/gm, '• '); }
+
+    function buildWords(text, mask) {
+        elText.textContent = '';
+        const lines = parseLines(text);
+        const total = lines.reduce((a, l) => a + (l.words ? l.words.length : 0), 0) || 1;
+        const scale = Math.min(1, 1300 / (total * 38));   // длинный текст появляется не дольше ~1.3 с
+        let idx = 0;
+        lines.forEach(l => {
+            const row = makeLine(l);
+            if (l.gap) return;
+            l.words.forEach((w, k) => {
+                const s = document.createElement('span');
+                const i = (idx++ * scale).toFixed(2);
+                if (mask) {
+                    s.className = 'wm';
+                    const inn = document.createElement('span');
+                    inn.className = 'wi'; inn.style.setProperty('--i', i); inn.textContent = w;
+                    s.appendChild(inn);
+                } else {
+                    s.className = 'w'; s.style.setProperty('--i', i); s.textContent = w;
+                }
+                row.appendChild(s);
+                if (k < l.words.length - 1) row.appendChild(document.createTextNode(' '));
+            });
+        });
+    }
+
+    function runTyping(text, delay) {
+        elText.textContent = '';
+        const a = document.createElement('span'); a.className = 'typed';
+        const b = document.createElement('span'); b.className = 'ghost'; b.textContent = text;
+        elText.append(a, b);
+        const per = Math.min(30, Math.max(1.5, 1900 / text.length));
+        anim.t = setTimeout(() => {
+            const start = performance.now();
+            const tick = now => {
+                const n = Math.min(text.length, Math.floor((now - start) / per));
+                a.textContent = text.slice(0, n); b.textContent = text.slice(n);
+                if (n < text.length) anim.raf = requestAnimationFrame(tick);
+            };
+            anim.raf = requestAnimationFrame(tick);
+        }, delay);
+    }
+
+    function runScramble(text, delay) {
+        elText.textContent = '';
+        const chars = [];
+        parseLines(text).forEach(l => {
+            const row = makeLine(l);
+            if (l.gap) return;
+            l.words.forEach((w, wi) => {
+                const s = document.createElement('span'); s.className = 'sw';
+                for (const ch of w) {
+                    const c = document.createElement('span'); c.className = 'c'; c.textContent = ch;
+                    s.appendChild(c); chars.push({ el: c, ch: ch });
+                }
+                row.appendChild(s);
+                if (wi < l.words.length - 1) row.appendChild(document.createTextNode(' '));
+            });
+        });
+        const widths = chars.map(o => o.el.getBoundingClientRect().width);  // фиксируем ширину, чтобы текст не «прыгал»
+        chars.forEach((o, i) => { o.el.style.width = widths[i] + 'px'; o.el.textContent = '\u00a0'; o.el.style.opacity = '0'; });
+        const n = chars.length, step = Math.min(22, Math.max(1, 1100 / n)), life = 420;
+        const SET = '01#$%&@*+=<>/\\|?!';
+        anim.t = setTimeout(() => {
+            const t0 = performance.now();
+            const tick = now => {
+                const t = now - t0; let done = true;
+                chars.forEach((o, i) => {
+                    if (o.fin) return;
+                    const b = i * step;
+                    if (t < b) { done = false; }
+                    else if (t < b + life) {
+                        done = false; o.el.style.opacity = '1'; o.el.classList.add('scr');
+                        if (!o.last || now - o.last > 55) { o.el.textContent = SET[(Math.random() * SET.length) | 0]; o.last = now; }
+                    } else {
+                        o.el.textContent = o.ch; o.el.classList.remove('scr'); o.el.style.opacity = '1'; o.fin = true;
+                    }
+                });
+                if (!done) anim.raf = requestAnimationFrame(tick);
+            };
+            anim.raf = requestAnimationFrame(tick);
+        }, delay);
+    }
+
+    // На ПК окно открывается по наведению и не прокручивается, поэтому текст должен целиком помещаться.
+    // Замер делаем на разметке «слов» (она совпадает с итоговой), затем уменьшаем шрифт, пока всё не влезет.
+    function fitText(text) {
+        elText.style.fontSize = '';
+        if (isTouch || window.innerWidth <= 820) return;      // на телефоне текст прокручивается пальцем
+        buildWords(text, false);
+        sp.classList.add('sp-measure');
+        let px = parseFloat(getComputedStyle(elText).fontSize), guard = 0;
+        const over = () => elText.scrollHeight > elText.clientHeight + 1 || elText.scrollWidth > elText.clientWidth + 1;
+        while (over() && px > 9 && guard++ < 60) { px -= 0.5; elText.style.fontSize = px + 'px'; }
+        sp.classList.remove('sp-measure');
+        if (state.tx === 'typing' || state.tx === 'fade' || reduce) elText.style.fontSize = (px * 0.93) + 'px';  // запас: там абзацы чуть выше
+    }
+
+    // ---- открыть / закрыть ----
+    let previewT = 0;
+    function open(card, preview) {
+        const tip = card && card.querySelector('.card-tooltip');
+        if (!tip) return;
+        stopAnim(); clearTimeout(previewT);
+
+        const title = card.querySelector('.card-title'), img = card.querySelector('.card-image');
+        // сохраняем переносы строк и абзацы из описания (лишние пробелы и пустые строки убираем)
+        const text = tip.textContent.split('\n').map(l => l.replace(/[ \t ]+/g, ' ').trim())
+            .join('\n').replace(/\n{3,}/g, '\n\n').trim();
+        const isLong = text.indexOf('\n') !== -1 || text.length > 320;
+        sp.querySelector('.sp-inner').classList.toggle('long', isLong);
+        sp.querySelector('.sp-inner').classList.toggle('xl', text.length > 1100);
+
+        if (preview) { sp.style.setProperty('--cx', '50%'); sp.style.setProperty('--cy', '50%'); }
+        else {
+            const r = card.getBoundingClientRect();
+            sp.style.setProperty('--cx', (r.left + r.width / 2) + 'px');
+            sp.style.setProperty('--cy', (r.top + r.height / 2) + 'px');
+        }
+        sp.classList.remove('open');
+        sp.classList.add('sp-reset');       // на время подготовки отключаем transition
+        sp.dataset.ov = state.ov; sp.dataset.tx = state.tx; sp.dataset.im = state.im;
+        const t0 = T0[state.ov] || .2;
+        sp.style.setProperty('--t0', t0 + 's');
+        sp.style.setProperty('--i0', (t0 + .3) + 's');
+
+        elTitle.innerHTML = title ? title.innerHTML : '';
+        // своя картинка для окна описания: data-sp-img="файл.jpg" на карточке, иначе берётся картинка самой карточки
+        const spSrc = card.getAttribute('data-sp-img');
+        if (spSrc) elImg.src = spSrc;
+        else if (img) elImg.src = img.currentSrc || img.src;
+
+        const delay = (t0 + .2) * 1000;
+        elText.scrollTop = 0;
+        fitText(text);   // подгоняем размер шрифта, чтобы весь текст поместился на экране
+        if (reduce) elText.textContent = plainText(text);
+        else if (state.tx === 'words') buildWords(text, false);
+        else if (state.tx === 'mask') buildWords(text, true);
+        else if (state.tx === 'typing') runTyping(plainText(text), delay);
+        else if (state.tx === 'scramble') runScramble(text, delay);
+        else elText.textContent = plainText(text);
+
+        void sp.offsetWidth;                // начальное состояние применяется мгновенно
+        sp.classList.remove('sp-reset');
+        void sp.offsetWidth;
+        sp.classList.add('open');
+        sp.setAttribute('aria-hidden', 'false');
+        if (preview) previewT = setTimeout(close, 5200);
+    }
+    function close() {
+        clearTimeout(previewT); stopAnim();
+        sp.classList.remove('open');
+        sp.setAttribute('aria-hidden', 'true');
+    }
+
+    // ---- наведение на карточки ----
+    let hoverT = 0;
+    document.querySelectorAll('.card').forEach(card => {
+        const wrap = card.querySelector('.card-image-wrapper');
+        if (!wrap) return;
+        if (isTouch) {
+            wrap.addEventListener('click', e => { e.preventDefault(); open(card); });
+            return;
+        }
+        const tryOpen = () => {
+            if (!wrap.matches(':hover')) return;
+            if (document.body.classList.contains('is-scrolling')) { hoverT = setTimeout(tryOpen, 150); return; }
+            open(card);
+        };
+        wrap.addEventListener('mouseenter', () => { clearTimeout(hoverT); clearTimeout(previewT); hoverT = setTimeout(tryOpen, 140); });
+        wrap.addEventListener('mouseleave', () => { clearTimeout(hoverT); close(); });
+    });
+    sp.addEventListener('click', close);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    window.addEventListener('scroll', () => { if (!isTouch && sp.classList.contains('open')) close(); }, { passive: true });
+
+    // ---- панель выбора (временная) ----
+    if (SHOW_PICKER) {
+        const p = document.createElement('div');
+        p.id = 'sp-picker'; p.setAttribute('data-lenis-prevent', '');
+        let html = '<button class="spp-head" type="button"><span>🎛 Выбор анимаций</span><span class="spp-chev">▾</span></button><div class="spp-body">';
+        Object.keys(OPTS).forEach(k => {
+            html += '<div class="spp-title">' + OPTS[k].title + '</div>';
+            OPTS[k].list.forEach((o, i) => {
+                html += '<button type="button" class="spp-opt" data-k="' + k + '" data-v="' + o[0] + '"><b>' + (i + 1) + '</b>' + o[1] + '</button>';
+            });
+        });
+        html += '<div class="spp-sum"></div><button type="button" class="spp-play">▶ Показать пример</button></div>';
+        p.innerHTML = html;
+        document.body.appendChild(p);
+
+        const sum = p.querySelector('.spp-sum');
+        const refresh = () => {
+            p.querySelectorAll('.spp-opt').forEach(b => b.classList.toggle('on', state[b.dataset.k] === b.dataset.v));
+            sum.textContent = Object.keys(OPTS).map(k =>
+                OPTS[k].title + ' ' + (OPTS[k].list.findIndex(o => o[0] === state[k]) + 1)).join(' · ');
+        };
+        const demo = () => open(document.querySelector('.card'), true);
+        p.querySelector('.spp-head').addEventListener('click', () => p.classList.toggle('collapsed'));
+        p.querySelectorAll('.spp-opt').forEach(b => b.addEventListener('click', () => {
+            state[b.dataset.k] = b.dataset.v;
+            try { localStorage.setItem('spState', JSON.stringify(state)); } catch (e) {}
+            refresh();
+            close();
+            setTimeout(demo, 380);
+        }));
+        p.querySelector('.spp-play').addEventListener('click', () => { close(); setTimeout(demo, 380); });
+        refresh();
+    }
+})();
+</script>
+
 </body>
 </html>
