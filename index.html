@@ -9,7 +9,7 @@
     <link rel="canonical" href="https://bots.pepesoft.ru/" />
     
     <meta name="description" content="Скачать боты для AMAZING RP, РОССИЯ ОНЛАЙН, Albion Online, RMRP, Fishing Bot, GTA 5 RP, Majestic, CS2, TL, Russian Fishing 4. Автоматизация фарма, рыбалки, прокачки. Безопасно и анонимно.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <link rel="icon" href="https://pepesoft.ru/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon1.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon1.png">
@@ -1859,6 +1859,90 @@
         }
 
     </style>
+
+    <!-- ===== MOBILE FIXES: адаптив под телефон, стабильный фон ===== -->
+    <style id="mobile-fixes">
+        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+        /* clip не создаёт scroll-контейнер и реально запрещает горизонтальный сдвиг (hidden на body в мобильных браузерах не всегда помогает) */
+        @supports (overflow: clip) { html, body { overflow-x: clip; } }
+        img, video, canvas, svg { max-width: 100%; }
+
+        /* --- Фон: фиксируем высоту по САМОМУ БОЛЬШОМУ viewport, чтобы при скрытии/показе адресной строки картинка не «дышала» --- */
+        .ambient-glow, .video-background, .video-overlay {
+            position: fixed; top: 0; left: 0; right: auto; bottom: auto;
+            width: 100%;
+            height: var(--lvh-js, 100vh);
+        }
+        @supports (height: 100lvh) {
+            .ambient-glow, .video-background, .video-overlay { height: 100lvh; }
+        }
+        .video-background { transform: translateZ(0); contain: strict; }
+        .video-background img {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
+            transform: translateZ(0); backface-visibility: hidden;
+        }
+
+        /* --- Сетки с жёстким min-width ломали ширину страницы на телефоне --- */
+        .cards-container { grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); }
+        .tv-container    { grid-template-columns: repeat(auto-fit,  minmax(min(500px, 100%), 1fr)); }
+        .wheel-key-input { min-width: 0; }
+        .grid-tags, .tech-grid { min-width: 0; }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            section { margin: 64px 0; }
+            .section-title {
+                font-size: clamp(1.3rem, 6.2vw, 2rem);
+                margin-bottom: 36px; letter-spacing: -.5px;
+                overflow-wrap: anywhere;
+            }
+            .cyber-container { padding: 90px 16px 40px; margin-bottom: 30px; }
+            .seo-content { padding: 24px 18px; }
+            .seo-content h2 { font-size: 1.25rem; overflow-wrap: anywhere; }
+            .seo-content p { font-size: .9rem; }
+            .telegram-block { padding: 32px 20px; margin-top: 48px; }
+            .active-users-card { padding: 32px 20px; }
+            .tech-item { padding: 10px 16px; }
+            .tech-item img { width: 104px; height: 34px; }
+            .footer-col p { max-width: none; }
+            footer { padding: 56px 0 32px; margin-top: 72px; }
+            .card-image-wrapper { height: 160px; }
+            .card-content { padding: 20px 18px 0; }
+            .card-buttons { padding: 14px 18px 20px; flex-wrap: wrap; }
+            .funpay-section { margin: 64px auto; }
+
+            /* Карусель «Наши разработки»: слайды масштабируются от ширины экрана и сохраняют пропорции */
+            .swiper.mySwiper { height: calc(min(500px, 82vw) * .82 + 100px); padding-top: 16px; padding-bottom: 16px; }
+            .swiper.mySwiper .swiper-slide {
+                width: min(calc(var(--sw, 500) * 1px), calc(var(--sw, 500) / 500 * 82vw)) !important;
+                height: auto !important;
+                max-width: none;
+            }
+        }
+        @media (max-width: 480px) {
+            h1 { font-size: clamp(2rem, 11vw, 3rem); letter-spacing: -1px; }
+            .funpay-logo { font-size: clamp(1.6rem, 8vw, 2.3rem); }
+            .pepesoft-name { font-size: clamp(1.7rem, 9.5vw, 2.2rem); letter-spacing: -1px; }
+            .users-value { font-size: clamp(2.4rem, 13vw, 3.5rem); }
+            .mac-title { transform: none; font-size: .75rem; }
+        }
+    </style>
+    <script>
+        /* Запасной вариант для браузеров без единиц lvh: запоминаем максимальную высоту окна и не уменьшаем её при скролле */
+        (function () {
+            var root = document.documentElement, w = 0, h = 0;
+            function set() {
+                var iw = window.innerWidth, ih = window.innerHeight;
+                if (Math.abs(iw - w) > 1) { w = iw; h = 0; }   // сменилась ширина (поворот) — считаем заново
+                if (ih > h) { h = ih; root.style.setProperty('--lvh-js', h + 'px'); }
+            }
+            set();
+            window.addEventListener('resize', set);
+            window.addEventListener('orientationchange', function () { setTimeout(function () { h = 0; set(); }, 350); });
+        })();
+    </script>
 </head>
 <body>
     <div class="preloader" id="preloader">
@@ -3711,6 +3795,8 @@
                     slide.className = 'swiper-slide';
                     slide.style.width = card.width;
                     slide.style.height = card.height;
+                    slide.style.setProperty('--sw', parseInt(card.width));
+                    slide.style.aspectRatio = parseInt(card.width) + ' / ' + parseInt(card.height);
                     slide.innerHTML = `<img src="${card.url}" alt="Item">`;
                     tape.appendChild(slide);
                 });
@@ -3828,7 +3914,8 @@
             }, 1000);
 
             // Плавный скролл (Lenis)
-            if (typeof Lenis !== 'undefined') {
+            const coarsePointer = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+            if (typeof Lenis !== 'undefined' && !coarsePointer) {
                 const lenis = new Lenis({ 
                     duration: 1.4, 
                     smooth: true,
@@ -3849,6 +3936,15 @@
                         document.body.classList.remove('is-scrolling');
                     }, 150);
                 });
+            } else {
+                // телефон/планшет: нативный скролл (без Lenis), только флаг is-scrolling
+                window.addEventListener('scroll', () => {
+                    document.body.classList.add('is-scrolling');
+                    clearTimeout(window.scrollTimeout);
+                    window.scrollTimeout = setTimeout(() => {
+                        document.body.classList.remove('is-scrolling');
+                    }, 150);
+                }, { passive: true });
             }
 
             // Intersection Observer для анимаций появления (включая .reveal-item из блока FunPay)
