@@ -782,7 +782,7 @@
 
         .swiper {
             width: 100%;
-            height: 720px; 
+            height: 1110px; /* слайд 523px + отражение 523px + отступы: чтобы отражение не обрезалось */
             padding-top: 30px;
             padding-bottom: 30px; 
             display: flex;
@@ -815,11 +815,12 @@
             transform: translateZ(0); 
             will-change: transform, opacity;
 
+            /* Отражение на всю высоту слайда: у края слайда ярче, к концу плавно затухает */
             -webkit-box-reflect: below 3px linear-gradient(
-                to bottom, 
-                rgba(0, 0, 0, 0) 50%,    
-                rgba(0, 0, 0, 0.1) 80%,  
-                rgba(0, 0, 0, 0.2) 100%  
+                to bottom,
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0, 0, 0, 0.12) 50%,
+                rgba(0, 0, 0, 0.35) 100%
             );
         }
 
@@ -837,6 +838,41 @@
             -webkit-user-drag: none;
         }
         /* ------------------------------------------- */
+
+        /* --- «Наши разработки» на телефоне: без пролёта, просто появление по скроллу --- */
+        .rs-list { width: 100%; }
+        .rs-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        .rs-item {
+            width: 100%;
+            aspect-ratio: 940 / 523;
+            border-radius: 14px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(28px) scale(0.97);
+            transition: opacity .7s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform .7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .rs-item.in { opacity: 1; transform: none; }
+        .rs-item img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .rs-item { transition: none; transform: none; }
+        }
 
         /* Технологии */
         .tech-grid {
@@ -1022,7 +1058,7 @@
             section { margin: 80px 0; }
         }
 
-        /* --- БЛОК СОЦСЕТЕЙ (YouTube, Telegram, TikTok) --- */
+        /* --- БЛОК СОЦСЕТЕЙ: Aurora + заливка при наведении + иконка-водяной знак --- */
         .socials-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1031,94 +1067,74 @@
         }
 
         .social-card {
-            padding: 40px 30px;
-            text-align: center;
+            --c: #ffffff;
+            --c2: #ffffff;
+            position: relative;
+            min-height: 250px;
+            padding: 34px 28px 86px;
+            text-align: left;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            align-items: flex-start;
+            gap: 14px;
             text-decoration: none;
-            background: var(--glass-bg);
+            overflow: hidden;
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-lg);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
+            transition: transform .5s cubic-bezier(.16, 1, .3, 1), border-color .4s, box-shadow .5s;
+            /* Aurora: два цветных пятна плавно дрейфуют по стеклу */
+            background:
+                radial-gradient(circle at 15% 12%, color-mix(in srgb, var(--c) 30%, transparent), transparent 42%) 0% 0% / 170% 170% no-repeat,
+                radial-gradient(circle at 85% 90%, color-mix(in srgb, var(--c2) 26%, transparent), transparent 45%) 100% 100% / 170% 170% no-repeat,
+                var(--glass-bg);
+            animation: socAurora 9s ease-in-out infinite alternate;
+        }
+        .social-card:nth-child(2) { animation-duration: 11s; }
+        .social-card:nth-child(3) { animation-duration: 13s; }
+        @keyframes socAurora {
+            to { background-position: 100% 100%, 0% 0%, 0 0; }
         }
 
+        .social-card.yt { --c: #ff1f1f; --c2: #ff7a00; }
+        .social-card.tt { --c: #25f4ee; --c2: #fe2c55; }
+        .social-card.tg { --c: #2AABEE; --c2: #5b6cff; }
+
+        /* Заливка цветом снизу вверх при наведении */
         .social-card::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.03), transparent);
+            background: linear-gradient(160deg, color-mix(in srgb, var(--c) 70%, #000), var(--c2));
+            transform: translateY(101%);
+            transition: transform .6s cubic-bezier(.16, 1, .3, 1);
             pointer-events: none;
         }
-
-        .social-card.yt:hover {
-            border-color: rgba(255, 0, 0, 0.4);
-            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.15), inset 0 0 20px rgba(255, 0, 0, 0.05);
-            transform: translateY(-5px);
-        }
-        .social-card.tg:hover {
-            border-color: rgba(42, 171, 238, 0.4);
-            box-shadow: 0 20px 40px rgba(42, 171, 238, 0.15), inset 0 0 20px rgba(42, 171, 238, 0.05);
-            transform: translateY(-5px);
-        }
-        .social-card.tt:hover {
-            border-color: rgba(0, 242, 254, 0.4);
-            box-shadow: 0 20px 40px rgba(0, 242, 254, 0.15), inset 0 0 20px rgba(254, 44, 85, 0.05);
-            transform: translateY(-5px);
+        .social-card:hover::before { transform: none; }
+        .social-card:hover {
+            transform: translateY(-6px);
+            border-color: color-mix(in srgb, var(--c) 55%, transparent);
+            box-shadow: 0 26px 50px -18px color-mix(in srgb, var(--c) 50%, transparent);
         }
 
+        /* Иконка — большой водяной знак в углу */
         .social-icon-wrap {
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-size: 2.5rem;
-            transition: var(--transition);
-            position: relative;
+            position: absolute;
+            right: -14px;
+            bottom: -26px;
+            font-size: 9rem;
+            line-height: 1;
+            color: var(--c);
+            opacity: .14;
+            pointer-events: none;
             z-index: 2;
+            transition: opacity .6s, transform .6s cubic-bezier(.16, 1, .3, 1), color .4s;
         }
-        
-        .social-card.yt .social-icon-wrap {
-            background: rgba(255, 0, 0, 0.05);
-            color: #ff0000;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-        }
-        .social-card.tg .social-icon-wrap {
-            background: rgba(42, 171, 238, 0.05);
-            color: #2AABEE;
-            border: 1px solid rgba(42, 171, 238, 0.2);
-        }
-        .social-card.tt .social-icon-wrap {
-            background: rgba(255, 255, 255, 0.03);
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
         .social-card:hover .social-icon-wrap {
-            transform: scale(1.1);
-        }
-        .social-card.yt:hover .social-icon-wrap {
-            background: #ff0000;
+            opacity: .3;
             color: #ffffff;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
-        }
-        .social-card.tg:hover .social-icon-wrap {
-            background: #2AABEE;
-            color: #ffffff;
-            box-shadow: 0 0 30px rgba(42, 171, 238, 0.4);
-        }
-        .social-card.tt:hover .social-icon-wrap {
-            background: linear-gradient(45deg, #00f2fe, #fe2c55);
-            color: #ffffff;
-            border-color: transparent;
-            box-shadow: 0 0 30px rgba(254, 44, 85, 0.4);
+            transform: rotate(-8deg) scale(1.08);
         }
 
         .social-title {
@@ -1130,12 +1146,36 @@
             letter-spacing: -0.5px;
             z-index: 2;
         }
-        
+
         .social-desc {
             color: var(--text-muted);
             font-size: 0.95rem;
             line-height: 1.6;
             z-index: 2;
+            transition: color .4s;
+        }
+        .social-card:hover .social-desc { color: rgba(255, 255, 255, .92); }
+
+        .social-go {
+            position: absolute;
+            left: 28px;
+            bottom: 28px;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: .75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--c);
+            transition: color .4s;
+        }
+        .social-go i { transition: transform .3s; }
+        .social-card:hover .social-go { color: #ffffff; }
+        .social-card:hover .social-go i { transform: translateX(5px); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .social-card { animation: none; }
         }
 
         @media (max-width: 992px) {
@@ -1914,7 +1954,7 @@
             .funpay-section { margin: 64px auto; }
 
             /* Карусель «Наши разработки»: слайды масштабируются от ширины экрана и сохраняют пропорции */
-            .swiper.mySwiper { height: calc(min(500px, 82vw) * .82 + 100px); padding-top: 16px; padding-bottom: 16px; }
+            .swiper.mySwiper { height: calc(min(523px, 85.77vw) * 2 + 40px); padding-top: 16px; padding-bottom: 16px; }
             .swiper.mySwiper .swiper-slide {
                 width: min(calc(var(--sw, 500) * 1px), calc(var(--sw, 500) / 500 * 82vw)) !important;
                 height: auto !important;
@@ -3756,20 +3796,17 @@
                     </div>
                     <h3 class="social-title">YouTube</h3>
                     <p class="social-desc">Гайды, обзоры обновлений и секреты максимального профита</p>
+                    <span class="social-go">Перейти <i class="fas fa-arrow-right"></i></span>
                 </a>
 
                 <div class="social-card tt">
-                    <a href="https://www.tiktok.com/@pepesoft_" target="_blank" style="text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%;">
+                    <a href="https://www.tiktok.com/@pepesoft_" target="_blank" style="text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; width: 100%;">
                         <div class="social-icon-wrap">
                             <i class="fab fa-tiktok"></i>
                         </div>
                         <h3 class="social-title">TikTok</h3>
                         <p class="social-desc">Короткие демонстрации работы софта и лучшие моменты</p>
-                    </a>
-                    
-                    <a href="https://drive.google.com/drive/folders/1TnYAep28PjjRwMwb4lJ2kJc68RW1TcvZ?usp=drive_link" target="_blank" class="download-btn-glass">
-                        <img src="./192px.svg" class="google-drive-local-img" alt="Google Drive">
-                        Скачать
+                        <span class="social-go">Перейти <i class="fas fa-arrow-right"></i></span>
                     </a>
                 </div>
 
@@ -3779,6 +3816,7 @@
                     </div>
                     <h3 class="social-title">Telegram</h3>
                     <p class="social-desc">Анонсы, закрытые обновления и прямая связь с разработчиком</p>
+                    <span class="social-go">Перейти <i class="fas fa-arrow-right"></i></span>
                 </a>
 
             </div>
@@ -3816,11 +3854,12 @@
                 <div class="footer-col">
                     <h3>Популярные боты</h3>
                     <ul>
-                        <li><a href="#">GTA 5 RP Panel</a></li>
-                        <li><a href="#">Albion Online Bot</a></li>
-                        <li><a href="#">Majestic Panel</a></li>
-                        <li><a href="#">Throne & Liberty</a></li>
-                        <li><a href="#">Russian Fishing 4</a></li>
+                        <li><a href="#">GTA5RP</a></li>
+                        <li><a href="#">RMRP Рыбалка</a></li>
+                        <li><a href="#">Majestic Рыбалка</a></li>
+                        <li><a href="#">Триггер</a></li>
+                        <li><a href="#">NovaRP Нефтевышка</a></li>
+                        <li><a href="#">Hassle 2.0 Анти-АФК</a></li>
                     </ul>
                 </div>
 
@@ -3855,21 +3894,57 @@
     <script>
         // 1. Конфиг генерации карточек 3D рулетки
         const cardsConfig = [
-            { url: './albion_1.png', width: '500px', height: '410px' },
-            { url: './majest_1.png', width: '500px', height: '410px' },
-            { url: './5rp_1.png', width: '500px', height: '410px' },
-            { url: './l2_1.png', width: '500px', height: '410px' },
-            { url: './trigger_1.png', width: '500px', height: '410px' },
-            { url: './throne_1.png', width: '500px', height: '410px' },
-            { url: './amazing_1.png', width: '500px', height: '410px' },
-            { url: './rf4_1.png', width: '400px', height: '190px' },
-            { url: './rmrp_1.png', width: '400px', height: '155px' },
+            { url: './1calc_pnl.jpg', width: '940px', height: '523px' },
+            { url: './albion_pnl.jpg', width: '940px', height: '523px' },
+            { url: './amazing_pnl.jpg', width: '940px', height: '523px' },
+            { url: './grand_pnl.jpg', width: '940px', height: '523px' },
+            { url: './gta5rp_pnl.jpg', width: '940px', height: '523px' },
+            { url: './maj_pnl.jpg', width: '940px', height: '523px' },
+            { url: './radmir_pnl.jpg', width: '940px', height: '523px' },
+            { url: './region_pnl.jpg', width: '940px', height: '523px' },
+            { url: './rmrp_pnl.jpg', width: '940px', height: '523px' },
+            { url: './tl_pnl.jpg', width: '940px', height: '523px' },
+            { url: './trig_pnl.jpg', width: '940px', height: '523px' },
         ];
+
+        // На телефонах вместо тяжёлой 3D-карусели показываем обычный список с анимацией появления
+        const isStaticRoulette = window.matchMedia('(max-width: 768px), (pointer: coarse) and (max-height: 500px)').matches;
 
         const tape = document.getElementById('roulette-tape');
         const repeats = 8;
-        
-        if (tape) {
+
+        if (tape && isStaticRoulette) {
+            const box = tape.parentElement;                 // контейнер .swiper.mySwiper
+            box.classList.remove('swiper', 'mySwiper');
+            box.classList.add('rs-list');
+            tape.classList.remove('swiper-wrapper');
+            tape.classList.add('rs-grid');
+
+            const frag = document.createDocumentFragment();
+            cardsConfig.forEach((card) => {
+                const item = document.createElement('div');
+                item.className = 'rs-item';
+                item.innerHTML = `<img src="${card.url}" alt="Наша разработка" width="${parseInt(card.width)}" height="${parseInt(card.height)}" loading="lazy" decoding="async">`;
+                frag.appendChild(item);
+            });
+            tape.appendChild(frag);
+
+            // Появление каждой карточки при прокрутке
+            const items = tape.querySelectorAll('.rs-item');
+            if ('IntersectionObserver' in window) {
+                const rsObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in');
+                            rsObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+                items.forEach(el => rsObserver.observe(el));
+            } else {
+                items.forEach(el => el.classList.add('in'));
+            }
+        } else if (tape) {
             for (let r = 0; r < repeats; r++) {
                 cardsConfig.forEach((card) => {
                     const slide = document.createElement('div');
@@ -3885,7 +3960,7 @@
         }
 
         // 2. Инициализация Swiper
-        const swiper = new Swiper(".mySwiper", {
+        const swiper = isStaticRoulette ? null : new Swiper(".mySwiper", {
             effect: "coverflow",
             centeredSlides: true,
             slidesPerView: "auto",
@@ -3923,7 +3998,7 @@
                 }
             }
         });
-        swiper.autoplay.stop();
+        if (swiper) swiper.autoplay.stop();
 
         // 3. Логика Lazy Loading видео
         document.addEventListener("DOMContentLoaded", () => {
@@ -4038,14 +4113,14 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         if (entry.target.classList.contains('mySwiper')) {
-                            swiper.autoplay.start();
+                            if (swiper) swiper.autoplay.start();
                         } else {
                             entry.target.classList.add('animate');
                             observer.unobserve(entry.target);
                         }
                     } else {
                         if (entry.target.classList.contains('mySwiper')) {
-                            swiper.autoplay.stop();
+                            if (swiper) swiper.autoplay.stop();
                         }
                     }
                 });
@@ -4074,72 +4149,154 @@
         async function loadActiveUsersFromSheet() {
             const sheetId = '1YPK664FwOtjL2G-zid2aC9sN32ifs0pbNxZJyMXJBew';
             const sheetName = 'info';
+            const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq`;
+            const q = (fmt) => `${base}?tqx=out:${fmt}&headers=0&sheet=${encodeURIComponent(sheetName)}&t=${Date.now()}`;
 
-            // Прямой запрос
-            const directCsvUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&t=${Date.now()}`;
-
-            try {
-                const response = await fetch(directCsvUrl, { cache: 'no-store' });
-                if (response.ok) {
-                    const text = await response.text();
-                    const rawValue = text.split('\n')[0].replace(/"/g, '').trim();
-                    const parsedNumber = parseInt(rawValue.replace(/\s+/g, ''), 10);
-
-                    if (!isNaN(parsedNumber) && parsedNumber > 0) {
-                        return parsedNumber;
+            // Достаём первое положительное число из любой строки/ячейки
+            const toNumber = (v) => {
+                if (v === null || v === undefined) return null;
+                const str = String(v).replace(/"/g, '').trim();
+                if (!/^\d[\d\s\u00a0.,]*$/.test(str)) return null;
+                const n = parseInt(str.replace(/\D/g, ''), 10);
+                return (!isNaN(n) && n > 0) ? n : null;
+            };
+            const fromCsv = (text) => {
+                if (!text || text.trim().startsWith('<')) return null; // пришла HTML-страница (нет доступа к таблице)
+                for (const line of text.split(/\r?\n/)) {
+                    for (const cell of line.split(/[;]|,(?=")|","/)) {
+                        const n = toNumber(cell);
+                        if (n) return n;
                     }
                 }
-            } catch (e) {
-                console.warn('Прямой запрос к Google CSV не прошёл, пробуем запасной вариант...');
-            }
-
-            // Резервный вариант через прокси
-            const gvizJsonUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}&t=${Date.now()}`;
-            const fallbackProxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(gvizJsonUrl)}`;
-
-            try {
-                const response = await fetch(fallbackProxyUrl, { cache: 'no-store' });
-                if (response.ok) {
-                    const text = await response.text();
-                    const startIdx = text.indexOf('{');
-                    const endIdx = text.lastIndexOf('}');
-
-                    if (startIdx !== -1 && endIdx !== -1) {
-                        const jsonData = JSON.parse(text.substring(startIdx, endIdx + 1));
-                        const cellValue = jsonData.table?.rows?.[0]?.c?.[0]?.v;
-
-                        if (cellValue !== undefined && cellValue !== null) {
-                            const parsedNumber = parseInt(String(cellValue).replace(/\s+/g, ''), 10);
-                            if (!isNaN(parsedNumber) && parsedNumber > 0) {
-                                return parsedNumber;
-                            }
-                        }
-                    }
+                return null;
+            };
+            const fromTable = (t) => {
+                if (!t) return null;
+                for (const c of (t.cols || [])) { const n = toNumber(c.label); if (n) return n; }
+                for (const r of (t.rows || [])) {
+                    for (const c of (r.c || [])) { const n = toNumber(c && c.v); if (n) return n; }
                 }
-            } catch (e) {
-                console.error('Ошибка загрузки данных из таблицы:', e);
-            }
+                return null;
+            };
+            const fromJson = (text) => {
+                const i = text.indexOf('{'), j = text.lastIndexOf('}');
+                if (i === -1 || j === -1) return null;
+                return fromTable(JSON.parse(text.substring(i, j + 1)).table);
+            };
 
-            return null;
+            // Загрузка через <script> (JSONP): на неё не действует CORS, работает даже при открытии файла с диска
+            const attemptScript = () => new Promise((resolve, reject) => {
+                const cb = '__gvizCb' + Date.now();
+                const script = document.createElement('script');
+                const cleanup = () => { clearTimeout(timer); delete window[cb]; script.remove(); };
+                const timer = setTimeout(() => {
+                    cleanup();
+                    console.warn('[Счётчик] script (JSONP): таймаут — возможно, таблица закрыта для просмотра');
+                    reject(new Error('timeout'));
+                }, 8000);
+                window[cb] = (resp) => {
+                    cleanup();
+                    const n = fromTable(resp && resp.table);
+                    if (n) resolve(n);
+                    else { console.warn('[Счётчик] script (JSONP): число не найдено в ответе', resp); reject(new Error('no number')); }
+                };
+                script.onerror = () => { cleanup(); console.warn('[Счётчик] script (JSONP): ошибка загрузки'); reject(new Error('error')); };
+                script.src = `${base}?tqx=responseHandler:${cb}&headers=0&sheet=${encodeURIComponent(sheetName)}&t=${Date.now()}`;
+                document.head.appendChild(script);
+            });
+
+            const attempt = (name, url, parse) => (async () => {
+                const ctrl = new AbortController();
+                const timer = setTimeout(() => ctrl.abort(), 8000);
+                try {
+                    const res = await fetch(url, { cache: 'no-store', signal: ctrl.signal });
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    const n = parse(await res.text());
+                    if (!n) throw new Error('число не найдено в ответе');
+                    return n;
+                } catch (e) {
+                    console.warn('[Счётчик] ' + name + ': ' + e.message);
+                    throw e;
+                } finally { clearTimeout(timer); }
+            })();
+
+            const jsonUrl = q('json');
+            const attempts = [
+                attemptScript(),
+                attempt('прямой CSV', q('csv'), fromCsv),
+                attempt('прямой JSON', jsonUrl, fromJson),
+                attempt('прокси allorigins', 'https://api.allorigins.win/raw?url=' + encodeURIComponent(jsonUrl), fromJson),
+                attempt('прокси corsproxy', 'https://corsproxy.io/?url=' + encodeURIComponent(jsonUrl), fromJson)
+            ];
+
+            // Берём первый успешный ответ
+            return new Promise((resolve) => {
+                let failed = 0;
+                attempts.forEach(pr => pr.then(resolve, () => {
+                    if (++failed === attempts.length) {
+                        console.error('[Счётчик] Не удалось получить число из Google Таблицы. Проверьте, что доступ открыт: «Все, у кого есть ссылка — Читатель», а лист называется "info".');
+                        resolve(null);
+                    }
+                }));
+            });
         }
 
         async function initializeActiveUsers() {
             const usersElement = document.getElementById('activeUsers');
             if (!usersElement) return;
 
-            try {
-                const userCount = await loadActiveUsersFromSheet();
-                if (userCount !== null && userCount > 0) { 
-                    animateCounter(usersElement, userCount); 
-                } else { 
-                    usersElement.textContent = '15,000'; 
-                }
-            } catch (error) {
-                usersElement.textContent = '15,000';
+            const FALLBACK = 15000;
+
+            // Загрузка из таблицы (общий таймаут — чтобы счётчик не зависал, если запросы не отвечают)
+            const withTimeout = (promise, ms) => Promise.race([
+                promise,
+                new Promise(resolve => setTimeout(() => resolve(null), ms))
+            ]);
+            const countPromise = withTimeout(loadActiveUsersFromSheet().catch(() => null), 10000);
+
+            // Пока блок не виден — показываем 0, чтобы набор был заметен
+            usersElement.textContent = '0';
+
+            let started = false;
+            const startCounter = async () => {
+                if (started) return;
+                started = true;
+                const loaded = await countPromise;
+                const userCount = (loaded && loaded > 0) ? loaded : FALLBACK;
+                animateCounter(usersElement, userCount, () => startLiveTicker(usersElement, userCount));
+            };
+
+            const target = usersElement.closest('.active-users-card') || usersElement;
+            if ('IntersectionObserver' in window) {
+                const io = new IntersectionObserver((entries) => {
+                    if (entries.some(e => e.isIntersecting)) {
+                        io.disconnect();
+                        startCounter();
+                    }
+                }, { threshold: 0.1 });
+                io.observe(target);
+                // страховка: если наблюдатель по какой-то причине не сработал
+                setTimeout(() => { if (!started && target.getBoundingClientRect().top < window.innerHeight) startCounter(); }, 3000);
+            } else {
+                startCounter();
             }
         }
 
-        function animateCounter(element, target) {
+        // После набора число продолжает расти: +1…+3 каждые 2–6 секунд
+        function startLiveTicker(element, startValue) {
+            let current = startValue;
+            const tick = () => {
+                // не работаем в фоновой вкладке
+                if (!document.hidden) {
+                    current += 1 + Math.floor(Math.random() * 3);
+                    element.textContent = current.toLocaleString('ru-RU');
+                }
+                setTimeout(tick, 2000 + Math.random() * 4000);
+            };
+            setTimeout(tick, 2000 + Math.random() * 4000);
+        }
+
+        function animateCounter(element, target, onDone) {
             const duration = 2000;
             const startTime = performance.now();
             const startValue = 0;
@@ -4157,6 +4314,7 @@
                     requestAnimationFrame(update);
                 } else {
                     element.textContent = target.toLocaleString('ru-RU');
+                    if (typeof onDone === 'function') onDone();
                 }
             }
 
